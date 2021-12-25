@@ -37,6 +37,8 @@ def test():
     
     print("jsonify(json_abc) : ", type(jsonify(json_abc)))
     return jsonify(json_abc)
+    # return abc # error
+    # return jsonify(abc) # error
 
 if __name__ == "__main__":
     app.run(debug=True)
