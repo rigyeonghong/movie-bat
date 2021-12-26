@@ -5,13 +5,28 @@ function Login() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  function postLoginData(e) {
+  // function postLoginData(e) {
+  //   e.preventDefault();
+  //   // console.log("http://127.0.0.1:5000/login");
+  //   const response = axios.post("http://127.0.0.1:5000/login/", {
+  //     email,
+  //     password,
+  //   });
+  // }
+
+  function postLoginData(e){
     e.preventDefault();
-    console.log("http://127.0.0.1:5000/login");
-    const response = axios.post("http://127.0.0.1:5000/login", {
-      email,
-      password,
-    });
+    
+    fetch('http://127.0.0.1:5000/login/', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
   }
 
   return (
@@ -23,6 +38,7 @@ function Login() {
           <input
             type="text"
             name="email"
+            
             onChange={(e) => setEmail(e.target.value)}
           />
         </p>
@@ -31,6 +47,7 @@ function Login() {
           <input
             type="text"
             name="password"
+            
             onChange={(e) => setPassword(e.target.value)}
           />
         </p>
