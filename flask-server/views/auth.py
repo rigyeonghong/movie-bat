@@ -6,7 +6,6 @@ import re
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 bcrypt = Bcrypt()
 
-
 #회원가입 signup
 @bp.route('/signup', methods=('GET', 'POST'))
 def signup():
