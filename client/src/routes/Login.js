@@ -7,8 +7,8 @@ function Login() {
 
   function postLoginData(e) {
     e.preventDefault();
-    console.log("로그인 데이터 보내기~");
-    const response = axios.post("주소주소", {
+    console.log("http://127.0.0.1:5000/login");
+    const response = axios.post("http://127.0.0.1:5000/login", {
       email,
       password,
     });
