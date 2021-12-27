@@ -8,20 +8,23 @@ import SignUp from "./routes/SignUp";
 import Home from "./routes/Home";
 import Team from "./routes/Team";
 import Like from "./routes/Like";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/movies" element={<Movies />} />
-          <Route path="like" element={<Like />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route exact path="/" element={<Home />} />
-          <Route path="/team" element={<Team />} />
-        </Routes>
-      </BrowserRouter>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/movies" element={<Movies />} />
+            <Route path="like" element={<Like />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route exact path="/" element={<Home />} />
+            <Route path="/team" element={<Team />} />
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
     </>
   );
 }
