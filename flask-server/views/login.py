@@ -26,7 +26,7 @@ def login():
             print('아이디를 확인해주세요.')
 
             return jsonify({"result": "fail"})
-        # elif not check_password_hash(same_user.password, user_pw):
+        elif not check_password_hash(same_user.user_password, user_pw):
         # elif not bcrypt.check_password_hash(user_pw):
             print('비밀번호를 확인해주세요.')
 

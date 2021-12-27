@@ -3,7 +3,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from models.users import *
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
-# bcrypt = Bcrypt()
 
 #회원가입 signup
 @bp.route('/signup', methods=('GET', 'POST'))
@@ -16,15 +15,17 @@ def signup():
         user_nick = user['nickname']
         user_id = user['email']
         user_pw = user['password']
-        user_number = user['number']
+        user_number = user['phoneNum']
 
         # user 정보가 DB에 이미 있는지 확인
         same_user = User.query.filter(User.user_id == user_id).first()
 
         # user 정보 없으면 패스워드 암호화 해서 저장
         if not same_user:
-            # user_pw_hash = bcrypt.generate_password_hash(user_pw)
+            # 비밀번호 암호화
             user_pw_hash = generate_password_hash(user_pw)
+
+            # db에 값 넣기
             new_user = User(user_id, user_pw_hash, user_nick, user_number)
             db.session.add(new_user)
             db.session.commit()
@@ -35,6 +36,7 @@ def signup():
             return jsonify({"result":"success"})
         else:
             # 사용자 정보가 이미 있다면, 회원가입 페이지로
+            print('이메일이 존재합니다.')
             return jsonify({"result":"fail"})
 
 @bp.route('/signin', methods=['POST', 'GET'])
@@ -43,9 +45,6 @@ def login():
     
     # fe에서 넘어온 user None인지 확인.
     if user != None:
-        # print(user)
-        # print('user["id"] : ', user['email'])
-        # print('user["password"] : ', user['password'])
         user_id = user['email']
         user_pw = user['password']
 
@@ -57,7 +56,7 @@ def login():
 
             return jsonify({"result": "fail"})
 
-        elif not check_password_hash(same_user.password, user_pw):
+        elif not check_password_hash(same_user.user_password, user_pw):
         # elif not bcrypt.check_password_hash(user_pw):
             print('비밀번호를 확인해주세요.')
 
