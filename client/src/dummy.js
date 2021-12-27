@@ -87,3 +87,4 @@ export const movieInfo = {
     ],
   },
 };
+export const memberInfo = {};

@@ -9,11 +9,13 @@ import Home from "./routes/Home";
 import Team from "./routes/Team";
 import Like from "./routes/Like";
 import { RecoilRoot } from "recoil";
+import GlobalStyle from "./styles/global";
 
 function App() {
   return (
     <>
       <RecoilRoot>
+        <GlobalStyle />
         <BrowserRouter>
           <Routes>
             <Route path="/movies" element={<Movies />} />
