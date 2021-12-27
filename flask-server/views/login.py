@@ -1,8 +1,11 @@
 from flask import Blueprint, request, url_for, session, redirect, flash, jsonify
 from models.users import *
+from flask_bcrypt import bcrypt
 from werkzeug.security import check_password_hash
 
+
 bp = Blueprint('login', '__name__', url_prefix='/login')
+# bcrypt = Bcrypt()
 
 @bp.route('/', methods=['POST', 'GET'])
 def login():
@@ -23,7 +26,8 @@ def login():
             print('아이디를 확인해주세요.')
 
             return jsonify({"result": "fail"})
-        elif not check_password_hash(user.password, user_pw):
+        # elif not check_password_hash(same_user.password, user_pw):
+        # elif not bcrypt.check_password_hash(user_pw):
             print('비밀번호를 확인해주세요.')
 
             return jsonify({"result": "fail"})
@@ -32,7 +36,7 @@ def login():
             session.clear()
             # session에 user_id, user_nick 등록
             session['user'] = user_id
-            session['nick'] = user.user_nick
+            session['nick'] = same_user.user_nick
             
             print('login 성공')
 

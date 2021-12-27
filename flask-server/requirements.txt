@@ -10,7 +10,10 @@ importlib-metadata==4.10.0
 importlib-resources==5.4.0
 itsdangerous==2.0.1
 Jinja2==3.0.3
+<<<<<<< HEAD
 jsonify==0.5
+=======
+>>>>>>> bbb6884b76b02fe3d647de0fc85d3530d490de30
 Mako==1.1.6
 MarkupSafe==2.0.1
 six==1.16.0
