@@ -33,8 +33,12 @@ def signup():
             return jsonify({"result":"success"})
         else:
             # 사용자 정보가 이미 있다면, 회원가입 페이지로
-            flash('이미 가입된 아이디입니다.')
             return jsonify({"result":"fail"})
 
             
-        
+#로그아웃 logout
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return 'home page'
+
