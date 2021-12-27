@@ -1,17 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Slide from "./Slide";
-import styled from "styled-components";
-import pic from "../../assets/rabbit.jpg";
-
-const Container = styled.div`
-  width: 60%;
-  overflow: hidden; // 선을 넘어간 이미지들은 안보이도록
-`;
-
-const SliderContainer = styled.div`
-  width: 100%;
-  display: flex; //이미지 가로 나열
-`;
+import { SliderContainer, SlideItemContainer } from "../../styles/theme";
 
 function Slider({ subject }) {
   console.log(subject);
@@ -20,7 +9,7 @@ function Slider({ subject }) {
   let movie_list = subject["movies"].map((item) => (
     <Slide title={item.title} url={item.posterUrl} />
   ));
-  console.log(movie_list);
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
   const nextSlide = () => {
@@ -44,12 +33,12 @@ function Slider({ subject }) {
   }, [currentSlide]);
   console.log(movie_list);
   return (
-    <Container>
-      <h1>{subjectName}</h1>
-      <SliderContainer ref={slideRef}>{movie_list}</SliderContainer>
+    <SliderContainer>
+      <h2>{subjectName}</h2>
+      <SlideItemContainer ref={slideRef}>{movie_list}</SlideItemContainer>
       <button onClick={prevSlide}>Previous Slide</button>
       <button onClick={nextSlide}>Next Slide</button>
-    </Container>
+    </SliderContainer>
   );
 }
 export default Slider;

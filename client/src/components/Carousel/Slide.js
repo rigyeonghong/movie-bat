@@ -1,16 +1,16 @@
 import React from "react";
-import styled from "styled-components";
-import rabbit from "../../assets/rabbit.jpg";
+import {
+  SlideItemWrapper,
+  SlideMoviePoster,
+  SlideMovieTitle,
+} from "../../styles/theme";
 function Slide({ url, title }) {
   return (
-    <>
-      <span>{title}</span>
-      <IMG src={url} />
-    </>
+    <SlideItemWrapper>
+      <SlideMoviePoster src={url} />
+      <SlideMovieTitle>{title}</SlideMovieTitle>
+    </SlideItemWrapper>
   );
 }
-const IMG = styled.img`
-  width: 100%;
-  height: 70vh;
-`;
+
 export default Slide;
