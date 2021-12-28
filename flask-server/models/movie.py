@@ -1,6 +1,6 @@
 from db_connect import db
 
-class User(db.Model):
+class Movie(db.Model):
 
     __tablename__ = 'movie_tb'
 
