@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import axios from "axios";
 import {
   InputItemWrapper,
+  LoginBtn,
   LoginBtnWrapper,
   LoginInputWrapper,
+  SignInput,
+  SignItemTitle,
+  SignTitle,
+  StyledLink,
   Test,
 } from "../../styles/theme";
 import { Link } from "react-router-dom";
+
 function LoginInput() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -22,12 +28,12 @@ function LoginInput() {
   return (
     <LoginInputWrapper>
       <Test>
-        <h2>로그인</h2>
+        <SignTitle>로그인</SignTitle>
 
         <InputItemWrapper>
-          <label htmlFor="email">이메일</label>
+          <SignItemTitle htmlFor="email">이메일</SignItemTitle>
           <br />
-          <input
+          <SignInput
             type="text"
             name="email"
             id="email"
@@ -35,20 +41,25 @@ function LoginInput() {
           />
         </InputItemWrapper>
         <InputItemWrapper>
-          <label htmlFor="password">비밀번호</label>
+          <SignItemTitle htmlFor="password">비밀번호</SignItemTitle>
           <br />
-          <input
-            type="text"
+          <SignInput
+            type="password"
             name="password"
             id="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </InputItemWrapper>
         <InputItemWrapper>
-          아직 회원이 아니신가요? <Link to="/auth/signup">Sign Up</Link>
+          <SignItemTitle>
+            아직 회원이 아니신가요?{" "}
+            <StyledLink to="/auth/signup">Sign Up</StyledLink>
+          </SignItemTitle>
         </InputItemWrapper>
-        <LoginBtnWrapper type="submit" onClick={(e) => postLoginData(e)}>
-          Sign in
+        <LoginBtnWrapper>
+          <LoginBtn type="submit" onClick={(e) => postLoginData(e)}>
+            Sign in
+          </LoginBtn>
         </LoginBtnWrapper>
       </Test>
     </LoginInputWrapper>

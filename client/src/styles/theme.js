@@ -1,11 +1,17 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
 export const NavContainer = styled.div`
   position: fixed;
   // top: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  //   background-color: rgba(15, 15, 15, 0.2);
+  //   background-color: rgba(42, 15, 15, 0.2);
   background: pink;
   z-index: 100;
 `;
@@ -76,21 +82,50 @@ export const LoginInputWrapper = styled(FlexWrapper)`
 export const InputItemWrapper = styled.div`
   margin-top: 5vh;
 `;
-export const LoginBtnWrapper = styled.button`
-  all: unset;
-  margin: 10px;
-  background-color: cyan;
+export const LoginBtn = styled.button`
+  border: none;
+  background-color: #a72d2f;
   border-radius: 10px;
-  padding: 5px 15px 5px 10px;
+  color: white;
+  width: 15vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  font-size: 1.3vw;
+  // cursor: pointer;
+`;
+
+export const LoginBtnWrapper = styled.div`
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 `;
 export const SignLogo = styled.img`
   width: 15vw;
   padding: 3vw;
 `;
 export const Test = styled.div`
-  padding: 5vw;
-  border: solid 1px white;
+  width: 50vw;
+  // border: solid 1px white;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(50, 50, 50, 0.2);
+`;
+export const SignTitle = styled.h2`
+  font-size: 2vw;
+  margin-top: 5vh;
+`;
+
+export const SignItemTitle = styled.label`
+  font-size: 1.3vw;
+`;
+export const SignInput = styled.input`
+  width: 15vw;
+  height: 4vh;
+  font-size: 2vh;
+`;
+
+export const SignSelect = styled.select`
+  width: 15vw;
+  height: 4vh;
+  font-size: 2vh;
 `;
