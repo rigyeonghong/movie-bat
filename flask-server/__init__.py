@@ -3,7 +3,8 @@ from flask_cors import CORS
 from db_connect import db
 from flask_migrate import Migrate
 import config
-from .views import auth,login
+
+from views import auth,login
 
 app = Flask(__name__)
 
@@ -31,3 +32,4 @@ def get_current_time():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
