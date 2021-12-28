@@ -21,7 +21,7 @@ function SignWrapper() {
         </>
       ) : (
         <button>
-          <Link to="/login">로그인 해!</Link>
+          <Link to="/auth/signin">로그인 해!</Link>
         </button>
       )}
     </Sign>

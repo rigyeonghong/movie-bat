@@ -1,6 +1,6 @@
 import React from "react";
-import { Logo } from "../../styles/theme";
+import { HomeLogo } from "../../styles/theme";
 function LogoWrapper() {
-  return <Logo>로고</Logo>;
+  return <HomeLogo>로고</HomeLogo>;
 }
 export default LogoWrapper;

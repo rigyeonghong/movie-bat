@@ -23,7 +23,7 @@ export const Sign = styled.div`
 export const MenuItem = styled.li`
   list-style: none;
 `;
-export const Logo = styled.div`
+export const HomeLogo = styled.div`
   justify-content: left;
 `;
 export const Profile = styled.img`
@@ -36,7 +36,7 @@ export const Dropdown = styled.div`
 export const DropdownItemList = styled.ul`
   display: flex;
   flex-direction: column;
-  align-items: center
+  align-items: center;
   width: 200px;
 `;
 export const SliderContainer = styled.div`
@@ -58,3 +58,39 @@ export const SlideMoviePoster = styled.img`
   margin-right: 1vw;
 `;
 export const SlideMovieTitle = styled.h6``;
+
+export const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const FlexWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const LoginInputWrapper = styled(FlexWrapper)`
+  align-items: center;
+  flex-direction: column;
+`;
+export const InputItemWrapper = styled.div`
+  margin-top: 5vh;
+`;
+export const LoginBtnWrapper = styled.button`
+  all: unset;
+  margin: 10px;
+  background-color: cyan;
+  border-radius: 10px;
+  padding: 5px 15px 5px 10px;
+`;
+export const SignLogo = styled.img`
+  width: 15vw;
+  padding: 3vw;
+`;
+export const Test = styled.div`
+  padding: 5vw;
+  border: solid 1px white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

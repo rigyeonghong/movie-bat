@@ -20,8 +20,8 @@ function App() {
           <Routes>
             <Route path="/movies" element={<Movies />} />
             <Route path="like" element={<Like />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/auth/signin" element={<Login />} />
+            <Route path="/auth/signup" element={<SignUp />} />
             <Route exact path="/" element={<Home />} />
             <Route path="/team" element={<Team />} />
           </Routes>
