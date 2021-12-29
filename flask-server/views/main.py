@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request, session
 from models.movie import *
+import json
 
 bp = Blueprint("main", __name__, url_prefix="/main")
 
@@ -40,14 +41,9 @@ def main():
     for i in range(len(one_genre)):
         movie[i] = {
             "genre": str(one_genre[i]).replace('[', '').replace(']', '').replace("'",''),
-            "movies": [{"title": t[0], "posterUrl": u} for t, u in zip(titles, images) if str(one_genre[i]) in str(t[1]) ]
+            "movies": [{"title": str(t[0]), "posterUrl": str(u)} for t, u in zip(titles, images) if str(one_genre[i]) in str(t[1]) ]
         }
     print(movie)
-
-    # for i in range(len(one_genre)):
-    #     if str(one_genre[i]) in str(titles[i][1]):
-    #         print("OOOOOOOOOOOOOOO", one_genre[i], titles[i])
-    #     else:
-    #         print("XXXXXXXXXXXXXXX", one_genre[i], titles[i])
     
-    return str(movie)
+    # movie_data = json.dumps(movie, ensure_ascii=False)
+    return jsonify(movie)

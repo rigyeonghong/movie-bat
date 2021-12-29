@@ -11,6 +11,9 @@ app = Flask(__name__)
 # React와 교차 출처 에러
 CORS(app)
 
+# 웹 한글 깨짐 해결.
+app.config['JSON_AS_ASCII'] = False
+
 # db 연결
 app.config.from_object(config) # config에서 가져온 파일을 사용한다.
 
