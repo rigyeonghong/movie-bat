@@ -46,4 +46,5 @@ def main():
     print(movie)
     
     # movie_data = json.dumps(movie, ensure_ascii=False)
+    
     return jsonify(movie)
