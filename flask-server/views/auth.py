@@ -70,7 +70,11 @@ def login():
             
             print('login 성공')
 
-            return jsonify({"result":"success"})
+            return jsonify({
+                "result":"success",
+                "user_email": session['user'],
+                "user_nick": session['nick']
+            })
 
     return 'login page'
             
