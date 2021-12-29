@@ -10,7 +10,11 @@ function SignWrapper() {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <Sign>
-      {user ? (
+      {user[0] === null && user[1] === null ? (
+        <button>
+          <Link to="/auth/signin">로그인 해!</Link>
+        </button>
+      ) : (
         <>
           <Profile
             src={profile}
@@ -19,10 +23,6 @@ function SignWrapper() {
           />
           {isVisible ? <UserMenu /> : ""}
         </>
-      ) : (
-        <button>
-          <Link to="/auth/signin">로그인 해!</Link>
-        </button>
       )}
     </Sign>
   );

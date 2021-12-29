@@ -1,6 +1,14 @@
 import React from "react";
-import { HomeLogo } from "../../styles/theme";
+import { Link } from "react-router-dom";
+import { HomeLogo, NavLogo } from "../../styles/theme";
+import Logo from "../../assets/logo_test.png";
 function LogoWrapper() {
-  return <HomeLogo>로고</HomeLogo>;
+  return (
+    <HomeLogo>
+      <Link to="/">
+        <NavLogo src={Logo} />
+      </Link>
+    </HomeLogo>
+  );
 }
 export default LogoWrapper;

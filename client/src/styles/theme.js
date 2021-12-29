@@ -31,6 +31,8 @@ export const MenuItem = styled.li`
 `;
 export const HomeLogo = styled.div`
   justify-content: left;
+  display: flex;
+  align-items: center;
 `;
 export const Profile = styled.img`
   width: 64px;
@@ -146,4 +148,8 @@ export const SignSelect = styled.select`
   width: 15vw;
   height: 4vh;
   font-size: 2vh;
+`;
+export const NavLogo = styled.img`
+  width: 10vw;
+  text-align: center;
 `;
