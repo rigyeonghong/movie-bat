@@ -1,16 +1,18 @@
 import React from "react";
 import {
+  BigSlideMovieImg,
   SlideItemWrapper,
   SlideMoviePoster,
   SlideMovieTitle,
 } from "../../styles/theme";
-function Slide({ url, title }) {
+function BigSlide({ url, title, description }) {
   return (
     <SlideItemWrapper>
-      <SlideMoviePoster src={url} />
+      <BigSlideMovieImg src={url} />
       <SlideMovieTitle>{title}</SlideMovieTitle>
+      <p>{description}</p>
     </SlideItemWrapper>
   );
 }
 
-export default Slide;
+export default BigSlide;
