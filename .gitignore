@@ -1,2 +1,4 @@
 /flask-server/venv
 __pycache__/
+.venv
+key

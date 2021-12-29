@@ -4,7 +4,7 @@ from db_connect import db
 from flask_migrate import Migrate
 import config
 
-from views import auth
+from views import auth, oauth
 
 app = Flask(__name__)
 
@@ -23,6 +23,7 @@ Migrate().init_app(app, db)
 
 # view Blueprint 등록
 app.register_blueprint(auth.bp)
+app.register_blueprint(oauth.bp)
 
 # 없애기 or 변경..?
 @app.route('/')
