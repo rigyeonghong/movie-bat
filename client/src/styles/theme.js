@@ -65,6 +65,11 @@ export const SlideMoviePoster = styled.img`
 `;
 export const SlideMovieTitle = styled.h6``;
 
+export const BigSlideMovieImg = styled.img`
+  width: 100vw;
+  // height: 720px;
+`;
+
 export const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,12 +96,25 @@ export const LoginBtn = styled.button`
   padding-top: 1vh;
   padding-bottom: 1vh;
   font-size: 1.3vw;
-  // cursor: pointer;
+  cursor: pointer;
+`;
+export const KakaoBtn = styled.button`
+  border: none;
+  background-color: #fae24c;
+  border-radius: 10px;
+  color: black;
+  width: 15vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  font-size: 1.3vw;
+  cursor: pointer;
 `;
 
 export const LoginBtnWrapper = styled.div`
   margin-top: 5vh;
   margin-bottom: 5vh;
+  display: flex;
+  flex-direction: column;
 `;
 export const SignLogo = styled.img`
   width: 15vw;

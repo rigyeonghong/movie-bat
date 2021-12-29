@@ -6,10 +6,10 @@ function MenuWrapper() {
   return (
     <Menu>
       <MenuItem>
-        <Link to="/">about</Link>
+        <Link to="/movies">영화</Link>
       </MenuItem>
       <MenuItem>
-        <Link to="/movies">영화 소개</Link>
+        <Link to="/festival">영화제</Link>
       </MenuItem>
       <MenuItem>
         <Link to="/team">팀 소개</Link>

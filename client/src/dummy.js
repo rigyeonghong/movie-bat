@@ -147,4 +147,23 @@ export const movieInfo = {
     ],
   },
 };
-export const memberInfo = {};
+export const bigMovieInfo = [
+  {
+    title: "겨울왕국",
+    description: "올라프 냠냠",
+    posterUrl:
+      "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDlfMTU2%2FMDAxNTc1ODY2MTM1NDgw.QEqFrdCsV5pQqUqlUOIqIUNjAp81ZHsgGV9OKt8SsvIg.qoT7vTbc71bEPkDmJxNzD352Hcs3Jk1Ac6INCHV5Tzog.JPEG.bsy9033%2FKakaoTalk_20191209_132418853_14.jpg&type=sc960_832",
+  },
+  {
+    title: "겨울왕국2",
+    description: "올라프 냠냠",
+    posterUrl:
+      "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA0MTdfMTc2%2FMDAxNTU1NDY2Mzk0ODY0.COiFeqUWqR8s8YYca6DFLCH78qOVPl-YoUycMKYKggEg.9HU3r4qKl7DKX2rJhE33c3xgd_U5SH-EkudDAm3U7icg.PNG.dud2ekek%2FF24.PNG&type=sc960_832",
+  },
+  {
+    title: "겨울왕국3",
+    description: "올라프 냠냠",
+    posterUrl:
+      "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDlfMTU2%2FMDAxNTc1ODY2MTM1NDgw.QEqFrdCsV5pQqUqlUOIqIUNjAp81ZHsgGV9OKt8SsvIg.qoT7vTbc71bEPkDmJxNzD352Hcs3Jk1Ac6INCHV5Tzog.JPEG.bsy9033%2FKakaoTalk_20191209_132418853_14.jpg&type=sc960_832",
+  },
+];
