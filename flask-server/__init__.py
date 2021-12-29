@@ -4,12 +4,15 @@ from db_connect import db
 from flask_migrate import Migrate
 import config
 
-from views import auth,login
+from views import auth,login, main
 
 app = Flask(__name__)
 
 # React와 교차 출처 에러
 CORS(app)
+
+# 웹 한글 깨짐 해결.
+app.config['JSON_AS_ASCII'] = False
 
 # db 연결
 app.config.from_object(config) # config에서 가져온 파일을 사용한다.
@@ -24,6 +27,7 @@ Migrate().init_app(app, db)
 # view Blueprint 등록
 app.register_blueprint(auth.bp)
 app.register_blueprint(login.bp)
+app.register_blueprint(main.bp)
 
 # 없애기 or 변경..?
 @app.route('/')
