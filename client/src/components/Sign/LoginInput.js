@@ -21,7 +21,7 @@ function LoginInput() {
   function postLoginData(e) {
     e.preventDefault();
     alert("Sign in 데이터 보내기~");
-    const response = axios.post("주소주소", {
+    const response = axios.post("http://127.0.0.1:5000/auth/signin", {
       email,
       password,
     });
