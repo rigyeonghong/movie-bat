@@ -43,6 +43,7 @@ def callback():
     nickname = profile["nickname"]
     email = kakao_account["email"]
     kakao_id = data["id"]
+    profile_img = profile['profile_image']
 
     user = User.query.filter_by(id=email).first()
 
@@ -50,13 +51,15 @@ def callback():
         user_id = email
         user_password = kakao_id
         user_nick = nickname
+        user_profile = profile_img
 
-        new_user = User(user_id,user_password,user_nick)
+        new_user = User(user_id,user_password,user_nick, user_profile)
         db.session.add(new_user)
         db.session.commit()
         print("회원가입이 완료되었습니다.")
     
     session['user'] = email
     session['nick'] = nickname
+    session['profile'] = profile_img
 
     return main_page

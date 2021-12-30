@@ -4,7 +4,11 @@ from db_connect import db
 from flask_migrate import Migrate
 import config
 
+<<<<<<< HEAD
 from views import auth, oauth, main
+=======
+from views import auth, oauth, main, index
+>>>>>>> 38108be (카카오로그인시 프사가져오기)
 
 app = Flask(__name__)
 
