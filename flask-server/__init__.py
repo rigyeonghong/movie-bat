@@ -1,18 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_cors import CORS
 from db_connect import db
 from flask_migrate import Migrate
 import config
 
-<<<<<<< HEAD
 from views import auth, oauth, main, index
-=======
-<<<<<<< HEAD
-from views import auth, oauth, main
-=======
-from views import auth, oauth, main, index
->>>>>>> 38108be (카카오로그인시 프사가져오기)
->>>>>>> full-feature
 
 app = Flask(__name__)
 
