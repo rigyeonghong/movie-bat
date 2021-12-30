@@ -15,10 +15,10 @@ class User(db.Model):
     user_profile = db.Column(db.String(255), nullable=True)
 
     # 영화 찜 외부키
-    favorite_tb = db.relationship("Favorite", backref="user_info_tb")
+    # favorite_tb = db.relationship("Favorite", backref="user_info_tb")
 
     # 영화 리뷰 외부키
-    review_tb = db.relationship("Review", backref="user_info_tb")
+    # review_tb = db.relationship("Review", backref="user_info_tb")
 
     def __init__(self, id, password, nick, phone, genre, runningtime, region):
         self.user_id = id

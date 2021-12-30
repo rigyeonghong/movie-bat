@@ -9,7 +9,7 @@ class Favorite(db.Model):
 
     favorite_idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     movie_idx = db.Column(db.Integer, db.ForeignKey("movie_tb.movie_idx"), nullable=False)
-    user_idx = db.Column(db.Integer, db.ForeignKey("user_info_tb.user_idx"), nullable=False)
+    user_idx = db.Column(db.Integer, db.ForeignKey("user_info_tb.user_id"), nullable=False)
     favorite_date = db.Column(db.Datetime, nullable=False, default=datetime.utcnow() + timedelta(hours=9))
 
     def __init__(self, movie_idx, user_idx, date):

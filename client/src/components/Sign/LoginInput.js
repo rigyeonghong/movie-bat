@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import {
   InputItemWrapper,
   LoginBtn,
@@ -12,20 +13,32 @@ import {
   Test,
   KakaoBtn,
 } from "../../styles/theme";
-import { Link } from "react-router-dom";
+import { userState } from "../../state";
+import { useNavigate } from "react-router-dom";
 
 function LoginInput() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  function postLoginData(e) {
-    e.preventDefault();
-    alert("Sign in 데이터 보내기~");
-    const response = axios.post("http://127.0.0.1:5000/auth/signin", {
-      email,
-      password,
-    });
-  }
+
+  const setUser = useSetRecoilState(userState);
+  const navigate = useNavigate();
+
+  const postLoginData = async () => {
+    const response = await axios
+      .post("/auth/signin", {
+        email,
+        password,
+      })
+      .then((res) => res.data);
+
+    if (response.result == "fail") {
+      alert("로그인 실패");
+    } else {
+      setUser([response.user_email, response.user_nick]);
+      navigate("/");
+    }
+  };
   return (
     <LoginInputWrapper>
       <Test>

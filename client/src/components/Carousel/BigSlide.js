@@ -1,16 +1,21 @@
 import React from "react";
 import {
   BigSlideMovieImg,
+  BigSlideMovieTitle,
+  BigSlideMovieDescription,
   SlideItemWrapper,
-  SlideMoviePoster,
-  SlideMovieTitle,
+  Test2,
 } from "../../styles/theme";
-function BigSlide({ url, title, description }) {
+function BigSlide({ url, title, description, index }) {
   return (
     <SlideItemWrapper>
-      <BigSlideMovieImg src={url} />
-      <SlideMovieTitle>{title}</SlideMovieTitle>
-      <p>{description}</p>
+      <Test2>
+        <BigSlideMovieImg src={url} />
+        <BigSlideMovieTitle left={(index + 1) * 70 + "vw"}>
+          {title}
+        </BigSlideMovieTitle>
+        <BigSlideMovieDescription>{description}</BigSlideMovieDescription>
+      </Test2>
     </SlideItemWrapper>
   );
 }

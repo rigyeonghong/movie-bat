@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import Slider from "../components/Carousel/Slider";
 import BigSlider from "../components/Carousel/BigSlider";
 import { movieInfo, bigMovieInfo } from "../dummy";
-import Nav from "../components/Nav";
+import Nav from "../components/Navigation";
 function Movies() {
+  let movieList = "";
+  // useEffect(() => {
+  //   const call = async () => {
+  //     const response = await axios.get("127.0.0.1/main");
+  //     movieList = response.변수이름;
+  //   };
+  //   call();
+  // }, []);
+
   let slideList = [];
   for (let i = 0; i < Object.keys(movieInfo).length; i++) {
     slideList.push(<Slider key={i} subject={movieInfo[i]} />);
@@ -14,7 +24,6 @@ function Movies() {
       <Nav />
       <BigSlider subject={bigMovieInfo} />
       {slideList}
-      <p>영화 소개 페이지입니다리미</p>
     </>
   );
 }

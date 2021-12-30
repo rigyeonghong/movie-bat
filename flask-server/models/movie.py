@@ -14,7 +14,7 @@ class Movie(db.Model):
     movie_genre = db.Column(db.String(30))
 
     # 영화 찜 외부키
-    favorite_tb = db.relationship("Favorite", backref="movie_tb")
+    # favorite_tb = db.relationship("Favorite", backref="movie_tb")
 
     # 영화 리뷰 외부키
-    review_tb = db.relationship("Review", backref="movie_tb")
+    # review_tb = db.relationship("Review", backref="movie_tb")
