@@ -4,13 +4,21 @@ class User(db.Model):
 
     __tablename__ = 'user_info_tb'
 
-    user_id = db.Column(db.String(255), primary_key=True, nullable=False)
+    user_idx = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_id = db.Column(db.String(255), nullable=False, unique=True)
     user_password = db.Column(db.String(255), nullable=False)
     user_nick = db.Column(db.String(50), nullable=False)
     user_number = db.Column(db.String(30), nullable=True)
     user_genre = db.Column(db.String(100), nullable=False)
     user_runningtime = db.Column(db.Integer, nullable=False)
     user_region = db.Column(db.String(50), nullable=True)
+    user_profile = db.Column(db.String(255), nullable=True)
+
+    # 영화 찜 외부키
+    favorite_tb = db.relationship("Favorite", backref="user_info_tb")
+
+    # 영화 리뷰 외부키
+    review_tb = db.relationship("Review", backref="user_info_tb")
 
     def __init__(self, id, password, nick, phone, genre, runningtime, region):
         self.user_id = id
