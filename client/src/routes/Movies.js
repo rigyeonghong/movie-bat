@@ -3,7 +3,7 @@ import axios from "axios";
 import Slider from "../components/Carousel/Slider";
 import BigSlider from "../components/Carousel/BigSlider";
 import { movieInfo, bigMovieInfo } from "../dummy";
-import Nav from "../components/Nav";
+import Nav from "../components/Navigation";
 function Movies() {
   let movieList = "";
   // useEffect(() => {

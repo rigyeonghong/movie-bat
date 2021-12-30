@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, BrowserRouter, Route } from "react-router-dom";
-import logo from "./logo.svg";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Movies from "./routes/Movies";
 import Login from "./routes/Login";
