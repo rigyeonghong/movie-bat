@@ -11,6 +11,7 @@ import {
   SignSelect,
   Test,
 } from "../../styles/theme";
+import { useNavigate } from "react-router-dom";
 
 function SignUpInput() {
   const [nickname, setNickname] = useState(null);
@@ -22,19 +23,28 @@ function SignUpInput() {
   const [region, setRegion] = useState("");
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+  const navigate = useNavigate();
 
-  function getSignUpData() {
-    // e.preventDefault();
-    alert("회원가입 데이터 보내기~");
-    // const response = axios.post("주소주소", {
-    //   nickname,
-    //   email,
-    //   password,
-    //   genre,
-    //   time,
-    //   region,
-    // });
-  }
+  const postSignInData = async () => {
+    const response = await axios
+      .post("/auth/signup", {
+        nickname,
+        email,
+        password,
+        genre,
+        runningtime: time,
+        region,
+        phoneNum: "",
+      })
+      .then((res) => res.data);
+
+    if (response.result == "fail") {
+      alert("회원가입 실패");
+    } else {
+      alert("회원가입이 완료되었습니다!");
+      navigate("/");
+    }
+  };
 
   function isCheckedAll() {
     if (
@@ -44,7 +54,7 @@ function SignUpInput() {
       genre &&
       time
     )
-      getSignUpData();
+      postSignInData();
     else {
       alert("필수 정보를 모두 입력해주세요!");
     }

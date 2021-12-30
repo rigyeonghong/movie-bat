@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import BigSlide from "./BigSlide";
-import { SliderContainer, SlideItemContainer } from "../../styles/theme";
+import {
+  SliderContainer,
+  SlideItemContainer,
+  SlideLeftBtn,
+  SlideRightBtn,
+} from "../../styles/theme";
 
 function BigSlider({ subject }) {
   const TOTAL_SLIDES = 2;
-  let movie_list = subject.map((item) => (
+  let movie_list = subject.map((item, index) => (
     <BigSlide
       title={item.title}
       url={item.posterUrl}
       description={item.description}
+      index={index}
     />
   ));
 
@@ -38,8 +44,8 @@ function BigSlider({ subject }) {
     <SliderContainer>
       {/* <h2>{subjectName}</h2> */}
       <SlideItemContainer ref={slideRef}>{movie_list}</SlideItemContainer>
-      <button onClick={prevSlide}>Previous Slide</button>
-      <button onClick={nextSlide}>Next Slide</button>
+      <SlideLeftBtn onClick={prevSlide}>{"<"}</SlideLeftBtn>
+      <SlideRightBtn onClick={nextSlide}>{">"}</SlideRightBtn>
     </SliderContainer>
   );
 }

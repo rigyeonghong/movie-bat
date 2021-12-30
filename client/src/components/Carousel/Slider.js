@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Slide from "./Slide";
-import { SliderContainer, SlideItemContainer } from "../../styles/theme";
+import {
+  SliderContainer,
+  SlideItemContainer,
+  SlideLeftBtn,
+  SlideRightBtn,
+} from "../../styles/theme";
 
 function Slider({ subject }) {
   const TOTAL_SLIDES = 2;
@@ -35,8 +40,8 @@ function Slider({ subject }) {
     <SliderContainer>
       <h2>{subjectName}</h2>
       <SlideItemContainer ref={slideRef}>{movie_list}</SlideItemContainer>
-      <button onClick={prevSlide}>Previous Slide</button>
-      <button onClick={nextSlide}>Next Slide</button>
+      <SlideLeftBtn onClick={() => prevSlide()}>{"<"}</SlideLeftBtn>
+      <SlideRightBtn onClick={() => nextSlide()}>{">"}</SlideRightBtn>
     </SliderContainer>
   );
 }

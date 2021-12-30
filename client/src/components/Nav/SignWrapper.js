@@ -16,11 +16,7 @@ function SignWrapper() {
         </button>
       ) : (
         <>
-          <Profile
-            src={profile}
-            onMouseOver={() => setIsVisible(true)}
-            onMouseLeave={() => setIsVisible(false)}
-          />
+          <Profile src={profile} onClick={() => setIsVisible((cur) => !cur)} />
           {isVisible ? <UserMenu /> : ""}
         </>
       )}

@@ -38,9 +38,7 @@ export const Profile = styled.img`
   width: 64px;
   height: 64px;
 `;
-export const Dropdown = styled.div`
-  position: absolute;
-`;
+export const Dropdown = styled.div``;
 export const DropdownItemList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -51,6 +49,7 @@ export const SliderContainer = styled.div`
   overflow: hidden;
   max-width: 80vw;
   margin: 0 auto;
+  position: relative;
 `;
 export const SlideItemContainer = styled.div`
   width: 100%;
@@ -61,7 +60,7 @@ export const SlideItemWrapper = styled.div`
   flex-direction: column;
 `;
 export const SlideMoviePoster = styled.img`
-  width: 10.5vw;
+  width: 17vw;
   hegith: 15vw;
   margin-right: 1vw;
 `;
@@ -71,7 +70,16 @@ export const BigSlideMovieImg = styled.img`
   width: 100vw;
   // height: 720px;
 `;
-
+export const BigSlideMovieTitle = styled.h2`
+  position: absolute;
+  top: 60%;
+  left: 40%;
+`;
+export const BigSlideMovieDescription = styled.h3`
+  position: absolute;
+  top: 70%;
+  left: 40%;
+`;
 export const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -152,4 +160,25 @@ export const SignSelect = styled.select`
 export const NavLogo = styled.img`
   width: 10vw;
   text-align: center;
+`;
+
+export const SlideBtn = styled.button`
+  border: 0;
+  outline: 0;
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  background-color: rgba(50, 50, 50, 0);
+  overflow: hidden;
+  color: white;
+  font-size: 2rem;
+`;
+export const SlideLeftBtn = styled(SlideBtn)`
+  left: 0;
+`;
+export const SlideRightBtn = styled(SlideBtn)`
+  right: 0;
+`;
+export const Test2 = styled.div`
+  position: relative;
 `;

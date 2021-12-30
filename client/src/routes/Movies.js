@@ -6,13 +6,13 @@ import { movieInfo, bigMovieInfo } from "../dummy";
 import Nav from "../components/Nav";
 function Movies() {
   let movieList = "";
-  useEffect(() => {
-    const call = async () => {
-      const response = await axios.get("127.0.0.1/main");
-      movieList = response.변수이름;
-    };
-    call();
-  }, []);
+  // useEffect(() => {
+  //   const call = async () => {
+  //     const response = await axios.get("127.0.0.1/main");
+  //     movieList = response.변수이름;
+  //   };
+  //   call();
+  // }, []);
 
   let slideList = [];
   for (let i = 0; i < Object.keys(movieInfo).length; i++) {
@@ -24,7 +24,6 @@ function Movies() {
       <Nav />
       <BigSlider subject={bigMovieInfo} />
       {slideList}
-      <p>영화 소개 페이지입니다리미</p>
     </>
   );
 }
