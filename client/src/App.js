@@ -11,7 +11,9 @@ import Like from "./routes/Like";
 import Festival from "./routes/Festival";
 import { RecoilRoot } from "recoil";
 import GlobalStyle from "./styles/global";
+import KakaoLogin from "./routes/KakaoLogin";
 import PageNotFound from "./routes/PageNotFound";
+import MovieInfo from "./routes/MovieInfo";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route path="/team" element={<Team />} />
             <Route path="/festival" element={<Festival />} />
+            <Route path="auth/kakao" element={<KakaoLogin />} />
+            <Route path="movie-info" element={<MovieInfo />} />
             <Route element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>

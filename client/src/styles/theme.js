@@ -175,9 +175,11 @@ export const SlideBtn = styled.button`
 `;
 export const SlideLeftBtn = styled(SlideBtn)`
   left: 0;
+  top: 45%;
 `;
 export const SlideRightBtn = styled(SlideBtn)`
   right: 0;
+  top: 45%;
 `;
 export const Test2 = styled.div`
   position: relative;

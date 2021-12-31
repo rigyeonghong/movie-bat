@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import Slider from "../components/Carousel/Slider";
-import BigSlider from "../components/Carousel/BigSlider";
 import { movieInfo, bigMovieInfo } from "../dummy";
 import Nav from "../components/Navigation";
+import BigCarousel from "../components/Carousel/BigCarousel";
 function Movies() {
   let movieList = "";
   // useEffect(() => {
@@ -22,7 +22,7 @@ function Movies() {
   return (
     <>
       <Nav />
-      <BigSlider subject={bigMovieInfo} />
+      <BigCarousel subject={bigMovieInfo} />
       {slideList}
     </>
   );
