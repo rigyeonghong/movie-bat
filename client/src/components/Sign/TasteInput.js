@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { InputItemWrapper, LoginBtn, SignItemTitle } from "../../styles/theme";
+import {
+  InputItemWrapper,
+  LoginBtn,
+  SignItemTitle,
+  SlideLeftBtn,
+  SlideRightBtn,
+  TasteItemWrapper,
+  CenterWrapper,
+} from "../../styles/theme";
 import { useNavigate } from "react-router-dom";
-import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { genreList, timeList, regionList } from "../../variables";
 import { useRecoilValue } from "recoil";
 import { signinState } from "../../state";
-
+import RegionQuestion from "./RegionQuestion";
+import GenreQuestion from "./GenreQuestion";
+import RunningtimeQuestion from "./RunningtimeQuestion";
 function TasteInput() {
   const navigate = useNavigate();
   const signinValue = useRecoilValue(signinState);
-
+  const tasteList = [
+    <GenreQuestion />,
+    <RunningtimeQuestion />,
+    <RegionQuestion />,
+  ];
   const postSignInData = async () => {
     const response = await axios
       .post("/auth/signup", {
@@ -36,90 +50,27 @@ function TasteInput() {
   const [runningtime, setRunningTime] = useState(null);
   const [region, setRegion] = useState(null);
 
-  const handleRegion = (val) => setRegion(val);
-  const handleGenre = (val) => setGenre(val);
-  const handleRunningTime = (val) => setRunningTime(val);
-
+  const [pageNum, setPageNum] = useState(0);
   return (
-    <>
-      <InputItemWrapper>
-        <SignItemTitle htmlFor="genre">선호하는 장르</SignItemTitle>
-        <br />
-        <ToggleButtonGroup
-          type="radio"
-          name="genre"
-          value={genre}
-          onChange={handleGenre}
-        >
-          {genreList.map((item, idx) => (
-            <ToggleButton
-              key={idx}
-              id={`genre-${idx}`}
-              type="radio"
-              variant={"outline-secondary"}
-              name="genre"
-              value={item.value}
+    <InputItemWrapper>
+      {tasteList[pageNum]}
+      <CenterWrapper>
+        {pageNum == tasteList.length - 1 ? (
+          <Button className="nextBtn" onClick={() => postSignInData()}>
+            제출
+          </Button>
+        ) : (
+          <>
+            <Button
+              className="nextBtn"
+              onClick={() => setPageNum((cur) => cur + 1)}
             >
-              {item.name}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
-      </InputItemWrapper>
-
-      <InputItemWrapper>
-        <SignItemTitle htmlFor="time">선호하는 러닝타임</SignItemTitle>
-        <br />
-        <ToggleButtonGroup
-          type="radio"
-          name="runningtime"
-          value={runningtime}
-          onChange={handleRunningTime}
-        >
-          {timeList.map((item, idx) => (
-            <ToggleButton
-              key={idx}
-              id={`runningtime-${idx}`}
-              type="radio"
-              variant={"outline-secondary"}
-              name="runningtime"
-              value={item.value}
-            >
-              {item.name}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
-      </InputItemWrapper>
-
-      <InputItemWrapper>
-        <SignItemTitle htmlFor="region">거주 지역</SignItemTitle>
-        <br />
-        <ToggleButtonGroup
-          size="lg"
-          type="radio"
-          name="region"
-          value={region}
-          onChange={handleRegion}
-        >
-          {regionList.map((i, idx) => (
-            <ToggleButton
-              key={idx}
-              id={`region-${idx}`}
-              type="radio"
-              variant={"outline-secondary"}
-              name="region"
-              value={i.value}
-            >
-              {i.name}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
-      </InputItemWrapper>
-
-      <br />
-      <LoginBtn type="submit" onClick={() => postSignInData()}>
-        회원가입
-      </LoginBtn>
-    </>
+              다음
+            </Button>
+          </>
+        )}
+      </CenterWrapper>
+    </InputItemWrapper>
   );
 }
 export default TasteInput;

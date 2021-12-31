@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const CenterWrapper = styled.div`
+  text-align: center;
+`;
+export const CenterTitleWrapper = styled.h4`
+  text-align: center;
+`;
+export const CenterDescriptionWrapper = styled.h6`
+  text-align: center;
+`;
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: white;
