@@ -30,7 +30,7 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route path="/festival" element={<Festival />} />
             <Route path="auth/kakao" element={<KakaoLogin />} />
-            <Route path="movie-info" element={<MovieInfo />} />
+            <Route path="movies/detail/:idx" element={<MovieInfo />} />
             <Route element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>

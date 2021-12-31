@@ -167,3 +167,22 @@ export const bigMovieInfo = [
       "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDlfMTU2%2FMDAxNTc1ODY2MTM1NDgw.QEqFrdCsV5pQqUqlUOIqIUNjAp81ZHsgGV9OKt8SsvIg.qoT7vTbc71bEPkDmJxNzD352Hcs3Jk1Ac6INCHV5Tzog.JPEG.bsy9033%2FKakaoTalk_20191209_132418853_14.jpg&type=sc960_832",
   },
 ];
+export const movieDetailInfo = {
+  title: "냠냠이의 대모험",
+  director: "치악산복숭아",
+  genre: "로맨스",
+  stillCuturl: [
+    "https://ssl.pstatic.net/imgmovie/mdi/mit110/2116/211602_P01_144722.jpg",
+    "https://ssl.pstatic.net/imgmovie/mdi/mit110/2116/211602_P01_144722.jpg",
+    "https://ssl.pstatic.net/imgmovie/mdi/mit110/2116/211602_P01_144722.jpg",
+  ],
+  actor: "데이터킬러, 아나콘다",
+  plot: "댄싱머신 이상은팀은 파워풀펀치를 중심으로 메타동은, 아나콘다, 데이터킬러, 치악산주호민, 프을래애시가 함께 일구어나가는...",
+  production: "대충제작사이름",
+  audience_num: 223424234,
+  runningtime: 10,
+  song: "대충노래링크",
+  award: "오스카어쩌구상",
+  productionYear: 2021,
+  imageurl: "http://imgmovie.naver.com/mdi/mit110/0968/96811_P01_142155.jpg",
+};
