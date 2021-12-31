@@ -8,7 +8,7 @@ bp = Blueprint("main", __name__, url_prefix="/main")
 def main():
     
     # DB에서 영화테이블 모두 가져온다.
-    movies = Movie.query.filter().all()
+    movies = Movie.query.filter().order_by(Movie.movie_img_link.asc().nullslast()).order_by(Movie.movie_filed.asc().nullslast()).all()
 
     # DB에서 장르Column 중복 없이 가져온다.
     genre = Movie.query.with_entities(Movie.movie_genre).distinct()
