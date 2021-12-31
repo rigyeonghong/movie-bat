@@ -67,7 +67,8 @@ def login():
             # session에 user_id, user_nick 등록
             session['user'] = user_id
             session['nick'] = same_user.user_nick
-            
+            session['user_idx'] = same_user.user_idx
+
             print('login 성공')
 
             return jsonify({
