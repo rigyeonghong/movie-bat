@@ -28,7 +28,7 @@ def main():
     # DB(movies)에서 제목과 이미지를 가져온다.
     titles, images = [], []
     for movie in movies:
-        titles.append([movie.movie_title, movie.movie_genre])
+        titles.append([movie.movie_idx, movie.movie_title, movie.movie_genre])
     # print(titles) # [['황룡산', '다큐멘터리'], ['습지 장례법', '기타'], ['Trans-Continental-Railway', '기타'], ['씨티백', '다큐멘터리'], ['Video Noire', '애니메이션'], ['선율', '애니메이션,다큐멘터리'], ['외발자전거', '기타'], ['두 여자', '기타'], ['텐트틴트', '기타'], ['뭐해', '드라마']]
     
 
@@ -41,7 +41,7 @@ def main():
     for i in range(len(one_genre)):
         movie[i] = {
             "genre": str(one_genre[i]).replace('[', '').replace(']', '').replace("'",''),
-            "movies": [{"title": str(t[0]), "posterUrl": str(u)} for t, u in zip(titles, images) if str(one_genre[i]) in str(t[1]) ]
+            "movies": [{"idx": t[0], "title": str(t[1]), "posterUrl": str(u)} for t, u in zip(titles, images) if str(one_genre[i]) in str(t[2]) ]
         }
     print(movie)
     
