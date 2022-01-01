@@ -2,6 +2,4 @@
 __pycache__/
 .venv
 key
-/flask-server/app.py
-/flask-server/Dockerfile
-
+/views/login.py
