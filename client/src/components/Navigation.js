@@ -5,7 +5,7 @@ import SignWrapper from "./Nav/SignWrapper";
 
 import Logo from "../assets/logo_test.png";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { HomeLogo, NavLogo, NavContainer } from "../styles/theme";
+import { NavLogo } from "../styles/theme";
 function Navigation() {
   return (
     <Navbar bg="dark" sticky="top">

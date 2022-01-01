@@ -1,20 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import {
   CenterDescriptionWrapper,
   CenterTitleWrapper,
 } from "../../styles/theme";
-import { useNavigate } from "react-router-dom";
-import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
-import { genreList, timeList, regionList } from "../../variables";
-import { useRecoilValue } from "recoil";
-import { signinState } from "../../state";
+import { ToggleButton } from "react-bootstrap";
+import { regionList } from "../../variables";
 
-function RegionQuestion() {
-  const signinValue = useRecoilValue(signinState);
-
-  const [region, setRegion] = useState(null);
-  const handleRegion = (val) => setRegion(val);
+function RegionQuestion({ region, setRegion }) {
   const temp = [];
   for (let i = 0; i < regionList.length; i++) {
     temp.push(

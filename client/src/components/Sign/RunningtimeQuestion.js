@@ -1,22 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import {
   CenterDescriptionWrapper,
   CenterTitleWrapper,
 } from "../../styles/theme";
-import { useNavigate } from "react-router-dom";
-import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
-import { genreList, timeList, regionList } from "../../variables";
-import { useRecoilValue } from "recoil";
-import { signinState } from "../../state";
+import { ToggleButton } from "react-bootstrap";
+import { timeList } from "../../variables";
 
-function RunningtimeQuestion() {
-  const navigate = useNavigate();
-  const signinValue = useRecoilValue(signinState);
-
-  const [runningtime, setRunningtime] = useState(null);
-  const handleRunningtime = (val) => setRunningtime(val);
-
+function RunningtimeQuestion({ runningtime, setRunningtime }) {
   return (
     <>
       <CenterTitleWrapper>선호하는 러닝타임</CenterTitleWrapper>

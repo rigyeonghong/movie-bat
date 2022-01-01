@@ -1,29 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {
-  InputItemWrapper,
-  LoginBtn,
-  SignItemTitle,
-  SlideLeftBtn,
-  SlideRightBtn,
-  TasteItemWrapper,
-  CenterWrapper,
-} from "../../styles/theme";
+import { InputItemWrapper, CenterWrapper } from "../../styles/theme";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { genreList, timeList, regionList } from "../../variables";
 import { useRecoilValue } from "recoil";
 import { signinState } from "../../state";
 import RegionQuestion from "./RegionQuestion";
 import GenreQuestion from "./GenreQuestion";
 import RunningtimeQuestion from "./RunningtimeQuestion";
+
 function TasteInput() {
+  const [genre, setGenre] = useState(null);
+  const [runningtime, setRunningtime] = useState(null);
+  const [region, setRegion] = useState(null);
+
   const navigate = useNavigate();
   const signinValue = useRecoilValue(signinState);
   const tasteList = [
-    <GenreQuestion />,
-    <RunningtimeQuestion />,
-    <RegionQuestion />,
+    <GenreQuestion genre={genre} setGenre={setGenre} />,
+    <RunningtimeQuestion
+      runningtime={runningtime}
+      setRunningtime={setRunningtime}
+    />,
+    <RegionQuestion region={region} setRegion={setRegion} />,
   ];
   const postSignInData = async () => {
     const response = await axios
@@ -45,10 +44,6 @@ function TasteInput() {
       navigate("/auth/signin");
     }
   };
-
-  const [genre, setGenre] = useState(null);
-  const [runningtime, setRunningTime] = useState(null);
-  const [region, setRegion] = useState(null);
 
   const [pageNum, setPageNum] = useState(0);
   return (

@@ -10,11 +10,11 @@ import {
   SignItemTitle,
   SignTitle,
   StyledLink,
-  Test,
+  SignupWrapper,
   KakaoBtn,
 } from "../../styles/theme";
 import { userState } from "../../state";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginInput() {
   const [email, setEmail] = useState(null);
@@ -41,7 +41,7 @@ function LoginInput() {
 
   return (
     <LoginInputWrapper>
-      <Test>
+      <SignupWrapper>
         <SignTitle>로그인</SignTitle>
 
         <InputItemWrapper>
@@ -80,7 +80,7 @@ function LoginInput() {
             </a>
           </KakaoBtn>
         </LoginBtnWrapper>
-      </Test>
+      </SignupWrapper>
     </LoginInputWrapper>
   );
 }

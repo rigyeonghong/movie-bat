@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function SignWrapper() {
   const user = useRecoilValue(userState);
   const resetUser = useResetRecoilState(userState);
-
+  const navigate = useNavigate();
   return (
     <>
       {user[0] === null && user[1] === null ? (
@@ -27,7 +27,14 @@ function SignWrapper() {
             <Dropdown.Menu>
               <Dropdown.Item href="/like">찜한 영화</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={resetUser}>로그아웃</Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  navigate("/");
+                  resetUser();
+                }}
+              >
+                로그아웃
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </>

@@ -21,17 +21,26 @@ function SignUpInput({ setIsFirst }) {
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const regPhone = /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/;
-
+  const submitSigninData = () => {
+    setSigninData([nickname, email, phoneNum, password]);
+    setIsFirst(false);
+  };
   const checkInputValue = () => {
     let newIsRightInput = [false, false, false, false];
-    // if 요청하면 받고...
-    if (regEmail.test(email)) newIsRightInput[1] = true;
+    // TODO api 요청하면 수정 필요
+    newIsRightInput[0] = true;
+    if (regEmail.test(email)) {
+      newIsRightInput[1] = true;
+    }
     if (
       (havePhoneNum === true && regPhone.test(phoneNum) === true) ||
       havePhoneNum === false
-    )
+    ) {
       newIsRightInput[2] = true;
-    if (password && password === password2) newIsRightInput[3] = true;
+    }
+    if (password && password === password2) {
+      newIsRightInput[3] = true;
+    }
     setIsRightInput(newIsRightInput);
   };
   if (
@@ -41,13 +50,7 @@ function SignUpInput({ setIsFirst }) {
     isRightInput[3]
   ) {
     submitSigninData();
-  } else {
-    console.log(isRightInput);
   }
-  const submitSigninData = () => {
-    setSigninData([nickname, email, phoneNum, password]);
-    setIsFirst(false);
-  };
   return (
     <>
       <Form>

@@ -1,7 +1,7 @@
 import { Carousel } from "react-bootstrap";
 function BigCarousel({ subject }) {
   let movie_list = subject.map((item, index) => (
-    <Carousel.Item>
+    <Carousel.Item key={index}>
       <img className="d-block w-100" src={item.posterUrl} />
       <Carousel.Caption>
         <h3>{item.title}</h3>

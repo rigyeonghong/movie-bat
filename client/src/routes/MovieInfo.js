@@ -4,28 +4,10 @@ import { LoginWrapper } from "../styles/theme";
 import { movieDetailInfo } from "../dummy";
 
 function MovieDetail() {
-  console.log(movieDetailInfo);
   return (
     <>
       <Nav />
-      {/* <Container>
-        <Row>
-          <Col>
-            <img style={{ width: "300px" }} src={movieDetailInfo.imageurl} />
-          </Col>
-          <Col xs>
-            <span>{movieDetailInfo.title}</span>
-            <span>{movieDetailInfo</span>
-          </Col>
-          <Col>
-            <button>찜</button>
-          </Col>
-        </Row>
-        <Row>줄거리줄거리</Row>
-        <Row>트레일러</Row>
-        <Row>이미지들</Row>
-        <Row>댓글</Row>
-      </Container> */}
+
       <div
         style={{
           maxWidth: "60vw",
