@@ -2,6 +2,7 @@ from types import MethodType
 from flask import Blueprint, jsonify, request, session
 from models.movie import *
 from models.review import *
+from models.users import *
 import json
 import datetime
 from pytz import timezone
@@ -36,6 +37,7 @@ def detail(movie_idx):
             # 유저가 리뷰를 작성한 적 없으면 저장
             user_idx = User.query.filter(User.user_id == user_id).first()
             same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
+            
             if not same_reviewer:
                 review_content = review['content']
                 review_rating = review['rating']
