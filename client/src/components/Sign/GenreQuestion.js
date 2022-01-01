@@ -1,24 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import {
-  InputItemWrapper,
-  LoginBtn,
-  SignItemTitle,
   CenterTitleWrapper,
   CenterDescriptionWrapper,
 } from "../../styles/theme";
-import { useNavigate } from "react-router-dom";
-import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
-import { genreList, timeList, regionList } from "../../variables";
-import { useRecoilValue } from "recoil";
-import { signinState } from "../../state";
+import { ToggleButton } from "react-bootstrap";
+import { genreList } from "../../variables";
 
-function GenreQuestion() {
-  const navigate = useNavigate();
-  const signinValue = useRecoilValue(signinState);
-
-  const [genre, setGenre] = useState(null);
-  const handleGenre = (val) => setGenre(val);
+function GenreQuestion({ genre, setGenre }) {
   const temp = [];
   for (let i = 0; i < genreList.length; i++) {
     temp.push(

@@ -11,8 +11,8 @@ import { ReactComponent as Right } from "../../assets/right.svg";
 function Slider({ subject }) {
   const TOTAL_SLIDES = 2;
   let subjectName = subject["subjectTitle"];
-  let movie_list = subject["movies"].map((item) => (
-    <Slide title={item.title} url={item.posterUrl} />
+  let movie_list = subject["movies"].map((item, index) => (
+    <Slide key={index} title={item.title} url={item.posterUrl} />
   ));
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -36,7 +36,6 @@ function Slider({ subject }) {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
-  console.log(movie_list);
   return (
     <SliderContainer>
       <h2>{subjectName}</h2>
