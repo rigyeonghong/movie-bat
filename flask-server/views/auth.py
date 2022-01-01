@@ -20,26 +20,35 @@ def signup():
         user_runningtime = user['runningtime']
         user_region = user['region']
         
+        # nickname이 db에 있는지 확인
+        same_nick = User.query.filter(User.user_nick == user_nick).first()
 
-        # user 정보가 DB에 이미 있는지 확인
-        same_user = User.query.filter(User.user_id == user_id).first()
-
-        # user 정보 없으면 패스워드 암호화 해서 저장
-        if not same_user:
-            user_pw_hash = generate_password_hash(user_pw)
-            new_user = User(user_id, user_pw_hash, user_nick, user_number, user_genre, user_runningtime, user_region)
-            db.session.add(new_user)
-            db.session.commit()
-
-            session['user_id'] = user_id
-            session['nickname'] = user_nick
-
-            print(" 가입이 완료되었습니다. ")
-            return jsonify({"result":"success"})
+        if same_nick:
+            return ({"result":"failed",
+                     "content":"이미 존재하는 닉네임입니다.",
+                     "status":401})
         else:
-            # 사용자 정보가 이미 있다면, 회원가입 페이지로
-            print(" 이미 존재하는 사용자입니다. ")
-            return jsonify({"result":"fail"})
+            # user 정보가 DB에 이미 있는지 확인
+            same_user = User.query.filter(User.user_id == user_id).first()
+
+            # user 정보 없으면 패스워드 암호화 해서 저장
+            if not same_user:
+                user_pw_hash = generate_password_hash(user_pw)
+                new_user = User(user_id, user_pw_hash, user_nick, user_number, user_genre, user_runningtime, user_region)
+                db.session.add(new_user)
+                db.session.commit()
+
+                session['user_id'] = user_id
+                session['nickname'] = user_nick
+
+                print(" 가입이 완료되었습니다. ")
+                return jsonify({"result":"success"})
+            else:
+                # 사용자 정보가 이미 있다면, 회원가입 페이지로
+                print(" 이미 존재하는 사용자입니다. ")
+                return ({"result":"failed",
+                         "content":"이미 존재하는 아이디입니다.",
+                         "status":401})
     return 'signup page'
 
 @bp.route('/signin', methods=['POST', 'GET'])
