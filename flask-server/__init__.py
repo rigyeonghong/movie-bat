@@ -4,7 +4,7 @@ from db_connect import db
 from flask_migrate import Migrate
 import config
 
-from views import auth, oauth, main, wishlist
+from views import auth, oauth, main, wishlist, detail
 
 app = Flask(__name__)
 
@@ -29,6 +29,7 @@ app.register_blueprint(auth.bp)
 app.register_blueprint(oauth.bp)
 app.register_blueprint(main.bp)
 app.register_blueprint(wishlist.bp)
+app.register_blueprint(detail.bp)
 
 # 없애기 or 변경..?
 @app.route('/')
