@@ -8,7 +8,7 @@ bp = Blueprint("main", __name__, url_prefix="/main")
 def main():
     
     # DB에서 영화테이블 모두 가져온다.
-    movies = Movie.query.filter().order_by(Movie.movie_img_link.asc().nullslast()).order_by(Movie.movie_filed.asc().nullslast()).all()
+    movies = Movie.query.filter().order_by(Movie.movie_img_link.desc().nullslast()).order_by(Movie.movie_field.desc().nullslast()).all()
 
     # DB에서 장르Column 중복 없이 가져온다.
     genre = Movie.query.with_entities(Movie.movie_genre).distinct()
@@ -16,7 +16,7 @@ def main():
     genres = []
     for g in genre:
         genres.append((str(g).replace("'", '').replace(',', '  ').replace('(', '').replace(')', '').split()))
-    # print(genres) # [['다큐멘터리'], ['기타'], ['애니메이션'], ['애니메이션', '다큐멘터리'], ['드라마']]
+    print(genres) # [['다큐멘터리'], ['기타'], ['애니메이션'], ['애니메이션', '다큐멘터리'], ['드라마']]
 
     # 장르가 2개 이상 묶여 있는 것들 뺀 리스트.
     one_genre = []
@@ -43,7 +43,7 @@ def main():
             "genre": str(one_genre[i]).replace('[', '').replace(']', '').replace("'",''),
             "movies": [{"idx": t[0], "title": str(t[1]), "posterUrl": str(u)} for t, u in zip(titles, images) if str(one_genre[i]) in str(t[2]) ]
         }
-    print(movie)
+    # print(movie)
     
     # movie_data = json.dumps(movie, ensure_ascii=False)
     

@@ -15,12 +15,6 @@ class User(db.Model):
     user_region = db.Column(db.String(50), nullable=True)
     user_profile = db.Column(db.String(255), nullable=True)
 
-    # 영화 찜 외부키
-    # favorite_tb = db.relationship("Favorite", backref="user_info_tb")
-
-    # 영화 리뷰 외부키
-    # review_tb = db.relationship("Review", backref="user_info_tb")
-
     def __init__(self, id, password, nick, phone, genre, runningtime, region):
         self.user_id = id
         self.user_password = password

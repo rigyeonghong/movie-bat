@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request, session
+from models.users import *
 from models.movie import *
 from models.review import *
 from models.users import *
@@ -21,7 +22,8 @@ def detail(movie_idx):
         reviews = Review.query.filter((Review.movie_idx == movie_idx) & (Review.is_deleted == 0)).order_by(Review.review_date.desc()).all()
         print(reviews)
 
-        return jsonify(movie_info, reviews)
+        return json.dumps(movie_info)
+
     
     # 댓글 추가 : 리뷰 테이블에 값 추가
     elif method == "POST":
