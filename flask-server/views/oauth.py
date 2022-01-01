@@ -46,40 +46,50 @@ def callback():
     profile_img = profile['profile_image']
 
 
-    user = User.query.filter_by(id=email).first()
+    # nickname이 db에 있는지 확인
+    same_nick = User.query.filter(User.user_nick == user_nick).first()
 
-    # db에 존재하지 않은 user면 회원가입 진행
-    if not user:
-        user_id = email
-        user_password = kakao_id
-        user_nick = nickname
-        user_profile = profile_img
-    
-    session['user'] = email
-    session['nick'] = nickname
-    session['profile'] = profile_img
+    if same_nick:
+        return ({"result":"failed",
+                    "content":"이미 존재하는 닉네임입니다.",
+                    "status":401})
+    else:
 
-    # kakao로부터 받은 email, nick, profile 넘겨주고
-    return jsonify({
-        "result":"success",
-        "user_email": session['user'],
-        "user_nick": session['nick'],
-        "user_profile": session['profile']
-    })
+        # user 정보가 DB에 이미 있는지 확인
+        user = User.query.filter_by(id=email).first()
 
-    # fe에서 넘어온 값 확인
-    fe_user = request.get_json()
-    
-    if fe_user != None:
-        user_genre = fe_user['genre']
-        user_runningtime = fe_user['runningtime']
-        user_region = fe_user['region']
+        # db에 존재하지 않은 user면 회원가입 진행
+        if not user:
+            user_id = email
+            user_password = kakao_id
+            user_nick = nickname
+            user_profile = profile_img
+        
+        session['user'] = email
+        session['nick'] = nickname
+        session['profile'] = profile_img
 
-    # kakao 로는 전화번호를 받지않아서 null값으로 넣고 profile사진은 아직 model에서 init되있지 않기에 안넣음
-    new_user = User(user_id,user_password,user_nick, null, user_genre, user_runningtime, user_region)
-    db.session.add(new_user)
-    db.session.commit()
-    print("회원가입이 완료되었습니다.")
-    return jsonify({"result":"success"})
+        # kakao로부터 받은 email, nick, profile 넘겨주고
+        return jsonify({
+            "result":"success",
+            "user_email": session['user'],
+            "user_nick": session['nick'],
+            "user_profile": session['profile']
+        })
+
+        # fe에서 넘어온 값 확인
+        fe_user = request.get_json()
+        
+        if fe_user != None:
+            user_genre = fe_user['genre']
+            user_runningtime = fe_user['runningtime']
+            user_region = fe_user['region']
+
+        # kakao 로는 전화번호를 받지않아서 null값으로 넣고 profile사진은 아직 model에서 init되있지 않기에 안넣음
+        new_user = User(user_id,user_password,user_nick, null, user_genre, user_runningtime, user_region)
+        db.session.add(new_user)
+        db.session.commit()
+        print("회원가입이 완료되었습니다.")
+        return jsonify({"result":"success"})
     
     
