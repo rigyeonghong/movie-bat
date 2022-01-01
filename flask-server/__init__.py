@@ -4,15 +4,7 @@ from db_connect import db
 from flask_migrate import Migrate
 import config
 
-<<<<<<< HEAD
-from views import auth, oauth, main, index
-=======
-<<<<<<< HEAD
-from views import auth, oauth, main
-=======
-from views import auth, oauth, main, index
->>>>>>> 38108be (카카오로그인시 프사가져오기)
->>>>>>> full-feature
+from views import auth, main, wishlist
 
 app = Flask(__name__)
 
@@ -36,6 +28,7 @@ Migrate().init_app(app, db)
 app.register_blueprint(auth.bp)
 app.register_blueprint(oauth.bp)
 app.register_blueprint(main.bp)
+app.register_blueprint(wishlist.bp)
 
 # 없애기 or 변경..?
 @app.route('/')
