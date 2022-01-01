@@ -20,7 +20,6 @@ function LoginInput() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-
   const setUser = useSetRecoilState(userState);
   const navigate = useNavigate();
 
@@ -39,6 +38,7 @@ function LoginInput() {
       navigate("/");
     }
   };
+
   return (
     <LoginInputWrapper>
       <SignupWrapper>
