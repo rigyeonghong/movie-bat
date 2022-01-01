@@ -1,4 +1,3 @@
-from types import MethodType
 from flask import Blueprint, jsonify, request, session
 from models.movie import *
 from models.review import *
@@ -10,8 +9,9 @@ bp = Blueprint("movies", __name__, url_prefix="/movies")
 
 @bp.route('/detail/<int:movie_idx>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def detail(movie_idx):
+    method = request.method
     
-    if MethodType == "GET":
+    if method == "GET":
         # movie_tb에서 해당하는 movie_idx의 정보를 가져온다.
         movie_info = Movie.query.filter(Movie.movie_idx == movie_idx).first()
         print(movie_info)
@@ -23,7 +23,7 @@ def detail(movie_idx):
         return movie_info, reviews
     
     # 댓글 추가 : 리뷰 테이블에 값 추가
-    elif MethodType == "POST":
+    elif method == "POST":
 
         # fe -> be json데이터 전달 받음
         review = request.get_json()
@@ -55,7 +55,7 @@ def detail(movie_idx):
         return jsonify({"result":"fail"})
 
     # 댓글 수정
-    elif MethodType == "PATCH":
+    elif method == "PATCH":
         # fe -> be json데이터 전달 받음
         review_update = request.get_json()
 
