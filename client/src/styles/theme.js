@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const CenterWrapper = styled.div`
+  text-align: center;
+`;
+export const CenterTitleWrapper = styled.h4`
+  text-align: center;
+`;
+export const CenterDescriptionWrapper = styled.h6`
+  text-align: center;
+`;
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: white;
@@ -175,9 +184,11 @@ export const SlideBtn = styled.button`
 `;
 export const SlideLeftBtn = styled(SlideBtn)`
   left: 0;
+  top: 45%;
 `;
 export const SlideRightBtn = styled(SlideBtn)`
   right: 0;
+  top: 45%;
 `;
 export const Test2 = styled.div`
   position: relative;

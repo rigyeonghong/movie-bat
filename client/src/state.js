@@ -8,3 +8,10 @@ export const userState = atom({
   default: [null, null],
   effects_UNSTABLE: [persistAtom],
 });
+
+// nickname, email, phoneNum, password
+export const signinState = atom({
+  key: "signinState",
+  default: [null, null, null, null],
+  effects_UNSTABLE: [persistAtom],
+});
