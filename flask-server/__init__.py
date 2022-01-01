@@ -1,10 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_cors import CORS
 from db_connect import db
 from flask_migrate import Migrate
 import config
 
-from views import auth, main, wishlist
+from views import auth, oauth, main, wishlist
 
 app = Flask(__name__)
 

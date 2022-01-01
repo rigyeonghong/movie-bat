@@ -10,6 +10,7 @@ class Favorite(db.Model):
     user_idx = db.Column(db.Integer, db.ForeignKey("user_info_tb.user_idx"), nullable=False)
     favorite_date = db.Column(db.String(30), nullable=False)
 
+
     def __init__(self, movie_idx, user_idx, date):
         self.movie_idx = movie_idx
         self.user_idx = user_idx
