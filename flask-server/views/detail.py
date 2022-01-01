@@ -20,7 +20,7 @@ def detail(movie_idx):
         reviews = Review.query.filter((Review.movie_idx == movie_idx) & (Review.is_deleted == 0)).order_by(Review.review_date.desc()).all()
         print(reviews)
 
-        return movie_info, reviews
+        return jsonify(movie_info, reviews)
     
     # 댓글 추가 : 리뷰 테이블에 값 추가
     elif method == "POST":
