@@ -6,7 +6,8 @@ import {
   SlideLeftBtn,
   SlideRightBtn,
 } from "../../styles/theme";
-
+import { ReactComponent as Left } from "../../assets/left.svg";
+import { ReactComponent as Right } from "../../assets/right.svg";
 function Slider({ subject }) {
   const TOTAL_SLIDES = 2;
   let subjectName = subject["subjectTitle"];
@@ -40,8 +41,12 @@ function Slider({ subject }) {
     <SliderContainer>
       <h2>{subjectName}</h2>
       <SlideItemContainer ref={slideRef}>{movie_list}</SlideItemContainer>
-      <SlideLeftBtn onClick={() => prevSlide()}>{"<"}</SlideLeftBtn>
-      <SlideRightBtn onClick={() => nextSlide()}>{">"}</SlideRightBtn>
+      <SlideLeftBtn onClick={() => prevSlide()}>
+        <Left width="35" height="35" fill="white" />
+      </SlideLeftBtn>
+      <SlideRightBtn onClick={() => nextSlide()}>
+        <Right width="35" height="35" fill="white" />
+      </SlideRightBtn>
     </SliderContainer>
   );
 }

@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 function SignWrapper() {
   const user = useRecoilValue(userState);
   const resetUser = useResetRecoilState(userState);
-  const navigate = useNavigate();
 
   return (
     <>

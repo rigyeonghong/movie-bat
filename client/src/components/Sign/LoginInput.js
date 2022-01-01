@@ -14,7 +14,7 @@ import {
   KakaoBtn,
 } from "../../styles/theme";
 import { userState } from "../../state";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function LoginInput() {
   const [email, setEmail] = useState(null);
@@ -66,7 +66,7 @@ function LoginInput() {
         </InputItemWrapper>
         <InputItemWrapper>
           <SignItemTitle>
-            아직 회원이 아니신가요?{" "}
+            아직 회원이 아니신가요?
             <StyledLink to="/auth/signup">Sign Up</StyledLink>
           </SignItemTitle>
         </InputItemWrapper>
@@ -74,8 +74,10 @@ function LoginInput() {
           <LoginBtn type="submit" onClick={(e) => postLoginData(e)}>
             Sign in
           </LoginBtn>
-          <KakaoBtn type="submit" onClick={(e) => postLoginData(e)}>
-            카카오톡으로 시작하기
+          <KakaoBtn>
+            <a href="http://127.0.0.1:5000/oauth/kakao">
+              카카오톡으로 시작하기
+            </a>
           </KakaoBtn>
         </LoginBtnWrapper>
       </Test>
