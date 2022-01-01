@@ -1,5 +1,6 @@
 from types import MethodType
 from flask import Blueprint, jsonify, request, session
+from models.users import *
 from models.movie import *
 from models.review import *
 import json
