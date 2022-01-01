@@ -7,8 +7,8 @@ class Favorite(db.Model):
 
     favorite_idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     movie_idx = db.Column(db.Integer, db.ForeignKey("movie_tb.movie_idx"), nullable=False)
-    user_idx = db.Column(db.Integer, db.ForeignKey("user_info_tb.user_id"), nullable=False)
-    favorite_date = db.Column(db.Datetime)
+    user_idx = db.Column(db.Integer, db.ForeignKey("user_info_tb.user_idx"), nullable=False)
+    favorite_date = db.Column(db.String(30), nullable=False)
 
     def __init__(self, movie_idx, user_idx, date):
         self.movie_idx = movie_idx
