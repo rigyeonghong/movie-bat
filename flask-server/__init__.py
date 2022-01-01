@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_cors import CORS
 from db_connect import db
 from flask_migrate import Migrate

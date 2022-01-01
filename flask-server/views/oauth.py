@@ -45,21 +45,41 @@ def callback():
     kakao_id = data["id"]
     profile_img = profile['profile_image']
 
+
     user = User.query.filter_by(id=email).first()
 
+    # db에 존재하지 않은 user면 회원가입 진행
     if not user:
         user_id = email
         user_password = kakao_id
         user_nick = nickname
         user_profile = profile_img
-
-        new_user = User(user_id,user_password,user_nick, user_profile)
-        db.session.add(new_user)
-        db.session.commit()
-        print("회원가입이 완료되었습니다.")
     
     session['user'] = email
     session['nick'] = nickname
     session['profile'] = profile_img
 
-    return main_page
+    # kakao로부터 받은 email, nick, profile 넘겨주고
+    return jsonify({
+        "result":"success",
+        "user_email": session['user'],
+        "user_nick": session['nick'],
+        "user_profile": session['profile']
+    })
+
+    # fe에서 넘어온 값 확인
+    fe_user = request.get_json()
+    
+    if fe_user != None:
+        user_genre = fe_user['genre']
+        user_runningtime = fe_user['runningtime']
+        user_region = fe_user['region']
+
+    # kakao 로는 전화번호를 받지않아서 null값으로 넣고 profile사진은 아직 model에서 init되있지 않기에 안넣음
+    new_user = User(user_id,user_password,user_nick, null, user_genre, user_runningtime, user_region)
+    db.session.add(new_user)
+    db.session.commit()
+    print("회원가입이 완료되었습니다.")
+    return jsonify({"result":"success"})
+    
+    

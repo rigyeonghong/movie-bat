@@ -1,6 +1,5 @@
 from db_connect import db
-from datetime import datetime
-from datetime import timedelta
+
 
 class Review(db.Model):
 
@@ -10,8 +9,11 @@ class Review(db.Model):
     movie_idx = db.Column(db.Integer, db.ForeignKey("movie_tb.movie_idx"), nullable=False)
     user_idx = db.Column(db.Integer, db.ForeignKey("user_info_tb.user_idx"), nullable=False)
     review_content = db.Column(db.Text, nullable=False)
-    review_rating = db.Column(db.Integer, nullable=False)
-    review_date = db.Column(db.Datetime, nullable=False, default=datetime.utcnow() + timedelta(hours=9))
+    review_rating = db.Column(db.Integer, default = 0)
+    review_date = db.Column(db.DateTime)
+    review_delete_date = db.Column(db.DateTime)
+    is_deleted = db.Column(db.Integer, default = 0)
+
 
     def __init__(self, movie_idx, user_idx, content, rating, date):
         self.movie_idx = movie_idx
@@ -19,3 +21,4 @@ class Review(db.Model):
         self.review_content = content
         self.review_rating = rating
         self.review_date = date
+
