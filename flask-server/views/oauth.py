@@ -77,6 +77,9 @@ def callback():
             "user_profile": session['profile']
         })
 
+# 카카오통해 받은 email, nick, profile + user 취향 받아서 db 저장
+@bp.route('/user')
+def user():
         # fe에서 넘어온 값 확인
         fe_user = request.get_json()
         
