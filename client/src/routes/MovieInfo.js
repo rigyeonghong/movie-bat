@@ -1,9 +1,37 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Nav from "../components/Navigation";
 import { Container, Row, Col, Figure } from "react-bootstrap";
 import { LoginWrapper } from "../styles/theme";
-import { movieDetailInfo } from "../dummy";
+import { movieDetailInfo, reviewData } from "../dummy";
+import { useParams } from "react-router-dom";
+import ReviewItem from "../components/Review/ReviewItem";
+import ReviewListBtn from "../components/Review/ReviewListBtn";
 
 function MovieDetail() {
+  let params = useParams();
+  const [curReviewPage, setCurReviewPage] = useState(0);
+  let reviewList = [];
+  for (let i = (curReviewPage + 1) * 5 - 5; i < (curReviewPage + 1) * 5; i++) {
+    reviewList.push(
+      <ReviewItem
+        nickName={reviewData[i].user_nick}
+        idx={reviewData[i].review_idx}
+        content={reviewData[i].content}
+        rating={reviewData[i].rating}
+        date={reviewData[i].date}
+      />
+    );
+  }
+  useEffect(() => {
+    const movieIndex = params.idx;
+    const call = async () => {
+      const response = await axios
+        .get(`/movies/detail/${movieIndex}`)
+        .then((res) => res.data);
+    };
+    call();
+  }, []);
   return (
     <>
       <Nav />
@@ -51,6 +79,15 @@ function MovieDetail() {
         <div>
           <h4>트레일러</h4>
           <div>여기는 예고 이미지 자리</div>
+        </div>
+        <div>
+          <h4>리뷰</h4>
+          {reviewList}
+          <ReviewListBtn
+            curReviewPage={curReviewPage}
+            setCurReviewPage={setCurReviewPage}
+            reviewListLen={reviewData.length}
+          />
         </div>
       </div>
     </>
