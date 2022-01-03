@@ -186,99 +186,100 @@ export const movieDetailInfo = {
   productionYear: 2021,
   imageurl: "http://imgmovie.naver.com/mdi/mit110/0968/96811_P01_142155.jpg",
 };
-// export const reviewData = [
-//   {
-//     review_idx: 0,
-//     user_nick: "지원",
-//     content: "낫 배드",
-//     rating: "1",
-//     date: "2022-01-01",
-//   },
-//   {
-//     review_idx: 1,
-//     user_nick: "지언",
-//     content: "조아요옹",
-//     rating: "3",
-//     date: "2022-01-02",
-//   },
-//   {
-//     review_idx: 2,
-//     user_nick: "지온",
-//     content: "제 인생영화예요",
-//     rating: "10",
-//     date: "2022-01-03",
-//   },
-//   {
-//     review_idx: 3,
-//     user_nick: "온지",
-//     content: "하,,,ㅜㅅㅜ",
-//     rating: "8",
-//     date: "2022-01-04",
-//   },
-//   {
-//     review_idx: 4,
-//     user_nick: "지원",
-//     content: "낫 배드",
-//     rating: "1",
-//     date: "2022-01-01",
-//   },
-//   {
-//     review_idx: 5,
-//     user_nick: "지언",
-//     content: "조아요옹",
-//     rating: "3",
-//     date: "2022-01-02",
-//   },
-//   {
-//     review_idx: 6,
-//     user_nick: "지온",
-//     content: "제 인생영화예요",
-//     rating: "10",
-//     date: "2022-01-03",
-//   },
-//   {
-//     review_idx: 7,
-//     user_nick: "온지",
-//     content: "하,,,ㅜㅅㅜ",
-//     rating: "8",
-//     date: "2022-01-04",
-//   },
-//   {
-//     review_idx: 8,
-//     user_nick: "지원",
-//     content: "낫 배드",
-//     rating: "1",
-//     date: "2022-01-01",
-//   },
-//   {
-//     review_idx: 9,
-//     user_nick: "지언",
-//     content: "조아요옹",
-//     rating: "3",
-//     date: "2022-01-02",
-//   },
-//   {
-//     review_idx: 10,
-//     user_nick: "지온",
-//     content: "제 인생영화예요",
-//     rating: "10",
-//     date: "2022-01-03",
-//   },
-//   {
-//     review_idx: 11,
-//     user_nick: "온지",
-//     content: "하,,,ㅜㅅㅜ",
-//     rating: "8",
-//     date: "2022-01-04",
-//   },
-// ];
-export let reviewData = [];
-for (let i = 0; i < 100; i++) {
-  reviewData.push({
-    review_idx: i,
+export const reviewData = [
+  {
+    review_idx: 0,
+    user_nick: "ji",
+    content: "낫 배드",
+    rating: "1",
+    date: "2022-01-01",
+  },
+  {
+    review_idx: 1,
     user_nick: "지언",
+    content: "조아요옹",
+    rating: "3",
+    date: "2022-01-02",
+  },
+  {
+    review_idx: 2,
+    user_nick: "지온",
     content: "제 인생영화예요",
-    rating: (i + i) % 5,
+    rating: "10",
     date: "2022-01-03",
-  });
-}
+  },
+  {
+    review_idx: 3,
+    user_nick: "온지",
+    content: "하,,,ㅜㅅㅜ",
+    rating: "8",
+    date: "2022-01-04",
+  },
+  {
+    review_idx: 4,
+    user_nick: "지원",
+    content: "낫 배드",
+    rating: "1",
+    date: "2022-01-01",
+  },
+  {
+    review_idx: 5,
+    user_nick: "지언",
+    content: "조아요옹",
+    rating: "3",
+    date: "2022-01-02",
+  },
+  {
+    review_idx: 6,
+    user_nick: "지온",
+    content: "제 인생영화예요",
+    rating: "10",
+    date: "2022-01-03",
+  },
+  {
+    review_idx: 7,
+    user_nick: "온지",
+    content: "하,,,ㅜㅅㅜ",
+    rating: "8",
+    date: "2022-01-04",
+  },
+  {
+    review_idx: 8,
+    user_nick: "지원",
+    content: "낫 배드",
+    rating: "1",
+    date: "2022-01-01",
+  },
+  {
+    review_idx: 9,
+    user_nick: "지언",
+    content: "조아요옹",
+    rating: "3",
+    date: "2022-01-02",
+  },
+  {
+    review_idx: 10,
+    user_nick: "지온",
+    content: "제 인생영화예요",
+    rating: "10",
+    date: "2022-01-03",
+  },
+  {
+    review_idx: 11,
+    user_nick: "온지",
+    content: "하,,,ㅜㅅㅜ",
+    rating: "8",
+    date: "2022-01-04",
+  },
+];
+
+// export let reviewData = [];
+// for (let i = 0; i < 100; i++) {
+//   reviewData.push({
+//     review_idx: i,
+//     user_nick: "지언",
+//     content: "제 인생영화예요",
+//     rating: (i + i) % 5,
+//     date: "2022-01-03",
+//   });
+// }

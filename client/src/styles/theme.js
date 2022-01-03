@@ -10,6 +10,9 @@ export const CenterTitleWrapper = styled.h4`
 export const CenterDescriptionWrapper = styled.h6`
   text-align: center;
 `;
+export const FlexContainer = styled.div`
+  display: flex;
+`;
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: white;
@@ -190,6 +193,62 @@ export const SlideRightBtn = styled(SlideBtn)`
   right: 0;
   top: 45%;
 `;
-export const Test2 = styled.div`
+
+// export const Test2 = styled.div`
+//   position: relative;
+// `;
+
+export const MovieInfoContainer = styled.div`
+  max-width: 60vw;
+  margin: auto;
   position: relative;
+  margin-top: 4vh;
+`;
+export const MovieDetailImg = styled.img`
+  width: 10vw;
+  margin-right: 2vw;
+`;
+export const MovieDetailImgWrapper = styled.div`
+  float: left;
+`;
+export const LikeBtnWrapper = styled.div`
+  position: absolute;
+  right: 0;
+  top: 5vw;
+`;
+export const MovieDetailIndex = styled.h4``;
+export const MovieDetailWrapper = styled.div`
+  margin-top: 4vh;
+`;
+export const MovieDetailTitle = styled.h2`
+  padding-right: 10vw;
+  margin-bottom: 5vh;
+  // border-bottom: 1px solid white;
+`;
+export const MovieDetailMainInfo = styled.div`
+  margin-bottom: 1vh;
+  font-size: 1.2rem;
+`;
+export const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+`;
+export const ModalContainer = styled.div`
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 80%;
+    width: 20rem;
+    height: 80%;
+    padding: 16px;
+    background: rgb(25, 31, 44);
+    border-radius: 10px;
+    text-align: center;
+    }
 `;
