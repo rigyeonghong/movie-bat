@@ -1,58 +1,134 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Nav from "../components/Navigation";
-import { Container, Row, Col, Figure } from "react-bootstrap";
-import { LoginWrapper } from "../styles/theme";
-import { movieDetailInfo } from "../dummy";
-
+import { Button, Dropdown, DropdownButton } from "react-bootstrap";
+import {
+  Background,
+  LikeBtnWrapper,
+  MovieDetailWrapper,
+  MovieDetailImg,
+  MovieDetailImgWrapper,
+  MovieDetailIndex,
+  MovieInfoContainer,
+  FlexContainer,
+  MovieDetailTitle,
+  MovieDetailMainInfo,
+  ModalContainer,
+} from "../styles/theme";
+import { movieDetailInfo, reviewData } from "../dummy";
+import { useParams } from "react-router-dom";
+import ReviewItem from "../components/Review/ReviewItem";
+import ReviewListBtn from "../components/Review/ReviewListBtn";
+import WriteReview from "../components/Review/WriteReview";
+import RatingStar from "../components/Review/RatingStar";
+import StarRatingComponent from "react-star-rating-component";
 function MovieDetail() {
+  let params = useParams();
+  const [rating, setRating] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [curReviewPage, setCurReviewPage] = useState(0);
+  let reviewList = [];
+  for (let i = (curReviewPage + 1) * 5 - 5; i < (curReviewPage + 1) * 5; i++) {
+    if (i > reviewData.length - 1) break;
+    reviewList.push(
+      <ReviewItem
+        nickName={reviewData[i].user_nick}
+        idx={reviewData[i].review_idx}
+        content={reviewData[i].content}
+        rating={reviewData[i].rating}
+        date={reviewData[i].date}
+      />
+    );
+  }
+  useEffect(() => {
+    const movieIndex = params.idx;
+    const call = async () => {
+      const response = await axios
+        .get(`/movies/detail/${movieIndex}`)
+        .then((res) => res.data);
+    };
+    call();
+  }, []);
   return (
     <>
       <Nav />
-
-      <div
-        style={{
-          maxWidth: "60vw",
-          margin: "auto",
-          position: "relative",
-          marginTop: "4vh",
-        }}
-      >
-        <div style={{ display: "flex" }}>
-          <div style={{ float: "left" }}>
-            <img
-              src={movieDetailInfo.imageurl}
-              style={{ width: "10vw", marginRight: "2vw" }}
-            />
-          </div>
+      <MovieInfoContainer>
+        <FlexContainer>
+          <MovieDetailImgWrapper>
+            <MovieDetailImg src={movieDetailInfo.imageurl} />
+          </MovieDetailImgWrapper>
           <div>
-            <h2
-              style={{ paddingRight: "20vw", borderBottom: "1px solid white" }}
+            <MovieDetailTitle>{movieDetailInfo.title}</MovieDetailTitle>
+            <MovieDetailMainInfo>
+              {movieDetailInfo.genre}·{movieDetailInfo.runningtime}분·
+              {movieDetailInfo.productionYear}
+            </MovieDetailMainInfo>
+            <MovieDetailMainInfo>
+              감독 {movieDetailInfo.director}
+            </MovieDetailMainInfo>
+            <MovieDetailMainInfo>
+              배우 {movieDetailInfo.actor}
+            </MovieDetailMainInfo>
+          </div>
+          <LikeBtnWrapper>
+            <Button
+              // TODO 찜 되어 있는지 받아오기
+              variant={1 ? "danger" : "outline-danger"}
+              onClick={() => alert("아구찜")}
             >
-              {movieDetailInfo.title}
-            </h2>
-            <p>러닝타임: {movieDetailInfo.runningtime}</p>
-            <p>감독: {movieDetailInfo.director}</p>
-            <p>배우: {movieDetailInfo.actor}</p>
-            <p>장르: {movieDetailInfo.genre}</p>
-          </div>
-          <div style={{ position: "absolute", right: 0, top: "5vw" }}>
-            <button>찜</button>
-          </div>
-        </div>
+              찜
+            </Button>
+            <Button onClick={() => setIsOpen(true)}>리뷰쓰기</Button>
+          </LikeBtnWrapper>
+        </FlexContainer>
 
-        <div
-          style={{
-            marginTop: "4vh",
-          }}
-        >
-          <h4>줄거리</h4>
+        <MovieDetailWrapper>
+          <MovieDetailIndex>줄거리</MovieDetailIndex>
           <p>{movieDetailInfo.plot}</p>
-        </div>
+        </MovieDetailWrapper>
 
-        <div>
-          <h4>트레일러</h4>
+        <MovieDetailWrapper>
+          <MovieDetailIndex>트레일러</MovieDetailIndex>
           <div>여기는 예고 이미지 자리</div>
-        </div>
-      </div>
+        </MovieDetailWrapper>
+        <MovieDetailWrapper>
+          <MovieDetailIndex>리뷰</MovieDetailIndex>
+
+          {reviewList}
+          <ReviewListBtn
+            curReviewPage={curReviewPage}
+            setCurReviewPage={setCurReviewPage}
+            reviewListLen={reviewData.length}
+          />
+        </MovieDetailWrapper>
+      </MovieInfoContainer>
+      {isOpen ? (
+        <Background onClick={() => setIsOpen(false)}>
+          <ModalContainer onClick={(e) => e.stopPropagation()}>
+            <div>
+              <h2>Rating from state: {rating}</h2>
+              <StarRatingComponent
+                name="rating"
+                starCount={10}
+                value={rating}
+                onStarClick={(e) => setRating(e)}
+              />
+            </div>
+            <WriteReview />
+            <Button
+              onClick={() => {
+                alert("제출 완료!");
+                setIsOpen(false);
+              }}
+            >
+              작성 완료
+            </Button>
+            <Button onClick={() => setIsOpen(false)}>취소</Button>
+          </ModalContainer>
+        </Background>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

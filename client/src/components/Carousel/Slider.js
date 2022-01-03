@@ -10,9 +10,14 @@ import { ReactComponent as Left } from "../../assets/left.svg";
 import { ReactComponent as Right } from "../../assets/right.svg";
 function Slider({ subject }) {
   const TOTAL_SLIDES = 2;
-  let subjectName = subject["subjectTitle"];
+  let subjectName = subject["genre"];
   let movie_list = subject["movies"].map((item, index) => (
-    <Slide key={index} title={item.title} url={item.posterUrl} />
+    <Slide
+      key={index}
+      title={item.title}
+      url={item.posterUrl}
+      movieIdx={item.idx}
+    />
   ));
 
   const [currentSlide, setCurrentSlide] = useState(0);

@@ -1,14 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   SlideItemWrapper,
   SlideMoviePoster,
   SlideMovieTitle,
 } from "../../styles/theme";
-function Slide({ url, title }) {
+function Slide({ url, title, movieIdx }) {
   return (
     <SlideItemWrapper>
-      <SlideMoviePoster src={url} />
-      <SlideMovieTitle>{title}</SlideMovieTitle>
+      <Link to={`/movies/detail/${movieIdx}`}>
+        <SlideMoviePoster src={url} />
+        <SlideMovieTitle>{title}</SlideMovieTitle>
+      </Link>
     </SlideItemWrapper>
   );
 }
