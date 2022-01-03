@@ -16,13 +16,14 @@ def detail(movie_idx):
     if method == "GET":
         # movie_tb에서 해당하는 movie_idx의 정보를 가져온다.
         movie_info = Movie.query.filter(Movie.movie_idx == movie_idx).first()
-        print(movie_info)
 
         # reivew_tb 에서 해당하는 movie_idx의 모든 리뷰를 가져와서 최신순 정렬.
         reviews = Review.query.filter((Review.movie_idx == movie_idx) & (Review.is_deleted == 0)).order_by(Review.review_date.desc()).all()
-        print(reviews)
+        
+        for review in reviews:
+            print(type(review))
 
-        return json.dumps(movie_info)
+        return json.dumps(reviews)
 
     
     # 댓글 추가 : 리뷰 테이블에 값 추가
