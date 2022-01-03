@@ -30,7 +30,7 @@ def detail(movie_idx):
         
         movie_review = []
         for review in reviews:
-            movie_review.append({'review_idx' : review.review_idx, "user_idx" : review.user_idx, 
+            movie_review.append({'review_idx' : review.review_idx, "user_id" : review.user_id, 
                                 "review_content" : review.review_content, "review_rating" : review.review_rating,
                                 "review_date": str(review.review_date)})
 
@@ -51,15 +51,15 @@ def detail(movie_idx):
             movie_idx = movie_idx
 
             # 유저가 리뷰를 작성한 적 없으면 저장
-            user_idx = User.query.filter(User.user_id == user_id).first()
-            same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
+            user_id = User.query.filter(User.user_id == user_id).first()
+            same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_id == user_id)).first()
             
             if not same_reviewer:
                 review_content = review['content']
                 review_rating = review['rating']
                 review_date = datetime.datetime.now(timezone('Asia/Seoul'))
 
-                new_review = Review(movie_idx, user_idx, review_content, review_rating, review_date)
+                new_review = Review(movie_idx, user_id, review_content, review_rating, review_date)
                 db.session.add(new_review)
                 db.session.commit()
                 print("리뷰가 저장되었습니다.")
@@ -83,8 +83,8 @@ def detail(movie_idx):
         review_rating = review_update['rating']
 
         # 유저가 작성한 리뷰 찾아 수정
-        user_idx = User.query.filter(User.user_id == user_id).first()
-        update_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
+        user_id = User.query.filter(User.user_id == user_id).first()
+        update_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_id == user_id)).first()
         update_review.review_content = review_content
         update_review.review_rating = review_rating 
         update_review.review_date = datetime.datetime.now(timezone('Asia/Seoul'))
@@ -100,6 +100,6 @@ def detail(movie_idx):
 
         # 유저가 작성한 리뷰 찾아 삭제
         user_idx = User.query.filter(User.user_id == user_id).first()
-        Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).delete()
+        Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_id == user_id)).delete()
         db.session.commit()
         return jsonify({"result":"success"})

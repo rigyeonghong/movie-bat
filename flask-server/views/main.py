@@ -16,15 +16,25 @@ def main():
     genres = []
     for g in genre:
         genres.append((str(g).replace("'", '').replace(',', '  ').replace('(', '').replace(')', '').split()))
-    print(genres) # [['다큐멘터리'], ['기타'], ['애니메이션'], ['애니메이션', '다큐멘터리'], ['드라마']]
+    # print(genres) # [['다큐멘터리'], ['기타'], ['애니메이션'], ['애니메이션', '다큐멘터리'], ['드라마']]
+    # print(len(genres))
+
+    # 장르칼람에 장르 몇개가 들어가있는지 보기.
+    max_genres = 0
+    for a in range(len(genres)):
+        # print(len(genres[a]))
+        if max_genres < len(genres[a]):
+            max_genres = len(genres[a])
+    # print(max_genres)
 
     # 장르가 2개 이상 묶여 있는 것들 뺀 리스트.
     one_genre = []
-    for a in range(len(genres)):
-        if len(genres[a]) < 2:
-            one_genre.append(str(genres[a]).replace('[', '').replace(']', '').replace("'",''))
+    for one in range(len(genres)):
+        if len(genres[one]) < 2:
+            one_genre.append(str(genres[one]).replace('[', '').replace(']', '').replace("'",''))
     # print(one_genre) # ['다큐멘터리', '기타', '애니메이션', '드라마']
-
+    # print(len(one_genre))
+    
     # DB(movies)에서 제목과 이미지를 가져온다.
     titles, images = [], []
     for movie in movies:
