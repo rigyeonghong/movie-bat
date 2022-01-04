@@ -1,0 +1,20 @@
+image: python:3.9
+
+variables:
+  WORK_DIR: .
+cache:
+  key: '$CI_COMMIT_REF_SLUG'
+stages:
+  - deploy
+Deploy:
+  stage: deploy
+  only: 
+    - full-feature
+  tages:
+    - team-13-runner
+  script:
+    - docker stop $(docker ps -aq) || true
+    - docker build -t flask-app .
+    - docker run -d -p 5000:5000 flask-app
+    - echo "test docker 13 team"
+      
