@@ -2,10 +2,39 @@ from flask import Blueprint, jsonify, request, session
 from models.favorite import *
 from models.movie import *
 
-bp = Blueprint("wishlist", __name__, url_prefix="/wishlist")
+bp = Blueprint("favorite", __name__, url_prefix="/favorite")
 
 @bp.route('/', methods=['GET', 'POST'])
 def wishlist():
+    # fe -> be로 데이터 받아옴.
+    wish = request.get_json()
+
+    # 받아온 데이터가 존재하면
+    if wish != None:
+        movie_idx = wish['movie_idx']
+        user_id = wish['user_id']
+        favorite_data = wish['date']
+
+        same_wish = Favorite.query.filter((Favorite.movie_idx == movie_idx) & (Favorite.user_id == user_id)).first()
+
+        # 이미 추가한 찜이 아니면
+        if not same_wish:
+            print('찜이 완료되었습니다.')
+            favorite_data = Favorite(movie_idx, user_id, favorite_data)
+
+            db.session.add(favorite_data)
+            db.session.commit()
+
+            return jsonify({"result":"success"})
+
+        # 추가되어 있으면 (삭제?)
+        else:
+            print("이미 찜리스트에 있습니다.")
+            return({
+                "result": "failed",
+                "content": "이미 찜목록에 존재합니다."
+                "status": "401"
+            })
 
     user_id = session['user_id']
     print(user_id)

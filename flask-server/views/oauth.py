@@ -18,7 +18,7 @@ def kakao_sign_in():
 def callback():
     code = request.args["code"]
     client_id = kakao_client_id
-    redirect_uri = "http://www.localhost:3333/oauth/kakao/callback"
+    redirect_uri = "http://www.localhost:5000/oauth/kakao/callback"
     kakao_oauthurl =  f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
 
     # 토큰서버로 데이터 "전송" -> python 내에서 rest api를 요청해야함
@@ -26,10 +26,10 @@ def callback():
     # 요청에 대해 받을 때의 형식
     token_json = token_request.json()
 
-    # error 발생 시
+    # error 발생 시 로그인 페이지로 redirect 
     if "error" in token_json:
         print("에러가 발생했습니다.")
-        return login_page
+        return {'message':'인증 실패'},404
 
     # 아닐 시 
     access_token = token_json["access_token"]
@@ -38,25 +38,25 @@ def callback():
     )
     data = profile_request.json()
 
+    print(data)
     kakao_account = data["kakao_account"]
     profile = kakao_account["profile"]
     nickname = profile["nickname"]
     email = kakao_account["email"]
     kakao_id = data["id"]
-    profile_img = profile['profile_image']
+    profile_img = profile['profile_image_url']
 
 
     # nickname이 db에 있는지 확인
-    same_nick = User.query.filter(User.user_nick == user_nick).first()
+    same_nick = User.query.filter(User.user_nick == nickname).first()
 
     if same_nick:
-        return ({"result":"failed",
-                    "content":"이미 존재하는 닉네임입니다.",
-                    "status":401})
-    else:
+        return {"result":"failed",
+                "content":"이미 존재하는 닉네임입니다."},401
 
+    else:
         # user 정보가 DB에 이미 있는지 확인
-        user = User.query.filter_by(id=email).first()
+        user = User.query.filter(User.user_id == email).first()
 
         # db에 존재하지 않은 user면 회원가입 진행
         if not user:
@@ -68,13 +68,16 @@ def callback():
         session['user'] = email
         session['nick'] = nickname
         session['profile'] = profile_img
+        session['pw'] = user_password
 
         # kakao로부터 받은 email, nick, profile 넘겨주고
         return jsonify({
             "result":"success",
+            "content":"카카오 인증 성공",
             "user_email": session['user'],
             "user_nick": session['nick'],
-            "user_profile": session['profile']
+            "user_profile": session['profile'],
+            "user_pw": session['pw']
         })
 
 # 카카오통해 받은 email, nick, profile + user 취향 받아서 db 저장
@@ -84,15 +87,22 @@ def user():
         fe_user = request.get_json()
         
         if fe_user != None:
+            user_nick = fe_user['nickname']
+            user_id = fe_user['email']
             user_genre = fe_user['genre']
             user_runningtime = fe_user['runningtime']
             user_region = fe_user['region']
+            user_pw = fe_user['pw']
 
-        # kakao 로는 전화번호를 받지않아서 null값으로 넣고 profile사진은 아직 model에서 init되있지 않기에 안넣음
-        new_user = User(user_id,user_password,user_nick, null, user_genre, user_runningtime, user_region)
-        db.session.add(new_user)
-        db.session.commit()
-        print("회원가입이 완료되었습니다.")
-        return jsonify({"result":"success"})
+            # kakao 로는 profile사진은 아직 model에서 init되있지 않기에 안넣음
+            user_pw_hash = generate_password_hash(user_pw)
+            new_user = User(user_id,user_pw_hash,user_nick, user_genre, user_runningtime, user_region)
+            db.session.add(new_user)
+            db.session.commit()
+            print("회원가입이 완료되었습니다.")
+            return {"result":"success",
+                    "content":"가입 성공!"}, 200
     
-    
+        else:
+            return {"result":"failed",
+                    "content":"잘못된 요청"}, 401
