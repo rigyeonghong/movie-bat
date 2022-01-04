@@ -25,7 +25,7 @@ def wishlist():
             db.session.add(favorite_data)
             db.session.commit()
 
-            return jsonify({"result":"success"})
+            return jsonify({"result":"success"}), 200
 
         # 추가되어 있으면 (삭제?)
         else:
@@ -33,7 +33,7 @@ def wishlist():
             return({
                 "result": "failed",
                 "content": "이미 찜목록에 존재합니다."
-            }), 401
+            }), 200
 
     user_id = session['user_id']
     print(user_id)
