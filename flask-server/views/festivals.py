@@ -18,12 +18,14 @@ def festivals(region):
             'festival_title': festival.festival_title, 
             'festival_link': festival.festival_link,
             'festival_region' : festival.festival_region,
-            'festival_src': festival.festival_src
+            'festival_src': festival.festival_src,
+            'festival_latlng': festival.festival_latlng,
+            'festival_latitude': festival.festival_latitude
         })
 
     festival_infos = dict(list(enumerate(festival_info, start=0)))
 
-    return festival_infos
+    return jsonify(festival_infos)
 
 @bp.route('/', methods=['GET'])
 def festival_list():
@@ -37,9 +39,11 @@ def festival_list():
             'festival_title': festival.festival_title, 
             'festival_link': festival.festival_link,
             'festival_region' : festival.festival_region,
-            'festival_src': festival.festival_src
+            'festival_src': festival.festival_src,
+            'festival_latlng': festival.festival_latlng,
+            'festival_latitude': festival.festival_latitude
         })
 
     festival_infos = dict(list(enumerate(festival_info, start=0)))
 
-    return festival_infos
+    return jsonify(festival_infos)
