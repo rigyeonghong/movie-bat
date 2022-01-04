@@ -3,6 +3,7 @@ from models.users import *
 from models.movie import *
 from models.review import *
 from models.users import *
+from models.favorite import *
 import json
 import datetime
 from pytz import timezone
@@ -49,7 +50,23 @@ def detail(movie_idx):
 
         movie_reviews = dict(list(enumerate(movie_review, start=0)))
 
-        return jsonify(movie_infos, movie_reviews)
+
+        favorite_user_id = session['user']
+        # favorite에서 movie_idx와 같은 영화를 가져온다.
+        favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_id == favorite_user_id).first()
+        
+        if favorite_info != None:
+            favorite_status = "doing"
+        else:
+            favorite_status = "stop"
+
+        print(favorite_status)
+
+        return jsonify(
+            movie_infos, 
+            movie_reviews,
+            {"dibs": favorite_status}
+            )
 
     
     # 댓글 추가 : 리뷰 테이블에 값 추가
