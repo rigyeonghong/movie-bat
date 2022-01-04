@@ -17,13 +17,15 @@ def detail(movie_idx):
         # movie_tb에서 해당하는 movie_idx의 정보를 가져온다.
         movie_info = Movie.query.filter(Movie.movie_idx == movie_idx).first()
 
-        movie_infos = {"movie_title" : movie_info.movie_title, "movie_year" : movie_info.movie_year, 
-                       "movie_film_festival" : movie_info.movie_film_festival, "movie_director" : movie_info.movie_director,
-                       "movie_field" : movie_info.movie_field, "movie_award" : movie_info.movie_award,
-                       "movie_genre" : movie_info.movie_genre, "movie_img_link" : movie_info.movie_img_link,
-                       "movie_rating": movie_info.movie_rating, "movie_runtime" : movie_info.movie_runtime, 
-                       "movie_prodYear" : movie_info.movie_prodYear, "movie_actors" : movie_info.movie_actors,
-                       "movie_plot" : movie_info.movie_plot, "movie_stills" : movie_info.movie_stills}
+        movie_infos = {
+            "movie_title" : movie_info.movie_title, "movie_year" : movie_info.movie_year, 
+            "movie_film_festival" : movie_info.movie_film_festival, "movie_director" : movie_info.movie_director,
+            "movie_field" : movie_info.movie_field, "movie_award" : movie_info.movie_award,
+            "movie_genre" : movie_info.movie_genre, "movie_img_link" : movie_info.movie_img_link,
+            "movie_rating": movie_info.movie_rating, "movie_runtime" : movie_info.movie_runtime, 
+            "movie_prodYear" : movie_info.movie_prodYear, "movie_actors" : movie_info.movie_actors,
+            "movie_plot" : movie_info.movie_plot, "movie_stills" : movie_info.movie_stills
+        }
 
         # reivew_tb 에서 해당하는 movie_idx의 모든 리뷰를 가져와서 최신순 정렬.
         reviews = Review.query.filter((Review.movie_idx == movie_idx) & (Review.is_deleted == 0)).order_by(Review.review_date.desc()).all()

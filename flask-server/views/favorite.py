@@ -33,8 +33,7 @@ def wishlist():
             return({
                 "result": "failed",
                 "content": "이미 찜목록에 존재합니다."
-                "status": "401"
-            })
+            }), 401
 
     user_id = session['user_id']
     print(user_id)
