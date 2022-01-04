@@ -4,7 +4,10 @@ class User(db.Model):
 
     __tablename__ = 'user_info_tb'
     
+<<<<<<< HEAD
     # user_idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+=======
+>>>>>>> be-rg
     user_id = db.Column(db.String(255), primary_key=True, nullable=False)
     user_password = db.Column(db.String(255), nullable=False)
     user_nick = db.Column(db.String(50), nullable=False, unique=True)
