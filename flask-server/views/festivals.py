@@ -16,7 +16,8 @@ def festivals(region):
     for festival in festivals:
         festival_info.append({'festival_title': festival.festival_title, 
                               'festival_link': festival.festival_link,
-                              'festival_region' : festival.festival_region})
+                              'festival_region' : festival.festival_region
+                              'festival_src': festival.festival_src})
 
     festival_infos = dict(list(enumerate(festival_info, start=0)))
 
