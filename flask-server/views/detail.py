@@ -53,7 +53,10 @@ def detail(movie_idx):
         # 로그인을 한 상태.
         if session['user'] != None:
             favorite_user_idx = session['user']
+<<<<<<< HEAD
             
+=======
+>>>>>>> cc96628 (detial페이지 user_idx 수정)
         # favorite에서 movie_idx와 같은 영화를 가져온다.
             favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_idx == favorite_user_idx).first()
         
