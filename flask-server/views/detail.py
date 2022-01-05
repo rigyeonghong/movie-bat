@@ -50,7 +50,7 @@ def detail(movie_idx):
 
         movie_reviews = dict(list(enumerate(movie_review, start=0)))
 
-
+        # 로그인을 한 상태.
         if session['user'] != None:
             favorite_user_idx = session['user']
         # favorite에서 movie_idx와 같은 영화를 가져온다.
