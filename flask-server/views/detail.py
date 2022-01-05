@@ -42,7 +42,7 @@ def detail(movie_idx):
         for review in reviews:
             movie_review.append({
                 'review_idx' : review.review_idx, 
-                "user_id" : review.user_id, 
+                "user_idx" : review.user_idx, 
                 "review_content" : review.review_content, 
                 "review_rating" : review.review_rating,
                 "review_date": str(review.review_date)
@@ -52,9 +52,9 @@ def detail(movie_idx):
 
 
         if session['user'] != None:
-            favorite_user_id = session['user']
+            favorite_user_idx = session['user']
         # favorite에서 movie_idx와 같은 영화를 가져온다.
-            favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_id == favorite_user_id).first()
+            favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_idx == favorite_user_idx).first()
         
             if favorite_info != None:
                 favorite_status = "doing"
@@ -131,6 +131,6 @@ def detail(movie_idx):
 
         # 유저가 작성한 리뷰 찾아 삭제
         user_idx = User.query.filter(User.user_idx == user_idx).first()
-        Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_id == user_id)).delete()
+        Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).delete()
         db.session.commit()
         return jsonify({"result":"success"})
