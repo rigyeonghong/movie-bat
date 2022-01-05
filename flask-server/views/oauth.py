@@ -65,10 +65,12 @@ def callback():
             user_nick = nickname
             user_profile = profile_img
         
+        user_pw_hash = generate_password_hash(user_password)
+        
         session['user'] = email
         session['nick'] = nickname
         session['profile'] = profile_img
-        session['pw'] = user_password
+        session['pw'] = user_pw_hash
 
         # kakao로부터 받은 email, nick, profile 넘겨주고
         return jsonify({
@@ -93,15 +95,21 @@ def user():
             user_runningtime = fe_user['runningtime']
             user_region = fe_user['region']
             user_pw = fe_user['pw']
+            user_profile = fe_user['profile']
 
             # kakao 로는 profile사진은 아직 model에서 init되있지 않기에 안넣음
-            user_pw_hash = generate_password_hash(user_pw)
-            new_user = User(user_id,user_pw_hash,user_nick, user_genre, user_runningtime, user_region)
+            new_user = User(user_id,user_pw,user_nick, user_genre, user_runningtime, user_region)
             db.session.add(new_user)
             db.session.commit()
+
+            # db에서 생성된 user_idx 가져오기
+            user_saved = User.query.filter(User.user_id == user_id).first()
+            user_idx = user_saved.user_idx
+
             print("회원가입이 완료되었습니다.")
-            return {"result":"success",
-                    "content":"가입 성공!"}, 200
+            return jsonify({"result":"success",
+                            "content":"가입 성공!",
+                            "user_idx": user_idx}, 200)
     
         else:
             return {"result":"failed",

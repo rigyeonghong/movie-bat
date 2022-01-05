@@ -12,15 +12,15 @@ def wishlist():
     # 받아온 데이터가 존재하면
     if wish != None:
         movie_idx = wish['movie_idx']
-        user_id = wish['user_id']
+        user_idx = wish['user_idx']
         favorite_data = wish['date']
 
-        same_wish = Favorite.query.filter((Favorite.movie_idx == movie_idx) & (Favorite.user_id == user_id)).first()
+        same_wish = Favorite.query.filter((Favorite.movie_idx == movie_idx) & (Favorite.user_idx == user_idx)).first()
 
         # 이미 추가한 찜이 아니면
         if not same_wish:
             print('찜이 완료되었습니다.')
-            favorite_data = Favorite(movie_idx, user_id, favorite_data)
+            favorite_data = Favorite(movie_idx, user_idx, favorite_data)
 
             db.session.add(favorite_data)
             db.session.commit()
@@ -35,12 +35,12 @@ def wishlist():
                 "content": "찜 목록 삭제!"
             }), 200
 
-    user_id = session['user_id']
-    print(user_id)
+    user_idx = session['user_idx']
+    print(user_idx)
     # user_idx = 1
     
     # db에서 찜 데이터 가져옴.
-    wish_list = db.session.query(Movie.movie_idx, Movie.movie_img_link, Movie.movie_title, Favorite.favorite_idx, Favorite.movie_idx, Favorite.user_id, Favorite.favorite_date).filter(Movie.movie_idx == Favorite.movie_idx, Favorite.user_id == user_id).order_by(Favorite.favorite_date)
+    wish_list = db.session.query(Movie.movie_idx, Movie.movie_img_link, Movie.movie_title, Favorite.favorite_idx, Favorite.movie_idx, Favorite.user_idx, Favorite.favorite_date).filter(Movie.movie_idx == Favorite.movie_idx, Favorite.user_idx == user_idx).order_by(Favorite.favorite_date)
     
     wish_data = []
     for wish in wish_list:
@@ -49,7 +49,7 @@ def wishlist():
             'movie_idx': wish.movie_idx,
             'movie_title': wish.movie_title,
             'movie_img_link': wish.movie_img_link,
-            'user_id': wish.user_id,
+            'user_idx': wish.user_idx,
             'favorite_date': wish.favorite_date
         })
 
