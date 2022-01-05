@@ -19,7 +19,7 @@ cur = con.cursor()
 
 with open('./static/festival.csv', encoding='UTF-8') as file:
     reader = csv.DictReader(file, delimiter=',')
-    result = [(w['title'], w['link'], w['img_src'], w['region'], w['latlng'], w['latitude']) for w in reader]
+    result = [(w['title'], w['link'], w['region'], w['img_src'], w['latlng'], w['latitude']) for w in reader]
 
 cur.executemany("INSERT INTO festival_tb(festival_title, festival_link, festival_region, festival_src, festival_latlng, festival_latitude) VALUES (?, ?, ?, ?, ?, ?)", result)
 

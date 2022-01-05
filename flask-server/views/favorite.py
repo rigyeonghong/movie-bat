@@ -29,10 +29,10 @@ def wishlist():
 
         # 추가되어 있으면 (삭제?)
         else:
-            print("이미 찜리스트에 있습니다.")
+            print("찜리스트 삭제.")
             return({
-                "result": "failed",
-                "content": "이미 찜목록에 존재합니다."
+                "result": "delete",
+                "content": "찜 목록 삭제!"
             }), 200
 
     user_id = session['user_id']
