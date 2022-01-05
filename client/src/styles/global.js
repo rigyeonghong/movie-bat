@@ -5,6 +5,10 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;  
   }
+  a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+    color: white;
+  }
   body {
     box-sizing: border-box;
     background-color: #141414;

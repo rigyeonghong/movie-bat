@@ -50,9 +50,13 @@ def detail(movie_idx):
 
         movie_reviews = dict(list(enumerate(movie_review, start=0)))
 
-
+        # 로그인을 한 상태.
         if session['user'] != None:
             favorite_user_idx = session['user']
+<<<<<<< HEAD
+=======
+            
+>>>>>>> full-feature
         # favorite에서 movie_idx와 같은 영화를 가져온다.
             favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_idx == favorite_user_idx).first()
         
@@ -62,7 +66,10 @@ def detail(movie_idx):
                 favorite_status = "stop"
 
             print(favorite_status)
+        else :
+            favorite_status = "stop"
 
+        print("영화정보, 리뷰 나타내기")
         return jsonify(
             movie_infos, 
             movie_reviews,
@@ -79,15 +86,19 @@ def detail(movie_idx):
         # 리뷰테이블에 새로운 리뷰 저장
         if review != None:
             user_idx = review['user_idx']
-            movie_idx = movie_idx
 
             # 유저가 리뷰를 작성한 적 없으면 저장
-            user_idx = User.query.filter(User.user_idx == user_idx).first()
             same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
             
+<<<<<<< HEAD
             if not same_reviewer:
                 review_content = review['review_content']
                 review_rating = review['rating']
+=======
+            if same_reviewer == None:
+                review_content = review['review_content']
+                # review_rating = review['rating']
+>>>>>>> full-feature
                 review_date = datetime.datetime.now(timezone('Asia/Seoul'))
 
                 new_review = Review(movie_idx, user_idx, review_content, review_date)
@@ -98,6 +109,7 @@ def detail(movie_idx):
 
             # 유저가 리뷰를 작성한 적 있으면
             else:
+                print("리뷰가 저장 안돼요.")
                 return jsonify({"result":"failed"})
 
         # fe에서 none 값을 보내줬다면
@@ -110,7 +122,7 @@ def detail(movie_idx):
 
         user_idx = review_update['user_idx']
         movie_idx = movie_idx
-        review_content = review_update['content']
+        review_content = review_update['review_content']
         review_rating = review_update['rating']
 
         # 유저가 작성한 리뷰 찾아 수정
@@ -127,7 +139,7 @@ def detail(movie_idx):
         review_delete = request.get_json()
         
         user_idx = review_delete['user_idx'] 
-        movie_idx = movie_idx
+        # movie_idx = movie_idx
 
         # 유저가 작성한 리뷰 찾아 삭제
         user_idx = User.query.filter(User.user_idx == user_idx).first()

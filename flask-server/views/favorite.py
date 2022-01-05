@@ -31,6 +31,10 @@ def wishlist():
         # 추가되어 있으면 삭제
         else:
             print("찜 리스트에서 삭제.")
+            
+            Favorite.query.filter((Favorite.movie_idx == movie_idx) & (Favorite.user_idx == user_idx)).delete()
+            db.session.commit()
+            
             return {"result": "delete",
                     "content": "찜 취소!"
                     }, 200
