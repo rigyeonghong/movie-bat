@@ -4,7 +4,7 @@ from models.movie import *
 
 bp = Blueprint("favorite", __name__, url_prefix="/favorite")
 
-@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/', methods=['POST'])
 def wishlist():
     # fe -> be로 데이터 받아옴.
     wish = request.get_json()
@@ -25,22 +25,25 @@ def wishlist():
             db.session.add(favorite_data)
             db.session.commit()
 
-            return jsonify({"result":"success"}), 200
+            return {"result":"success",
+                    "content":"찜 완료"}, 200
 
-        # 추가되어 있으면 (삭제?)
+        # 추가되어 있으면 삭제
         else:
-            print("찜리스트 삭제.")
-            return({
-                "result": "delete",
-                "content": "찜 목록 삭제!"
-            }), 200
+            print("찜 리스트에서 삭제.")
+            return {"result": "delete",
+                    "content": "찜 취소!"
+                    }, 200
 
-    user_idx = session['user_idx']
-    print(user_idx)
-    # user_idx = 1
-    
+
+
+@bp.route('/<int:user_idx>', methods=['GET'])
+def detail(user_idx):
+
     # db에서 찜 데이터 가져옴.
-    wish_list = db.session.query(Movie.movie_idx, Movie.movie_img_link, Movie.movie_title, Favorite.favorite_idx, Favorite.movie_idx, Favorite.user_idx, Favorite.favorite_date).filter(Movie.movie_idx == Favorite.movie_idx, Favorite.user_idx == user_idx).order_by(Favorite.favorite_date)
+    wish_list = db.session.query(Movie.movie_idx, Movie.movie_img_link, Movie.movie_title, 
+        Favorite.favorite_idx, Favorite.movie_idx, Favorite.user_idx, Favorite.favorite_date).filter(
+        Movie.movie_idx == Favorite.movie_idx, Favorite.user_idx == user_idx).order_by(Favorite.favorite_date)
     
     wish_data = []
     for wish in wish_list:
