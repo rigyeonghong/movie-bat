@@ -54,7 +54,7 @@ def detail(movie_idx):
         if session['user'] != None:
             favorite_user_id = session['user']
         # favorite에서 movie_idx와 같은 영화를 가져온다.
-            favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_id == favorite_user_id).first()
+            favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_idx == favorite_user_id).first()
         
             if favorite_info != None:
                 favorite_status = "doing"
