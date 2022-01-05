@@ -8,3 +8,5 @@ class Festival(db.Model):
     festival_link = db.Column(db.String(200))
     festival_region = db.Column(db.String(50))
     festival_src = db.Column(db.String(100))
+    festival_latlng = db.Column(db.String(100))
+    festival_latitude = db.Column(db.String(100))

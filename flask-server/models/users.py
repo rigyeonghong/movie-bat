@@ -3,9 +3,11 @@ from db_connect import db
 class User(db.Model):
 
     __tablename__ = 'user_info_tb'
+
+    # seq = Sequence('user_info_tb_user_idx_seq', start=100, increment=1)
     
-    # user_idx = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    user_id = db.Column(db.String(255), primary_key=True, nullable=False)
+    user_idx = db.Column(db.Integer, nullable=False, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.String(255), nullable=False)
     user_password = db.Column(db.String(255), nullable=False)
     user_nick = db.Column(db.String(50), nullable=False, unique=True)
     user_number = db.Column(db.String(30), nullable=True)
