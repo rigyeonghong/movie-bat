@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Nav from "../components/Navigation";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import {
   Background,
   LikeBtnWrapper,
@@ -21,22 +22,25 @@ import ReviewItem from "../components/Review/ReviewItem";
 import ReviewListBtn from "../components/Review/ReviewListBtn";
 import WriteReview from "../components/Review/WriteReview";
 import RatingStar from "../components/Review/RatingStar";
-import StarRatingComponent from "react-star-rating-component";
+// import StarRatingComponent from "react-star-rating-component";
 function MovieDetail() {
   let params = useParams();
   const [rating, setRating] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [curReviewPage, setCurReviewPage] = useState(0);
+  const [movieInfo, setMovieInfo] = useState([]);
+  const [stillCuts, setStillCuts] = useState([]);
+  const [reviews, setReviews] = useState([]);
   let reviewList = [];
   for (let i = (curReviewPage + 1) * 5 - 5; i < (curReviewPage + 1) * 5; i++) {
-    if (i > reviewData.length - 1) break;
+    if (i > Object.keys(reviews) - 1 || Object.keys(reviews).length == 0) break;
     reviewList.push(
       <ReviewItem
-        nickName={reviewData[i].user_nick}
+        nickName={"reviewData[i].user_nick"}
         idx={reviewData[i].review_idx}
-        content={reviewData[i].content}
-        rating={reviewData[i].rating}
-        date={reviewData[i].date}
+        content={reviewData[i].review_content}
+        rating={reviewData[i].review_rating}
+        date={reviewData[i].review_date}
       />
     );
   }
@@ -46,6 +50,10 @@ function MovieDetail() {
       const response = await axios
         .get(`/movies/detail/${movieIndex}`)
         .then((res) => res.data);
+      setMovieInfo(response[0]);
+      setReviews(response[1]);
+      let stills = response[0].movie_stills.split(",");
+      setStillCuts(stills);
     };
     call();
   }, []);
@@ -55,19 +63,24 @@ function MovieDetail() {
       <MovieInfoContainer>
         <FlexContainer>
           <MovieDetailImgWrapper>
-            <MovieDetailImg src={movieDetailInfo.imageurl} />
+            <MovieDetailImg src={movieInfo.movie_img_link} />
           </MovieDetailImgWrapper>
           <div>
-            <MovieDetailTitle>{movieDetailInfo.title}</MovieDetailTitle>
+            <MovieDetailTitle>
+              {movieInfo.movie_title}
+              {`(${movieInfo.movie_year})`}
+            </MovieDetailTitle>
             <MovieDetailMainInfo>
-              {movieDetailInfo.genre}·{movieDetailInfo.runningtime}분·
-              {movieDetailInfo.productionYear}
+              <b>장르</b> {movieInfo.movie_genre}
             </MovieDetailMainInfo>
             <MovieDetailMainInfo>
-              감독 {movieDetailInfo.director}
+              <b>상영시간</b> {movieInfo.movie_runtime}분
             </MovieDetailMainInfo>
             <MovieDetailMainInfo>
-              배우 {movieDetailInfo.actor}
+              <b>감독</b> {movieInfo.movie_director}
+            </MovieDetailMainInfo>
+            <MovieDetailMainInfo>
+              <b>배우</b> {movieInfo.movie_actors}
             </MovieDetailMainInfo>
           </div>
           <LikeBtnWrapper>
@@ -84,12 +97,16 @@ function MovieDetail() {
 
         <MovieDetailWrapper>
           <MovieDetailIndex>줄거리</MovieDetailIndex>
-          <p>{movieDetailInfo.plot}</p>
+          <p>{movieInfo.movie_plot}</p>
         </MovieDetailWrapper>
 
         <MovieDetailWrapper>
           <MovieDetailIndex>트레일러</MovieDetailIndex>
-          <div>여기는 예고 이미지 자리</div>
+          <div>
+            {stillCuts.map((item) => (
+              <img src={item} />
+            ))}
+          </div>
         </MovieDetailWrapper>
         <MovieDetailWrapper>
           <MovieDetailIndex>리뷰</MovieDetailIndex>
@@ -107,12 +124,12 @@ function MovieDetail() {
           <ModalContainer onClick={(e) => e.stopPropagation()}>
             <div>
               <h2>Rating from state: {rating}</h2>
-              <StarRatingComponent
+              {/* <StarRatingComponent
                 name="rating"
                 starCount={10}
                 value={rating}
                 onStarClick={(e) => setRating(e)}
-              />
+              /> */}
             </div>
             <WriteReview />
             <Button
