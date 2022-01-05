@@ -1,19 +1,25 @@
 import React from "react";
-import Star from "./Star";
+import { Button } from "react-bootstrap";
 import { userState } from "../../state";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-function ReviewItem({ nickName, idx, content, rating, date }) {
+function ReviewItem({
+  content,
+  userIdx,
+  reviewIdx,
+  date,
+  editReview,
+  deleteReview,
+}) {
   const user = useRecoilValue(userState);
   return (
     <>
-      <Star rating={rating} />
-      <span>{rating}</span>
-      <br />
-      <span>{nickName}</span> <span>{idx}</span>
       <div>{content}</div>
       <div>{date}</div>
-      {user[1] == nickName ? (
-        <button onClick={() => alert("삭제하지마요.........")}>삭제</button>
+      {user["userIdx"] == userIdx ? (
+        <>
+          <Button onClick={() => editReview()}>수정</Button>
+          <Button onClick={() => deleteReview()}>삭제</Button>
+        </>
       ) : (
         <></>
       )}

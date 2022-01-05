@@ -1,12 +1,16 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { ReactComponent as HalfStar } from "../../assets/star-half.svg";
-function WriteReview() {
+function WriteReview({ setReviewContent }) {
   return (
     <>
       <Form>
         <Form.Group className="mb-3" controlId="writeContent">
-          <Form.Control as="textarea" rows={3} />
+          <Form.Control
+            as="textarea"
+            rows={3}
+            onChange={(e) => setReviewContent(e.target.value)}
+          />
         </Form.Group>
       </Form>
     </>
