@@ -14,11 +14,10 @@ import GlobalStyle from "./styles/global";
 import KakaoLogin from "./routes/KakaoLogin";
 import PageNotFound from "./routes/PageNotFound";
 import MovieInfo from "./routes/MovieInfo";
-import { useRecoilValue } from "recoil";
-import { userState } from "./state";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("recoil-persist"));
+  console.log(user);
   return (
     <>
       <RecoilRoot>
@@ -27,7 +26,9 @@ function App() {
           <Routes>
             <Route
               path="/movies"
-              element={user["userState"][0] ? <Movies /> : <Login />}
+              element={
+                user["userState"]["userIdx"] == null ? <Login /> : <Movies />
+              }
             />
             <Route path="like" element={<Like />} />
             <Route path="/auth/signin" element={<Login />} />
@@ -36,12 +37,16 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route
               path="/festival"
-              element={user["userState"][0] ? <Festival /> : <Login />}
+              element={
+                user["userState"]["userIdx"] == null ? <Login /> : <Festival />
+              }
             />
             <Route path="auth/kakao" element={<KakaoLogin />} />
             <Route
               path="movies/detail/:idx"
-              element={user["userState"][0] ? <MovieInfo /> : <Login />}
+              element={
+                user["userState"]["userIdx"] == null ? <Login /> : <MovieInfo />
+              }
             />
             <Route element={<PageNotFound />} />
           </Routes>

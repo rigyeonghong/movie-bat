@@ -16,7 +16,7 @@ function Festival() {
   const [festivals, setFestivals] = useState([]);
   const [region, setRegion] = useState("서울");
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [curIndex, setCurIndex] = useState(null);
+  const [curIndex, setCurIndex] = useState(0);
   let festivalsList = [];
   const slideRef = useRef(null);
   const nextSlide = () => {
@@ -46,12 +46,13 @@ function Festival() {
       setFestivals(response);
     };
     call();
-    // console.log(festivals[curIndex]["festival_title"]);
+    console.log(festivals[curIndex]);
   }, [region]);
   for (let i = 0; i < Object.keys(festivals).length; i++) {
+    console.log(festivals);
     festivalsList.push(
       <FesSlider
-        url={festivals[i]["festival_link"]}
+        src={festivals[i]["festival_src"]}
         title={festivals[i]["festival_title"]}
         index={i}
         setCurIndex={setCurIndex}

@@ -1,6 +1,10 @@
 import React from "react";
 import Nav from "../components/Navigation";
+import { useRecoilValue } from "recoil";
+import { userState } from "../state";
 function Home() {
+  const user = useRecoilValue(userState);
+  console.log(user);
   return (
     <>
       <Nav />

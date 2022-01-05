@@ -13,7 +13,7 @@ function SignWrapper() {
   const navigate = useNavigate();
   return (
     <>
-      {user[0] === null && user[1] === null ? (
+      {user["userIdx"] == null ? (
         <Button variant="primary" href="/auth/signin">
           로그인 해!
         </Button>
@@ -21,7 +21,7 @@ function SignWrapper() {
         <>
           <Dropdown>
             <Dropdown.Toggle variant="success">
-              {user[1]}님! 안녕하세요:)
+              {user["userNickname"]}님! 안녕하세요:)
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item style={{ color: "black" }} href="/like">

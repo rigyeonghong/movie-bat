@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Nav from "../components/Navigation";
-import { Button, Dropdown, DropdownButton } from "react-bootstrap";
+import { Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   Background,
@@ -21,22 +21,29 @@ import { useParams } from "react-router-dom";
 import ReviewItem from "../components/Review/ReviewItem";
 import ReviewListBtn from "../components/Review/ReviewListBtn";
 import WriteReview from "../components/Review/WriteReview";
-import RatingStar from "../components/Review/RatingStar";
-// import StarRatingComponent from "react-star-rating-component";
+import { useRecoilValue } from "recoil";
+import { userState } from "../state";
 function MovieDetail() {
   let params = useParams();
+  const movieIndex = params.idx;
+  const user = useRecoilValue(userState);
+  let date = new Date();
   const [rating, setRating] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [curReviewPage, setCurReviewPage] = useState(0);
   const [movieInfo, setMovieInfo] = useState([]);
   const [stillCuts, setStillCuts] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [dibs, setDibs] = useState(null);
+  const [likeMovie, setLikeMovie] = useState(null);
+  const [reviewContent, setReviewContent] = useState("");
+  console.log(likeMovie);
   let reviewList = [];
   for (let i = (curReviewPage + 1) * 5 - 5; i < (curReviewPage + 1) * 5; i++) {
     if (i > Object.keys(reviews) - 1 || Object.keys(reviews).length == 0) break;
     reviewList.push(
       <ReviewItem
-        nickName={"reviewData[i].user_nick"}
+        nickName={reviewData[i].user_nick}
         idx={reviewData[i].review_idx}
         content={reviewData[i].review_content}
         rating={reviewData[i].review_rating}
@@ -44,14 +51,38 @@ function MovieDetail() {
       />
     );
   }
+  const postDibs = async () => {
+    const response = await axios
+      .post("/favorite/", {
+        movie_idx: movieIndex,
+        user_idx: user["userIdx"],
+        date:
+          date.getFullYear() +
+          date.getMonth() +
+          date.getDate() +
+          date.getHours() +
+          date.getMinutes() +
+          " ",
+      })
+      .then((res) => res.data);
+  };
+  const postReview = async () => {
+    const response = await axios
+      .post(`/movies/detail/${movieIndex}`, {
+        movie_idx: movieIndex,
+        user_idx: user["userIdx"],
+        review_content: reviewContent,
+      })
+      .then((res) => res.data);
+  };
   useEffect(() => {
-    const movieIndex = params.idx;
     const call = async () => {
       const response = await axios
         .get(`/movies/detail/${movieIndex}`)
         .then((res) => res.data);
       setMovieInfo(response[0]);
       setReviews(response[1]);
+      setDibs(response[2]["dibs"] == "doing" ? true : false);
       let stills = response[0].movie_stills.split(",");
       setStillCuts(stills);
     };
@@ -85,9 +116,8 @@ function MovieDetail() {
           </div>
           <LikeBtnWrapper>
             <Button
-              // TODO 찜 되어 있는지 받아오기
-              variant={1 ? "danger" : "outline-danger"}
-              onClick={() => alert("아구찜")}
+              variant={dibs ? "outline-danger" : "danger"}
+              onClick={() => postDibs()}
             >
               찜
             </Button>
@@ -123,18 +153,12 @@ function MovieDetail() {
         <Background onClick={() => setIsOpen(false)}>
           <ModalContainer onClick={(e) => e.stopPropagation()}>
             <div>
-              <h2>Rating from state: {rating}</h2>
-              {/* <StarRatingComponent
-                name="rating"
-                starCount={10}
-                value={rating}
-                onStarClick={(e) => setRating(e)}
-              /> */}
+              <h3>리뷰 작성</h3>
             </div>
-            <WriteReview />
+            <WriteReview setReviewContent={setReviewContent} />
             <Button
               onClick={() => {
-                alert("제출 완료!");
+                postReview();
                 setIsOpen(false);
               }}
             >

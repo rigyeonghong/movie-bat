@@ -10,10 +10,10 @@ import {
   SlideMoviePoster,
   SlideMovieTitle,
 } from "../../styles/theme";
-function FesSlide({ title, index, setCurIndex }) {
+function FesSlide({ title, index, setCurIndex, src }) {
   return (
     <SlideItemWrapper onClick={() => setCurIndex(index)}>
-      <SlideMoviePoster src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDA2MDhfMjYz%2FMDAxNTkxNjIyMDQ4OTg4.IRZK7PwKCJ_AhSIwYTm4yh-r0TO_hA1RiNJ-G5DpUIgg.TOaqU-Shf2vrs7qrCyCrYWtJ1q9YKZwcIbvhh943gX4g.JPEG.kueric12%2FNAVER-lOGO.jpg" />
+      <SlideMoviePoster src={src} />
       <SlideMovieTitle>{title}</SlideMovieTitle>
     </SlideItemWrapper>
   );
