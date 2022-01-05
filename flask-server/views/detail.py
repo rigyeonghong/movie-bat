@@ -50,13 +50,9 @@ def detail(movie_idx):
 
         movie_reviews = dict(list(enumerate(movie_review, start=0)))
 
-        # 로그인을 한 상태.
+
         if session['user'] != None:
             favorite_user_idx = session['user']
-<<<<<<< HEAD
-=======
-            
->>>>>>> full-feature
         # favorite에서 movie_idx와 같은 영화를 가져온다.
             favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_idx == favorite_user_idx).first()
         
@@ -66,10 +62,7 @@ def detail(movie_idx):
                 favorite_status = "stop"
 
             print(favorite_status)
-        else :
-            favorite_status = "stop"
 
-        print("영화정보, 리뷰 나타내기")
         return jsonify(
             movie_infos, 
             movie_reviews,
@@ -86,31 +79,26 @@ def detail(movie_idx):
         # 리뷰테이블에 새로운 리뷰 저장
         if review != None:
             user_idx = review['user_idx']
+            movie_idx = movie_idx
 
             # 유저가 리뷰를 작성한 적 없으면 저장
             same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
             
-<<<<<<< HEAD
             if not same_reviewer:
                 review_content = review['review_content']
-                review_rating = review['rating']
-=======
-            if same_reviewer == None:
-                review_content = review['review_content']
-                # review_rating = review['rating']
->>>>>>> full-feature
                 review_date = datetime.datetime.now(timezone('Asia/Seoul'))
 
                 new_review = Review(movie_idx, user_idx, review_content, review_date)
                 db.session.add(new_review)
                 db.session.commit()
                 print("리뷰가 저장되었습니다.")
-                return jsonify({"result":"success"})
+                return {"result":"success",
+                        "content":"리뷰 작성 완료"}, 200
 
             # 유저가 리뷰를 작성한 적 있으면
             else:
-                print("리뷰가 저장 안돼요.")
-                return jsonify({"result":"failed"})
+                return {"result":"failed",
+                        "content":"이미 작성되어있습니다."}, 401
 
         # fe에서 none 값을 보내줬다면
         return jsonify({"result":"fail"})
@@ -123,26 +111,26 @@ def detail(movie_idx):
         user_idx = review_update['user_idx']
         movie_idx = movie_idx
         review_content = review_update['review_content']
-        review_rating = review_update['rating']
 
         # 유저가 작성한 리뷰 찾아 수정
         user_idx = User.query.filter(User.user_idx == user_idx).first()
         update_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
         update_review.review_content = review_content
-        update_review.review_rating = review_rating 
         update_review.review_date = datetime.datetime.now(timezone('Asia/Seoul'))
         db.session.commit()
-        return jsonify({"result":"success"})
+        return {"result":"success",
+                "content":"리뷰 수정 완료"}, 200
 
     # 댓글 삭제
     else:
         review_delete = request.get_json()
-        
+
+        print(review_delete)
         user_idx = review_delete['user_idx'] 
-        # movie_idx = movie_idx
+        movie_idx = movie_idx
 
         # 유저가 작성한 리뷰 찾아 삭제
-        user_idx = User.query.filter(User.user_idx == user_idx).first()
         Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).delete()
         db.session.commit()
-        return jsonify({"result":"success"})
+        return {"result":"success",
+                "content":"리뷰 삭제 완료"}, 200
