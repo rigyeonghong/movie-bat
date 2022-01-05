@@ -2,6 +2,7 @@ from flask import Blueprint, request, session, flash, redirect, url_for, g, json
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.users import *
 
+
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 #회원가입 signup
@@ -39,19 +40,27 @@ def signup():
                 db.session.add(new_user)
                 db.session.commit()
 
-                session['user_id'] = user_id
+                # db에서 생성된 user_idx 가져오기
+                user_saved = User.query.filter(User.user_id == user_id).first()
+                user_idx = user_saved.user_idx
+
+                # user식별값 user_idx와 fe에서 띄울 usr_nick 
+                session['user_idx'] = user_idx
                 session['nickname'] = user_nick
 
                 print(" 가입이 완료되었습니다. ")
-                return jsonify({"result":"success"})
+                return jsonify({"result":"success",
+                                "content":"가입 성공!",
+                                "user_idx": user_idx}, 200)
             else:
                 # 사용자 정보가 이미 있다면, 회원가입 페이지로
                 print(" 이미 존재하는 사용자입니다. ")
-                return ({
-                    "result":"failed",
-                    "content":"이미 존재하는 아이디입니다."
-                    }), 401
+                return {"result":"failed",
+                        "content":"이미 존재하는 아이디입니다."
+                        }, 401
+
     return 'signup page'
+
 
 @bp.route('/signin', methods=['POST', 'GET'])
 def login():
@@ -73,19 +82,20 @@ def login():
         elif not check_password_hash(same_user.user_password, user_pw):
             print('비밀번호를 확인해주세요.')
 
-            return jsonify({"result": "fail"})
+            return {"result": "fail",
+                    "content":"비밀번호를 확인해주세요"}, 401
             
         else:
             session.clear()
-            # session에 user_id, user_nick 등록
-            session['user'] = user_id
+            # session에 user_idx, user_nick 등록
+            session['user'] = same_user.user_idx
             session['nick'] = same_user.user_nick
 
             print('login 성공')
 
             return jsonify({
                 "result":"success",
-                "user_email": session['user'],
+                "user_idx": session['user'],
                 "user_nick": session['nick'],
                 "user_genre": same_user.user_genre,
                 "user_runningtime": same_user.user_runningtime,
