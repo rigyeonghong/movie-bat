@@ -86,11 +86,11 @@ def detail(movie_idx):
             same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
             
             if not same_reviewer:
-                review_content = review['content']
+                review_content = review['review_content']
                 review_rating = review['rating']
                 review_date = datetime.datetime.now(timezone('Asia/Seoul'))
 
-                new_review = Review(movie_idx, user_idx, review_content, review_rating, review_date)
+                new_review = Review(movie_idx, user_idx, review_content, review_date)
                 db.session.add(new_review)
                 db.session.commit()
                 print("리뷰가 저장되었습니다.")
