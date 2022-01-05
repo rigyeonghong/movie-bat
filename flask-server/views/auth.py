@@ -88,7 +88,7 @@ def login():
                 "user_email": session['user'],
                 "user_nick": session['nick'],
                 "user_genre": same_user.user_genre,
-                "user_runningtime": same_user.user_runnigtime,
+                "user_runningtime": same_user.user_runningtime,
                 "user_region": same_user.user_region
             })
 
