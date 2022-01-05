@@ -90,9 +90,15 @@ def detail(movie_idx):
             # 유저가 리뷰를 작성한 적 없으면 저장
             same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
             
+<<<<<<< HEAD
             if same_reviewer == None:
                 review_content = review['review_content']
                 # review_rating = review['rating']
+=======
+            if not same_reviewer:
+                review_content = review['review_content']
+                review_rating = review['rating']
+>>>>>>> 5492881 (review 수정)
                 review_date = datetime.datetime.now(timezone('Asia/Seoul'))
 
                 new_review = Review(movie_idx, user_idx, review_content, review_date)
