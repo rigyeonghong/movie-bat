@@ -40,7 +40,7 @@ def nick():
     else:
         print(" 닉네임 중복 확인. ")
         return {"result":"success",
-                "content":"닉네임 중복 확인"}, 200)\
+                "content":"닉네임 중복 확인"}, 200
 
 
 #회원가입 signup
