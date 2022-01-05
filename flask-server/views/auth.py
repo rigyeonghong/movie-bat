@@ -7,7 +7,7 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 @bp.route('/signup/id', methods=['POST'])
-def signup():
+def email():
     user = request.get_json()
     user_id = user['email']
 
@@ -21,8 +21,8 @@ def signup():
 
     else:
         print(" 아이디 중복 확인. ")
-        return jsonify({"result":"success",
-                        "content":"아이디 중복 확인"}, 200)
+        return {"result":"success",
+                "content":"아이디 중복 확인"}, 200
 
 
 @bp.route('/signup/nick', methods=['POST'])
@@ -34,15 +34,13 @@ def nick():
     same_nick = User.query.filter(User.user_nick == user_nick).first()
 
     if same_nick:
-        return ({
-            "result":"failed",
-            "content":"이미 존재하는 닉네임입니다."
-        }), 401
+        return {"result":"failed",
+            "content":"이미 존재하는 닉네임입니다."}, 401
     
     else:
         print(" 닉네임 중복 확인. ")
-        return jsonify({"result":"success",
-                        "content":"닉네임 중복 확인"}, 200)
+        return {"result":"success",
+                "content":"닉네임 중복 확인"}, 200)\
 
 
 #회원가입 signup
@@ -53,9 +51,9 @@ def signup():
     user = request.get_json()
 
     if user != None :
-        user_nick = user['nickname']
         user_id = user['email']
         user_pw = user['password']
+        user_nick = user['nickname']
         user_number = user['phoneNum']
         user_genre = user['genre']
         user_runningtime = user['runningtime']
