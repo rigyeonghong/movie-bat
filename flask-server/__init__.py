@@ -28,7 +28,7 @@ Migrate().init_app(app, db)
 app.register_blueprint(auth.bp)
 app.register_blueprint(oauth.bp)
 app.register_blueprint(main.bp)
-app.register_blueprint(wishlist.bp)
+app.register_blueprint(favorite.bp)
 app.register_blueprint(detail.bp)
 app.register_blueprint(festivals.bp)
 

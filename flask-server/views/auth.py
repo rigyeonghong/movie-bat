@@ -24,9 +24,10 @@ def signup():
         same_nick = User.query.filter(User.user_nick == user_nick).first()
 
         if same_nick:
-            return ({"result":"failed",
-                     "content":"이미 존재하는 닉네임입니다.",
-                     "status":401})
+            return ({
+                "result":"failed",
+                "content":"이미 존재하는 닉네임입니다."
+            }), 401
         else:
             # user 정보가 DB에 이미 있는지 확인
             same_user = User.query.filter(User.user_id == user_id).first()
@@ -46,9 +47,10 @@ def signup():
             else:
                 # 사용자 정보가 이미 있다면, 회원가입 페이지로
                 print(" 이미 존재하는 사용자입니다. ")
-                return ({"result":"failed",
-                         "content":"이미 존재하는 아이디입니다.",
-                         "status":401})
+                return ({
+                    "result":"failed",
+                    "content":"이미 존재하는 아이디입니다."
+                    }), 401
     return 'signup page'
 
 @bp.route('/signin', methods=['POST', 'GET'])
