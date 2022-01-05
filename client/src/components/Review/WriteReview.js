@@ -6,7 +6,6 @@ function WriteReview() {
     <>
       <Form>
         <Form.Group className="mb-3" controlId="writeContent">
-          <Form.Label>리뷰 작성</Form.Label>
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
       </Form>

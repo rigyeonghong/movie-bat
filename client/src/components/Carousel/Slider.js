@@ -9,7 +9,6 @@ import {
 import { ReactComponent as Left } from "../../assets/left.svg";
 import { ReactComponent as Right } from "../../assets/right.svg";
 function Slider({ subject }) {
-  const TOTAL_SLIDES = 2;
   let subjectName = subject["genre"];
   let movie_list = subject["movies"].map((item, index) => (
     <Slide
@@ -19,7 +18,7 @@ function Slider({ subject }) {
       movieIdx={item.idx}
     />
   ));
-
+  const TOTAL_SLIDES = parseInt(movie_list.length / 6);
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
   const nextSlide = () => {
@@ -43,7 +42,7 @@ function Slider({ subject }) {
   }, [currentSlide]);
   return (
     <SliderContainer>
-      <h2>{subjectName}</h2>
+      {movie_list.length ? <h2>{subjectName}</h2> : <></>}
       <SlideItemContainer ref={slideRef}>{movie_list}</SlideItemContainer>
       <SlideLeftBtn onClick={() => prevSlide()}>
         <Left width="35" height="35" fill="white" />

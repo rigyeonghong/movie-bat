@@ -34,7 +34,13 @@ function LoginInput() {
     if (response.result == "fail") {
       alert("로그인 실패");
     } else {
-      setUser([response.user_email, response.user_nick]);
+      setUser({
+        userIdx: response["user_idx"],
+        userNickname: response["user_nick"],
+        userGenre: response["user_genre"],
+        userRunningtime: response["user_runningtime"],
+        userRegion: response["user_region"],
+      });
       navigate("/");
     }
   };
