@@ -7,17 +7,27 @@ import { signinState } from "../../state";
 
 function SignUpInput({ setIsFirst }) {
   const [nickname, setNickname] = useState(null);
-  const [email, setEmail] = useState(null);
+  const [email, setEmail] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
   const [havePhoneNum, setHavePhoneNum] = useState(true);
   const [password, setPassword] = useState(null);
   const [password2, setPassword2] = useState(null);
-
+  console.log(nickname);
   // nickname, email, phoneNum, password
-  const [isRightInput, setIsRightInput] = useState(["", "", "", ""]);
+  const [isOkInput, setIsOkInput] = useState(
+    { okNickname: null },
+    { okEmail: null },
+    { okPhoneNum: null },
+    { okPassword: null }
+  );
   const [isClicked, setIsClicked] = useState(false);
+  const [duplicated, setDuplicated] = useState(
+    { nickname: null },
+    { email: null }
+  );
   const setSigninData = useSetRecoilState(signinState);
-
+  console.log(nickname);
+  console.log(isOkInput["okNickname"]);
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const regPhone = /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/;
@@ -30,46 +40,78 @@ function SignUpInput({ setIsFirst }) {
       .post(`/auth/signup/id`, {
         email: email,
       })
-      .then((res) => res.data);
-    console.log(email);
-    console.log(response);
+      .then((res) => res.data)
+      .then(() => {
+        setDuplicated((cur) => {
+          return { ...cur, email: false };
+        });
+        alert("사용 가능한 이메일입니다");
+      })
+      .catch(() => {
+        setDuplicated((cur) => {
+          return { ...cur, email: true };
+        });
+        alert("중복된 이메일입니다");
+      });
   };
-
   const nickDupCheck = async () => {
     const response = await axios
       .post(`/auth/signup/nick`, {
         nickname: nickname,
       })
-      .then((res) => res.data);
-    console.log(nickname);
-    console.log(response);
+      .then((res) => res.data)
+      .then(() => {
+        setDuplicated((cur) => ({ ...cur, nickname: false }));
+        alert("사용 가능한 닉네임입니다");
+      })
+      .catch(() => {
+        setDuplicated((cur) => ({ ...cur, nickname: true }));
+        alert("중복된 닉네임입니다");
+      });
   };
+
   const checkInputValue = () => {
-    let newIsRightInput = [false, false, false, false];
-    // TODO api 요청하면 수정 필요
-    newIsRightInput[0] = true;
-    if (regEmail.test(email)) {
-      newIsRightInput[1] = true;
+    if (!duplicated["nickname"]) {
+      setIsOkInput((cur) => {
+        return { ...cur, okNickname: true };
+      });
+    } else {
+      setIsOkInput((cur) => {
+        return { ...cur, okNickname: false };
+      });
+    }
+    if (regEmail.test(email) && !duplicated["email"]) {
+      setIsOkInput((cur) => {
+        return { ...cur, okEmail: true };
+      });
+    } else {
+      setIsOkInput((cur) => {
+        return { ...cur, okEmail: false };
+      });
     }
     if (
       (havePhoneNum === true && regPhone.test(phoneNum) === true) ||
       havePhoneNum === false
     ) {
-      newIsRightInput[2] = true;
+      setIsOkInput((cur) => {
+        return { ...cur, okPhoneNum: true };
+      });
     }
     if (password && password === password2) {
-      newIsRightInput[3] = true;
+      setIsOkInput((cur) => {
+        return { ...cur, okPassword: true };
+      });
     }
-    setIsRightInput(newIsRightInput);
   };
   if (
-    isRightInput[0] &&
-    isRightInput[1] &&
-    isRightInput[2] &&
-    isRightInput[3]
+    isOkInput["okNickname"] &&
+    isOkInput["okEmail"] &&
+    isOkInput["okPhoneNum"] &&
+    isOkInput["okPassword"]
   ) {
     submitSigninData();
   }
+  console.log(email);
   return (
     <>
       <Form>
@@ -85,14 +127,19 @@ function SignUpInput({ setIsFirst }) {
             <Button
               onClick={() => emailDupCheck()}
               style={{ position: "absolute" }}
+              disabled={email == ""}
             >
               중복 확인
             </Button>
           </div>
           <Form.Text
-            className={isClicked && !isRightInput[1] ? "isShown" : "isHidden"}
+            className={
+              isClicked && !isOkInput["okEmail"] ? "isShown" : "isHidden"
+            }
           >
-            이메일 형식을 확인해주세요
+            {duplicated["email"]
+              ? "중복된 이메일입니다"
+              : "이메일 형식을 확인해주세요"}
           </Form.Text>
         </Form.Group>
 
@@ -107,14 +154,17 @@ function SignUpInput({ setIsFirst }) {
             <Button
               onClick={() => nickDupCheck()}
               style={{ position: "absolute" }}
+              disabled={nickname == ""}
             >
               중복 확인
             </Button>
           </div>
           <Form.Text
-            className={isClicked && !isRightInput[0] ? "isShown" : "isHidden"}
+            className={
+              isClicked && !isOkInput["okNickname"] ? "isShown" : "isHidden"
+            }
           >
-            중복된 닉네임입니다
+            {duplicated["nickname"] ? "중복된 닉네임입니다" : ""}
           </Form.Text>
         </Form.Group>
 
@@ -131,7 +181,9 @@ function SignUpInput({ setIsFirst }) {
             onChange={(e) => setHavePhoneNum(!e.target.checked)}
           />
           <Form.Text
-            className={isClicked && !isRightInput[2] ? "isShown" : "isHidden"}
+            className={
+              isClicked && !isOkInput["okPhoneNum"] ? "isShown" : "isHidden"
+            }
           >
             전화번호 형식을 확인해주세요
           </Form.Text>
@@ -152,7 +204,9 @@ function SignUpInput({ setIsFirst }) {
             onChange={(e) => setPassword2(e.target.value)}
           />
           <Form.Text
-            className={isClicked && !isRightInput[3] ? "isShown" : "isHidden"}
+            className={
+              isClicked && !isOkInput["okPassword"] ? "isShown" : "isHidden"
+            }
           >
             {password == null
               ? "비밀번호를 입력해주세요"
