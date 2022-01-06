@@ -64,6 +64,7 @@ function MovieDetail() {
       .then((res) => res.data);
   };
   const editReview = async () => {
+    console.log("idx" + user["userIdx"]);
     const response = await axios
       .patch(`/movies/detail/${movieIndex}`, {
         movie_idx: movieIndex,
@@ -72,14 +73,18 @@ function MovieDetail() {
       })
       .then((res) => res.data);
   };
+
   const deleteReview = async () => {
     const response = await axios
       .delete(`/movies/detail/${movieIndex}`, {
-        movie_idx: movieIndex,
-        user_idx: user["userIdx"],
+        data: {
+          movie_idx: movieIndex,
+          user_idx: user["userIdx"],
+        },
       })
       .then((res) => res.data);
   };
+
   useEffect(() => {
     const call = async () => {
       const response = await axios
