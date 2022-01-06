@@ -19,9 +19,5 @@ class Review(db.Model):
         self.movie_idx = movie_idx
         self.user_idx = user_idx
         self.review_content = content
-<<<<<<< HEAD
-=======
-        # self.review_rating = rating
->>>>>>> full-feature
         self.review_date = date
 
