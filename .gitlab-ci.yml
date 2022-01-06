@@ -10,11 +10,11 @@ variables:
 cache:
   key: '$CI_COMMIT_REF_SLUG'
 stages:
-  - deploy
+  - exp
 Deploy:
-  stage: deploy
+  stage: exp
   only:
-    - full-feature
+    - exp
   tags:
     - test-runner
   script:
