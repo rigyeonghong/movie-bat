@@ -80,7 +80,7 @@ export const SlideMoviePoster = styled.img`
   &:hover {
     width: 15.6vw;
     height: 9.6vw;
-    transition: all 0.3s linear;
+    transition: all 0.2s linear;
   }
 `;
 export const SlideMovieEmptyPic = styled.div`

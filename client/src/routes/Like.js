@@ -5,20 +5,30 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../state";
 function Like() {
   const user = useRecoilValue(userState);
+  const [favoriteMovie, setFavoriteMovie] = useState([]);
+  const favoriteList = [];
   useEffect(() => {
     const call = async () => {
       const response = await axios
-        // TODO 이따 user_idx 생기면 그때 받는걸로
-        .get(`/favorite/`)
+        .get(`/favorite/${user["userIdx"]}`)
         .then((res) => res.data);
-      console.log(response);
+      setFavoriteMovie(response);
     };
     call();
   }, []);
+  for (let i = 0; i < Object.keys(favoriteMovie).length; i++) {
+    favoriteList.push(
+      <div style={{ flexDirection: "column", display: "flex" }}>
+        <img src={favoriteMovie[i]["movie_img_link"]} />
+        <span>{favoriteMovie[i]["movie_title"]}</span>
+      </div>
+    );
+  }
   return (
     <>
       <Nav />
-      <p>영 화 조 아</p>
+      <h3>{user["userNickname"]}님이 보고싶은 영화</h3>
+      <div style={{ display: "flex" }}>{favoriteList}</div>
     </>
   );
 }

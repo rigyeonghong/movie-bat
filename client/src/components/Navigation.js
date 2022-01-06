@@ -1,6 +1,7 @@
 import React from "react";
 import LogoWrapper from "./Nav/LogoWrapper";
 import MenuWrapper from "./Nav/MenuWrapper";
+import SearchWrapper from "./Nav/SearchWrapper";
 import SignWrapper from "./Nav/SignWrapper";
 
 import Logo from "../assets/logo_test.png";
@@ -8,13 +9,13 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { NavLogo } from "../styles/theme";
 function Navigation() {
   return (
-    <Navbar bg="dark" sticky="top">
-      <Container>
+    <Navbar bg="dark" sticky="top" style={{ justifyContent: "space-around" }}>
+      <div style={{ display: "flex" }}>
         <Navbar.Brand href="/">
           <NavLogo src={Logo} />
         </Navbar.Brand>
 
-        <Nav className="justify-content-center">
+        <Nav style={{ textAlign: "center", alignItems: "center" }}>
           <Nav.Item className="px-4">
             <Nav.Link className="text-white" href="/movies">
               영화
@@ -33,9 +34,11 @@ function Navigation() {
             </Nav.Link>
           </Nav.Item>
         </Nav>
-
+      </div>
+      <Nav className="justify-content-end">
+        <SearchWrapper />
         <SignWrapper />
-      </Container>
+      </Nav>
     </Navbar>
   );
 }

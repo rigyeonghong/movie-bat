@@ -37,20 +37,8 @@ function MovieDetail() {
   const [dibs, setDibs] = useState(null);
   const [likeMovie, setLikeMovie] = useState(null);
   const [reviewContent, setReviewContent] = useState("");
-  console.log(likeMovie);
   let reviewList = [];
-  for (let i = (curReviewPage + 1) * 5 - 5; i < (curReviewPage + 1) * 5; i++) {
-    if (i > Object.keys(reviews) - 1 || Object.keys(reviews).length == 0) break;
-    reviewList.push(
-      <ReviewItem
-        nickName={reviewData[i].user_nick}
-        idx={reviewData[i].review_idx}
-        content={reviewData[i].review_content}
-        rating={reviewData[i].review_rating}
-        date={reviewData[i].review_date}
-      />
-    );
-  }
+
   const postDibs = async () => {
     const response = await axios
       .post("/favorite/", {
@@ -75,6 +63,23 @@ function MovieDetail() {
       })
       .then((res) => res.data);
   };
+  const editReview = async () => {
+    const response = await axios
+      .patch(`/movies/detail/${movieIndex}`, {
+        movie_idx: movieIndex,
+        user_idx: user["userIdx"],
+        review_content: "수정테스트",
+      })
+      .then((res) => res.data);
+  };
+  const deleteReview = async () => {
+    const response = await axios
+      .delete(`/movies/detail/${movieIndex}`, {
+        movie_idx: movieIndex,
+        user_idx: user["userIdx"],
+      })
+      .then((res) => res.data);
+  };
   useEffect(() => {
     const call = async () => {
       const response = await axios
@@ -88,6 +93,21 @@ function MovieDetail() {
     };
     call();
   }, []);
+
+  for (let i = 0; i < Object.keys(reviews).length; i++) {
+    reviewList.push(
+      <ReviewItem
+        reviewIdx={reviews[i].review_idx}
+        content={reviews[i].review_content}
+        date={reviews[i].review_date}
+        userIdx={reviews[i].user_idx}
+        editReview={editReview}
+        deleteReview={deleteReview}
+      />
+    );
+  }
+
+  console.log(Object.keys(reviews).length);
   return (
     <>
       <Nav />
@@ -142,11 +162,11 @@ function MovieDetail() {
           <MovieDetailIndex>리뷰</MovieDetailIndex>
 
           {reviewList}
-          <ReviewListBtn
+          {/* <ReviewListBtn
             curReviewPage={curReviewPage}
             setCurReviewPage={setCurReviewPage}
             reviewListLen={reviewData.length}
-          />
+          /> */}
         </MovieDetailWrapper>
       </MovieInfoContainer>
       {isOpen ? (
