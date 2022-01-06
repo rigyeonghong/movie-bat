@@ -34,9 +34,41 @@ def search_title(movie_title):
 @bp.route('/<string:director>', methods=['GET'])
 def search_director(director):
 
+    # 감독 이름에 검색한 값에 맞는 영화 보내주기
+    movies = Movie.query.filter(Movie.movie_director.like('%director%')).all()
+
+    search_movie = []
+    for movie in movies:
+        search_movie.append({
+            'movie_idx' : movie.movie_idx, 
+            "movie_title" : movie.movie_title, 
+            "movie_posterUrl" : movie.movie_posterUrl, 
+            "movie_genre" : movie.movie_genre
+        })
+
+    search_movies = dict(list(enumerate(search_movie, start=0)))    
+
+    print(search_movies)
+    return search_movies    
 
 
 # 영화 장르 검색
 @bp.route('/<string:genre>', methods=['GET'])
 def search_genre(genre):
         
+    # 장르에 검색한 값에 맞는 영화 보내주기
+    movies = Movie.query.filter(Movie.movie_title.like('%genre')).all()
+
+    search_movie = []
+    for movie in movies:
+        search_movie.append({
+            'movie_idx' : movie.movie_idx, 
+            "movie_title" : movie.movie_title, 
+            "movie_posterUrl" : movie.movie_posterUrl, 
+            "movie_genre" : movie.movie_genre
+        })
+
+    search_movies = dict(list(enumerate(search_movie, start=0)))    
+
+    print(search_movies)
+    return search_movies    
