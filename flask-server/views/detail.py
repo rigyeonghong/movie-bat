@@ -85,7 +85,7 @@ def detail(movie_idx):
             user_idx = review['user_idx']
 
             # 유저가 리뷰를 작성한 적 없으면 저장
-            same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
+            same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx) & (Review.is_deleted == 0)).first()
             
             if same_reviewer == None:
                 review_content = review['review_content']
@@ -119,28 +119,32 @@ def detail(movie_idx):
         review_update = request.get_json()
 
         user_idx = review_update['user_idx']
-        movie_idx = movie_idx
+        movie_idx = review_update['movie_idx']
         review_content = review_update['review_content']
-        review_rating = review_update['rating']
+        # review_rating = review_update['rating']
 
         # 유저가 작성한 리뷰 찾아 수정
-        user_idx = User.query.filter(User.user_idx == user_idx).first()
-        update_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
+        update_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx) & (Review.is_deleted == 0)).first()
+        
         update_review.review_content = review_content
-        update_review.review_rating = review_rating 
+        # update_review.review_rating = review_rating 
         update_review.review_date = datetime.datetime.now(timezone('Asia/Seoul'))
+
+        db.session.add(update_review)
         db.session.commit()
         return jsonify({"result":"success"})
 
     # 댓글 삭제
     else:
+        print("delete")
         review_delete = request.get_json()
-        
-        user_idx = review_delete['user_idx'] 
-        # movie_idx = movie_idx
+        print(review_delete)
+        user_idx = review_delete['user_idx']
 
         # 유저가 작성한 리뷰 찾아 삭제
-        user_idx = User.query.filter(User.user_idx == user_idx).first()
-        Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).delete()
+        delete_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx) & (Review.is_deleted == 0)).first()
+        delete_review.is_deleted = 1
+
+        db.session.add(delete_review)
         db.session.commit()
         return jsonify({"result":"success"})
