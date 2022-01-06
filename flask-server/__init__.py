@@ -31,6 +31,7 @@ app.register_blueprint(main.bp)
 app.register_blueprint(favorite.bp)
 app.register_blueprint(detail.bp)
 app.register_blueprint(festivals.bp)
+app.register_blueprint(search.bp)
 
 
 # 없애기 or 변경..?
