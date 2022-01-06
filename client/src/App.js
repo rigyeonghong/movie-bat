@@ -16,8 +16,11 @@ import PageNotFound from "./routes/PageNotFound";
 import MovieInfo from "./routes/MovieInfo";
 
 function App() {
-  const user = JSON.parse(localStorage.getItem("recoil-persist"));
-  console.log(user);
+  const isLogout = () => {
+    const user = JSON.parse(localStorage.getItem("recoil-persist"));
+    if (user === null || user["userState"]["userIdx"] == null) return true;
+    else return false;
+  };
   return (
     <>
       <RecoilRoot>
@@ -26,9 +29,7 @@ function App() {
           <Routes>
             <Route
               path="/movies"
-              element={
-                user["userState"]["userIdx"] == null ? <Login /> : <Movies />
-              }
+              element={isLogout() ? <Login /> : <Movies />}
             />
             <Route path="like" element={<Like />} />
             <Route path="/auth/signin" element={<Login />} />
@@ -37,16 +38,12 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route
               path="/festival"
-              element={
-                user["userState"]["userIdx"] == null ? <Login /> : <Festival />
-              }
+              element={isLogout() ? <Login /> : <Festival />}
             />
             <Route path="auth/kakao" element={<KakaoLogin />} />
             <Route
               path="movies/detail/:idx"
-              element={
-                user["userState"]["userIdx"] == null ? <Login /> : <MovieInfo />
-              }
+              element={isLogout() ? <Login /> : <MovieInfo />}
             />
             <Route element={<PageNotFound />} />
           </Routes>
