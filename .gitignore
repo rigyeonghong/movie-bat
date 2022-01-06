@@ -1,4 +1,5 @@
 /flask-server/venv
+<<<<<<< HEAD
 
 
 # dependencies
@@ -23,3 +24,10 @@
 /client/npm-debug.log*
 /client/yarn-debug.log*
 /client/yarn-error.log*
+=======
+__pycache__/
+.venv
+key
+venv
+.vscode/
+>>>>>>> 7122871a2307cd5e4c9545f206ac666f55c3c445
