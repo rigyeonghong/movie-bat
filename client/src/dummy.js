@@ -149,22 +149,22 @@ export const movieInfo = {
 };
 export const bigMovieInfo = [
   {
-    title: "겨울왕국",
-    description: "올라프 냠냠",
-    posterUrl:
-      "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDlfMTU2%2FMDAxNTc1ODY2MTM1NDgw.QEqFrdCsV5pQqUqlUOIqIUNjAp81ZHsgGV9OKt8SsvIg.qoT7vTbc71bEPkDmJxNzD352Hcs3Jk1Ac6INCHV5Tzog.JPEG.bsy9033%2FKakaoTalk_20191209_132418853_14.jpg&type=sc960_832",
+    title: "뭐해",
+    description:
+      "토요일 오후, 외출 직전 갑자기 약속이 취소된 유미는 이리저리 연락을 돌려 보지만 뭔가 잘 풀리지 않는다.",
+    posterUrl: "http://siff.kr/wp-content/uploads/2021/11/20211104_101741.jpg",
   },
   {
-    title: "겨울왕국2",
-    description: "올라프 냠냠",
-    posterUrl:
-      "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDlfMTU2%2FMDAxNTc1ODY2MTM1NDgw.QEqFrdCsV5pQqUqlUOIqIUNjAp81ZHsgGV9OKt8SsvIg.qoT7vTbc71bEPkDmJxNzD352Hcs3Jk1Ac6INCHV5Tzog.JPEG.bsy9033%2FKakaoTalk_20191209_132418853_14.jpg&type=sc960_832",
+    title: "황룡산",
+    description:
+      "1950년 10월 경기도의 금정굴에서 남한 군경에 의해 한 마을에서 153명 이상이 희생된 민간인 학살 사건",
+    posterUrl: "http://siff.kr/wp-content/uploads/2021/11/20211104_060602.jpg",
   },
   {
-    title: "겨울왕국3",
-    description: "올라프 냠냠",
-    posterUrl:
-      "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDlfMTU2%2FMDAxNTc1ODY2MTM1NDgw.QEqFrdCsV5pQqUqlUOIqIUNjAp81ZHsgGV9OKt8SsvIg.qoT7vTbc71bEPkDmJxNzD352Hcs3Jk1Ac6INCHV5Tzog.JPEG.bsy9033%2FKakaoTalk_20191209_132418853_14.jpg&type=sc960_832",
+    title: "희수",
+    description:
+      "세상을 곧 떠나야 하는 희수와 그의 흔적을 좇는 학선의 처음이자 마지막 여행기",
+    posterUrl: "http://siff.kr/wp-content/uploads/2021/11/20211104_110915.jpg",
   },
 ];
 export const movieDetailInfo = {
@@ -186,100 +186,106 @@ export const movieDetailInfo = {
   productionYear: 2021,
   imageurl: "http://imgmovie.naver.com/mdi/mit110/0968/96811_P01_142155.jpg",
 };
-export const reviewData = [
-  {
-    review_idx: 0,
-    user_nick: "ji",
-    content: "낫 배드",
-    rating: "1",
-    date: "2022-01-01",
-  },
-  {
-    review_idx: 1,
-    user_nick: "지언",
-    content: "조아요옹",
-    rating: "3",
-    date: "2022-01-02",
-  },
-  {
-    review_idx: 2,
-    user_nick: "지온",
-    content: "제 인생영화예요",
-    rating: "10",
-    date: "2022-01-03",
-  },
-  {
-    review_idx: 3,
-    user_nick: "온지",
-    content: "하,,,ㅜㅅㅜ",
-    rating: "8",
-    date: "2022-01-04",
-  },
-  {
-    review_idx: 4,
-    user_nick: "지원",
-    content: "낫 배드",
-    rating: "1",
-    date: "2022-01-01",
-  },
-  {
-    review_idx: 5,
-    user_nick: "지언",
-    content: "조아요옹",
-    rating: "3",
-    date: "2022-01-02",
-  },
-  {
-    review_idx: 6,
-    user_nick: "지온",
-    content: "제 인생영화예요",
-    rating: "10",
-    date: "2022-01-03",
-  },
-  {
-    review_idx: 7,
-    user_nick: "온지",
-    content: "하,,,ㅜㅅㅜ",
-    rating: "8",
-    date: "2022-01-04",
-  },
-  {
-    review_idx: 8,
-    user_nick: "지원",
-    content: "낫 배드",
-    rating: "1",
-    date: "2022-01-01",
-  },
-  {
-    review_idx: 9,
-    user_nick: "지언",
-    content: "조아요옹",
-    rating: "3",
-    date: "2022-01-02",
-  },
-  {
-    review_idx: 10,
-    user_nick: "지온",
-    content: "제 인생영화예요",
-    rating: "10",
-    date: "2022-01-03",
-  },
-  {
-    review_idx: 11,
-    user_nick: "온지",
-    content: "하,,,ㅜㅅㅜ",
-    rating: "8",
-    date: "2022-01-04",
-  },
-];
-
-// export let reviewData = [];
-// for (let i = 0; i < 100; i++) {
-//   reviewData.push({
-//     review_idx: i,
+// export const reviewData = [
+//   {
+//     review_idx: 0,
+//     user_nick: "ji",
+//     content: "낫 배드",
+//     rating: "1",
+//     date: "2022-01-01",
+//   },
+//   {
+//     review_idx: 1,
 //     user_nick: "지언",
+//     content: "조아요옹",
+//     rating: "3",
+//     date: "2022-01-02",
+//   },
+//   {
+//     review_idx: 2,
+//     user_nick: "지온",
 //     content: "제 인생영화예요",
-//     rating: (i + i) % 5,
+//     rating: "10",
 //     date: "2022-01-03",
-//   });
-// }
+//   },
+//   {
+//     review_idx: 3,
+//     user_nick: "온지",
+//     content: "하,,,ㅜㅅㅜ",
+//     rating: "8",
+//     date: "2022-01-04",
+//   },
+//   {
+//     review_idx: 4,
+//     user_nick: "지원",
+//     content: "낫 배드",
+//     rating: "1",
+//     date: "2022-01-01",
+//   },
+//   {
+//     review_idx: 5,
+//     user_nick: "지언",
+//     content: "조아요옹",
+//     rating: "3",
+//     date: "2022-01-02",
+//   },
+//   {
+//     review_idx: 6,
+//     user_nick: "지온",
+//     content: "제 인생영화예요",
+//     rating: "10",
+//     date: "2022-01-03",
+//   },
+//   {
+//     review_idx: 7,
+//     user_nick: "온지",
+//     content: "하,,,ㅜㅅㅜ",
+//     rating: "8",
+//     date: "2022-01-04",
+//   },
+//   {
+//     review_idx: 8,
+//     user_nick: "지원",
+//     content: "낫 배드",
+//     rating: "1",
+//     date: "2022-01-01",
+//   },
+//   {
+//     review_idx: 9,
+//     user_nick: "지언",
+//     content: "조아요옹",
+//     rating: "3",
+//     date: "2022-01-02",
+//   },
+//   {
+//     review_idx: 10,
+//     user_nick: "지온",
+//     content: "제 인생영화예요",
+//     rating: "10",
+//     date: "2022-01-03",
+//   },
+//   {
+//     review_idx: 11,
+//     user_nick: "온지",
+//     content: "하,,,ㅜㅅㅜ",
+//     rating: "8",
+//     date: "2022-01-04",
+//   },
+// ];
+
+export let reviewData = {
+  0: {
+    review_content: "재밌다",
+    review_date: "2021-12-28 02:08:51",
+    review_idx: 3,
+    review_rating: 5,
+    user_idx: 3,
+  },
+  1: {
+    review_content: "재밌다22",
+    review_date: "2021-12-28 02:08:51",
+    review_idx: 8,
+    review_rating: 5,
+    user_idx: 8,
+  },
+};

@@ -62,6 +62,7 @@ export const SliderContainer = styled.div`
   max-width: 80vw;
   margin: 0 auto;
   position: relative;
+  display: block;
 `;
 export const SlideItemContainer = styled.div`
   width: 100%;
@@ -72,9 +73,27 @@ export const SlideItemWrapper = styled.div`
   flex-direction: column;
 `;
 export const SlideMoviePoster = styled.img`
-  width: 17vw;
-  hegith: 15vw;
+  width: 13vw;
+  height: 8vw;
   margin-right: 1vw;
+  overflow: hidden;
+  &:hover {
+    width: 15.6vw;
+    height: 9.6vw;
+    transition: all 0.2s linear;
+  }
+`;
+export const SlideMovieEmptyPic = styled.div`
+  width: 13vw;
+  height: 8vw;
+  margin-right: 1vw;
+  background-color: gray;
+  position: relative;
+  &:hover {
+    width: 15.6vw;
+    height: 9.6vw;
+    transition: all 0.3s linear;
+  }
 `;
 export const SlideMovieTitle = styled.h6``;
 
@@ -186,12 +205,18 @@ export const SlideBtn = styled.button`
   font-size: 2rem;
 `;
 export const SlideLeftBtn = styled(SlideBtn)`
+  // left: 0;
+  // top: 45%;
   left: 0;
-  top: 45%;
+  top: 23%;
+  width: 50px;
+  height: 100px;
 `;
 export const SlideRightBtn = styled(SlideBtn)`
   right: 0;
-  top: 45%;
+  top: 23%;
+  width: 50px;
+  height: 100px;
 `;
 
 // export const Test2 = styled.div`
@@ -206,10 +231,12 @@ export const MovieInfoContainer = styled.div`
 `;
 export const MovieDetailImg = styled.img`
   width: 10vw;
+  margin: auto 0;
   margin-right: 2vw;
 `;
 export const MovieDetailImgWrapper = styled.div`
-  float: left;
+  // float: left;
+  margin: auto 0;
 `;
 export const LikeBtnWrapper = styled.div`
   position: absolute;

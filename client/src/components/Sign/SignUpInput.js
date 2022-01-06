@@ -25,6 +25,25 @@ function SignUpInput({ setIsFirst }) {
     setSigninData([nickname, email, phoneNum, password]);
     setIsFirst(false);
   };
+  const emailDupCheck = async () => {
+    const response = await axios
+      .post(`/auth/signup/id`, {
+        email: email,
+      })
+      .then((res) => res.data);
+    console.log(email);
+    console.log(response);
+  };
+
+  const nickDupCheck = async () => {
+    const response = await axios
+      .post(`/auth/signup/nick`, {
+        nickname: nickname,
+      })
+      .then((res) => res.data);
+    console.log(nickname);
+    console.log(response);
+  };
   const checkInputValue = () => {
     let newIsRightInput = [false, false, false, false];
     // TODO api 요청하면 수정 필요
@@ -56,10 +75,20 @@ function SignUpInput({ setIsFirst }) {
       <Form>
         <Form.Group className="mb-3" controlId="emailInput">
           <Form.Label>이메일</Form.Label>
-          <Form.Control
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+
+          <div style={{ display: "relative" }}>
+            <Form.Control
+              style={{ display: "inline" }}
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Button
+              onClick={() => emailDupCheck()}
+              style={{ position: "absolute" }}
+            >
+              중복 확인
+            </Button>
+          </div>
           <Form.Text
             className={isClicked && !isRightInput[1] ? "isShown" : "isHidden"}
           >
@@ -69,10 +98,19 @@ function SignUpInput({ setIsFirst }) {
 
         <Form.Group className="mb-3" controlId="nicknameInput">
           <Form.Label>닉네임</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(e) => setNickname(e.target.value)}
-          />
+          <div style={{ display: "relative" }}>
+            <Form.Control
+              style={{ display: "inline" }}
+              type="text"
+              onChange={(e) => setNickname(e.target.value)}
+            />
+            <Button
+              onClick={() => nickDupCheck()}
+              style={{ position: "absolute" }}
+            >
+              중복 확인
+            </Button>
+          </div>
           <Form.Text
             className={isClicked && !isRightInput[0] ? "isShown" : "isHidden"}
           >

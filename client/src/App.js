@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Navigate, Routes, BrowserRouter, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Movies from "./routes/Movies";
@@ -16,21 +16,35 @@ import PageNotFound from "./routes/PageNotFound";
 import MovieInfo from "./routes/MovieInfo";
 
 function App() {
+  const isLogout = () => {
+    const user = JSON.parse(localStorage.getItem("recoil-persist"));
+    if (user === null || user["userState"]["userIdx"] == null) return true;
+    else return false;
+  };
   return (
     <>
       <RecoilRoot>
         <GlobalStyle />
         <BrowserRouter>
           <Routes>
-            <Route path="/movies" element={<Movies />} />
+            <Route
+              path="/movies"
+              element={isLogout() ? <Login /> : <Movies />}
+            />
             <Route path="like" element={<Like />} />
             <Route path="/auth/signin" element={<Login />} />
             <Route path="/auth/signup" element={<SignUp />} />
             <Route exact path="/" element={<Home />} />
             <Route path="/team" element={<Team />} />
-            <Route path="/festival" element={<Festival />} />
+            <Route
+              path="/festival"
+              element={isLogout() ? <Login /> : <Festival />}
+            />
             <Route path="auth/kakao" element={<KakaoLogin />} />
-            <Route path="movies/detail/:idx" element={<MovieInfo />} />
+            <Route
+              path="movies/detail/:idx"
+              element={isLogout() ? <Login /> : <MovieInfo />}
+            />
             <Route element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
