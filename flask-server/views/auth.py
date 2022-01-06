@@ -96,7 +96,7 @@ def login():
         same_user = User.query.filter(User.user_id  == user_id).first()
         
         if not same_user:
-            print('이메일 형식이 아닙니다.')
+            print('가입되어있지 않은 회원입니다.')
 
             return jsonify({"result": "fail"})
 

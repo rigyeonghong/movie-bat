@@ -53,6 +53,16 @@ def detail(movie_idx):
 
         if session['user'] != None:
             favorite_user_idx = session['user']
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            
+=======
+>>>>>>> cc96628 (detial페이지 user_idx 수정)
+=======
+>>>>>>> 0d80098 (review수정)
+>>>>>>> full-feature
         # favorite에서 movie_idx와 같은 영화를 가져온다.
             favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_idx == favorite_user_idx).first()
         
@@ -84,8 +94,25 @@ def detail(movie_idx):
             # 유저가 리뷰를 작성한 적 없으면 저장
             same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
             
+<<<<<<< HEAD
             if not same_reviewer:
                 review_content = review['review_content']
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            if same_reviewer == None:
+                review_content = review['review_content']
+                # review_rating = review['rating']
+=======
+            if not same_reviewer:
+                review_content = review['review_content']
+                review_rating = review['rating']
+>>>>>>> 5492881 (review 수정)
+=======
+            if not same_reviewer:
+                review_content = review['review_content']
+>>>>>>> 0d80098 (review수정)
+>>>>>>> full-feature
                 review_date = datetime.datetime.now(timezone('Asia/Seoul'))
 
                 new_review = Review(movie_idx, user_idx, review_content, review_date)
