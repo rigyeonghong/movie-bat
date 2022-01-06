@@ -4,7 +4,7 @@ from db_connect import db
 from flask_migrate import Migrate
 import config
 
-from views import auth, oauth, main, favorite, detail, festivals
+from views import auth, oauth, main, favorite, detail, festivals, search, masterpiece
 
 app = Flask(__name__)
 
@@ -32,6 +32,7 @@ app.register_blueprint(favorite.bp)
 app.register_blueprint(detail.bp)
 app.register_blueprint(festivals.bp)
 app.register_blueprint(search.bp)
+app.register_blueprint(masterpiece.bp)
 
 
 # 없애기 or 변경..?

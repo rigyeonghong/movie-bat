@@ -53,20 +53,7 @@ def detail(movie_idx):
         # 로그인을 한 상태.
         if session['user'] != None:
             favorite_user_idx = session['user']
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
             
-=======
->>>>>>> cc96628 (detial페이지 user_idx 수정)
-=======
->>>>>>> 0d80098 (review수정)
->>>>>>> full-feature
-=======
-            
->>>>>>> full-feature
         # favorite에서 movie_idx와 같은 영화를 가져온다.
             favorite_info = Favorite.query.filter(Favorite.movie_idx == movie_idx, Favorite.user_idx == favorite_user_idx).first()
         
@@ -98,52 +85,23 @@ def detail(movie_idx):
             user_idx = review['user_idx']
 
             # 유저가 리뷰를 작성한 적 없으면 저장
-            same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx) & (Review.is_deleted == 0)).first()
+            same_reviewer = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
             
-<<<<<<< HEAD
-<<<<<<< HEAD
-            if not same_reviewer:
-                review_content = review['review_content']
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
             if same_reviewer == None:
                 review_content = review['review_content']
                 # review_rating = review['rating']
-=======
-            if not same_reviewer:
-                review_content = review['review_content']
-                review_rating = review['rating']
->>>>>>> 5492881 (review 수정)
-=======
-            if not same_reviewer:
-                review_content = review['review_content']
->>>>>>> 0d80098 (review수정)
->>>>>>> full-feature
-=======
-            if same_reviewer == None:
-                review_content = review['review_content']
-                # review_rating = review['rating']
->>>>>>> full-feature
                 review_date = datetime.datetime.now(timezone('Asia/Seoul'))
 
                 new_review = Review(movie_idx, user_idx, review_content, review_date)
-                
                 db.session.add(new_review)
                 db.session.commit()
                 print("리뷰가 저장되었습니다.")
-                return jsonify({
-                    "result":"success",
-                    "content":"리뷰 저장 성공"
-                })
+                return jsonify({"result":"success"})
 
             # 유저가 리뷰를 작성한 적 있으면
             else:
                 print("리뷰가 저장 안돼요.")
-                return jsonify({
-                    "result":"failed",
-                    "content": "리뷰 저장 실패"
-                })
+                return jsonify({"result":"failed"})
 
         # fe에서 none 값을 보내줬다면
         return jsonify({"result":"fail"})
@@ -154,32 +112,28 @@ def detail(movie_idx):
         review_update = request.get_json()
 
         user_idx = review_update['user_idx']
-        movie_idx = review_update['movie_idx']
+        movie_idx = movie_idx
         review_content = review_update['review_content']
-        # review_rating = review_update['rating']
+        review_rating = review_update['rating']
 
         # 유저가 작성한 리뷰 찾아 수정
-        update_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx) & (Review.is_deleted == 0)).first()
-        
+        user_idx = User.query.filter(User.user_idx == user_idx).first()
+        update_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).first()
         update_review.review_content = review_content
-        # update_review.review_rating = review_rating 
+        update_review.review_rating = review_rating 
         update_review.review_date = datetime.datetime.now(timezone('Asia/Seoul'))
-
-        db.session.add(update_review)
         db.session.commit()
         return jsonify({"result":"success"})
 
     # 댓글 삭제
     else:
-        print("delete")
         review_delete = request.get_json()
-        print(review_delete)
-        user_idx = review_delete['user_idx']
+        
+        user_idx = review_delete['user_idx'] 
+        # movie_idx = movie_idx
 
         # 유저가 작성한 리뷰 찾아 삭제
-        delete_review = Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx) & (Review.is_deleted == 0)).first()
-        delete_review.is_deleted = 1
-
-        db.session.add(delete_review)
+        user_idx = User.query.filter(User.user_idx == user_idx).first()
+        Review.query.filter((Review.movie_idx == movie_idx) & (Review.user_idx == user_idx)).delete()
         db.session.commit()
         return jsonify({"result":"success"})
