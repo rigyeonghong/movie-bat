@@ -162,7 +162,7 @@ export const SignLogo = styled.img`
   padding: 3vw;
 `;
 export const SignupWrapper = styled.div`
-  width: 50vw;
+  width: 80vw;
   // border: solid 1px white;
   display: flex;
   flex-direction: column;

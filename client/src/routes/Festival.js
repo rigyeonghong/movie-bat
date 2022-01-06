@@ -46,8 +46,8 @@ function Festival() {
         .get(`/festivals/${region}`)
         .then((res) => res.data)
         .then(setMapLoading(false));
-      // console.log(response);
       setFestivals(response);
+      console.log(response);
     };
     call();
   }, [region]);
@@ -117,7 +117,10 @@ function Festival() {
           </SlideRightBtn>
         </SliderContainer>
         {mapLoading || festivals.length == 0 ? (
-          <div>로딩중</div>
+          <div style={{ textAlign: "center" }}>
+            <iframe src="https://giphy.com/embed/Pm3tjwNGmIwQ1lqV3Q" />
+            <div>영화제 목록 업데이트 중 !</div>
+          </div>
         ) : (
           <Map
             title={festivals[curIndex]["festival_title"]}

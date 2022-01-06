@@ -60,11 +60,11 @@ function MovieDetail() {
         movie_idx: movieIndex,
         user_idx: user["userIdx"],
         review_content: reviewContent,
+        rating: 0,
       })
       .then((res) => res.data);
   };
   const editReview = async () => {
-    console.log("idx" + user["userIdx"]);
     const response = await axios
       .patch(`/movies/detail/${movieIndex}`, {
         movie_idx: movieIndex,
@@ -111,8 +111,6 @@ function MovieDetail() {
       />
     );
   }
-
-  console.log(Object.keys(reviews).length);
   return (
     <>
       <Nav />

@@ -32,7 +32,7 @@ function Map({ title, lat, lon, url }) {
       image: markerImage, // 마커 이미지
     });
     var infowindow = new kakao.maps.InfoWindow({
-      content: `<div style="width:200px;border-style:none;text-align:center;padding:10px 0;"><a href='https://naver.com' style=color:black>${title}</a></div>`,
+      content: `<div style="width:200px;border-style:none;text-align:center;padding:10px 0;"><a style=color:black href=${url} >${title}</a></div>`,
     });
     infowindow.open(map, marker);
 

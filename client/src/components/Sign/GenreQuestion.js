@@ -1,40 +1,150 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CenterTitleWrapper,
   CenterDescriptionWrapper,
+  MovieDetailMainInfo,
+  MovieDetailTitle,
 } from "../../styles/theme";
-import { ToggleButton } from "react-bootstrap";
-import { genreList } from "../../variables";
+import { Button, Container, Col, Row } from "react-bootstrap";
+import search from "../../assets/search.svg";
 
-function GenreQuestion({ genre, setGenre }) {
-  const temp = [];
-  for (let i = 0; i < genreList.length; i++) {
-    temp.push(
-      <ToggleButton
-        key={i}
-        id={`genre-${i}`}
-        type="radio"
-        variant={"outline-secondary"}
-        name="genre"
-        value={genreList[i].value}
-        onChange={(e) => setGenre(e.currentTarget.value)}
-        checked={genre === genreList[i].value}
-        className="tasteItem"
-      >
-        {genreList[i].name}
-      </ToggleButton>
-    );
-    if (i % 3 == 2) {
-      temp.push(<br />);
+function GenreQuestion({ genre, setGenre, masterpiece }) {
+  const [isChecked, setIsChecked] = useState([-1, -1]);
+  const [isFirstPage, setIsFirstPage] = useState(true);
+  const [hoverIdx, setHoverIdx] = useState(0);
+  console.log(isChecked);
+  const selectMovie = (i) => {
+    let where = isChecked.indexOf(i);
+    let empty = isChecked.indexOf(-1);
+    let newIsChecked = [...isChecked];
+    // -1, 새로 들어온 경우
+    if (0 > where) {
+      // 자리가 없을때
+      if (0 > empty) console.log("자리없어욧");
+      else {
+        // 자리 있을때
+        newIsChecked[empty] = i;
+        setIsChecked(newIsChecked);
+      }
+    } else {
+      newIsChecked[where] = -1;
+      setIsChecked(newIsChecked);
     }
+  };
+  const temp = [];
+  for (let i = 0; i < Object.keys(masterpiece).length; i++) {
+    temp.push(
+      <Col sm={2}>
+        <button
+          style={{ position: "relative" }}
+          onClick={() => selectMovie(hoverIdx)}
+        >
+          <img
+            style={{ width: "150px" }}
+            src={masterpiece[i]["masterpiece_img_link"]}
+            onMouseOver={() => setHoverIdx(i)}
+          />
+          <img
+            className={isChecked.indexOf(i) < 0 ? "isHidden" : ""}
+            style={{
+              position: "absolute",
+              zIndex: 999,
+              top: 0,
+              right: 0,
+            }}
+            src={search}
+          />
+        </button>
+      </Col>
+    );
   }
+  const First = () => {
+    return (
+      <>
+        <Container>
+          <Row style={{ justifyContent: "space-evenly" }}>
+            {temp.slice(0, 3)}
+          </Row>
+          <Row style={{ justifyContent: "space-evenly" }}>
+            {temp.slice(3, 6)}
+          </Row>
+          <Row style={{ justifyContent: "space-evenly" }}>
+            {temp.slice(6, 9)}
+          </Row>
+
+          <Button
+            style={{ width: "150px", float: "right" }}
+            onClick={() => setIsFirstPage(!isFirstPage)}
+          >
+            다른 장르 선택
+          </Button>
+        </Container>
+      </>
+    );
+  };
+  const Second = () => {
+    return (
+      <>
+        <Container style={{ flexDirection: "column" }}>
+          <Row style={{ justifyContent: "space-evenly" }}>
+            {temp.slice(9, 12)}
+          </Row>
+          <Row style={{ justifyContent: "space-evenly" }}>
+            {temp.slice(12, 15)}
+          </Row>
+          <Row style={{ justifyContent: "space-evenly" }}>
+            {temp.slice(15, 18)}
+          </Row>
+
+          <Button
+            style={{ width: "150px", float: "right" }}
+            onClick={() => setIsFirstPage(!isFirstPage)}
+          >
+            다른 장르 선택
+          </Button>
+        </Container>
+      </>
+    );
+  };
   return (
     <>
-      <CenterTitleWrapper>선호하는 장르</CenterTitleWrapper>
-      <CenterDescriptionWrapper>
-        가장 즐겨보는 장르를 한 가지 선택해주세요!
-      </CenterDescriptionWrapper>
-      {temp}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <CenterTitleWrapper>선호하는 장르</CenterTitleWrapper>
+        <p style={{ textAlign: "center" }}>
+          좋아하는 영화를 두 가지 선택해주세요!
+        </p>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{ width: "40vw", display: "flex", flexDirection: "column" }}
+        >
+          <div style={{ display: "flex", height: "400px" }}>
+            <img src={masterpiece[hoverIdx]["masterpiece_img_link"]} />
+            <div>
+              <MovieDetailTitle>
+                {masterpiece[hoverIdx]["masterpiece_title"]}
+              </MovieDetailTitle>
+              <MovieDetailMainInfo>
+                <b>장르</b> {masterpiece[hoverIdx]["masterpiece_genre"]}
+              </MovieDetailMainInfo>
+              <MovieDetailMainInfo>
+                <b>감독</b> {masterpiece[hoverIdx]["masterpiece_director"]}
+              </MovieDetailMainInfo>
+            </div>
+          </div>
+
+          <div style={{ width: "500px" }}>
+            <hr />
+            {masterpiece[hoverIdx]["masterpiece_plot"]}
+          </div>
+        </div>
+        {isFirstPage ? <First /> : <Second />}
+      </div>
     </>
   );
 }
