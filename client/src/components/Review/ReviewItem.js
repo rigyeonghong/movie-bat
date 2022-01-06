@@ -17,7 +17,14 @@ function ReviewItem({
       <div>{date}</div>
       {user["userIdx"] == userIdx ? (
         <>
-          <Button onClick={() => editReview()}>수정</Button>
+          <Button
+            onClick={() => {
+              editReview();
+              alert("수정@");
+            }}
+          >
+            수정
+          </Button>
           <Button onClick={() => deleteReview()}>삭제</Button>
         </>
       ) : (

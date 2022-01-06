@@ -68,8 +68,7 @@ function MovieDetail() {
       .patch(`/movies/detail/${movieIndex}`, {
         movie_idx: movieIndex,
         user_idx: user["userIdx"],
-        review_content: reviewContent,
-        review_rating: 0,
+        review_content: "수정테스트",
       })
       .then((res) => res.data);
   };
