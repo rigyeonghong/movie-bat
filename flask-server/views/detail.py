@@ -93,15 +93,22 @@ def detail(movie_idx):
                 review_date = datetime.datetime.now(timezone('Asia/Seoul'))
 
                 new_review = Review(movie_idx, user_idx, review_content, review_date)
+                
                 db.session.add(new_review)
                 db.session.commit()
                 print("리뷰가 저장되었습니다.")
-                return jsonify({"result":"success"})
+                return jsonify({
+                    "result":"success",
+                    "content":"리뷰 저장 성공"
+                })
 
             # 유저가 리뷰를 작성한 적 있으면
             else:
                 print("리뷰가 저장 안돼요.")
-                return jsonify({"result":"failed"})
+                return jsonify({
+                    "result":"failed",
+                    "content": "리뷰 저장 실패"
+                })
 
         # fe에서 none 값을 보내줬다면
         return jsonify({"result":"fail"})
