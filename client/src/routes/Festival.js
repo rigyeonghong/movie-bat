@@ -17,6 +17,7 @@ function Festival() {
   const [region, setRegion] = useState("서울");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [curIndex, setCurIndex] = useState(0);
+  const [mapLoading, setMapLoading] = useState(false);
   let festivalsList = [];
   const slideRef = useRef(null);
   const nextSlide = () => {
@@ -39,17 +40,19 @@ function Festival() {
   }, [currentSlide]);
 
   useEffect(() => {
+    setMapLoading(true);
     const call = async () => {
       const response = await axios
         .get(`/festivals/${region}`)
-        .then((res) => res.data);
+        .then((res) => res.data)
+        .then(setMapLoading(false));
+      // console.log(response);
       setFestivals(response);
     };
     call();
-    console.log(festivals[curIndex]);
   }, [region]);
+
   for (let i = 0; i < Object.keys(festivals).length; i++) {
-    console.log(festivals);
     festivalsList.push(
       <FesSlider
         src={festivals[i]["festival_src"]}
@@ -60,6 +63,7 @@ function Festival() {
     );
   }
   let TOTAL_SLIDES = parseInt(festivalsList.length / 6);
+
   return (
     <>
       <Nav />
@@ -112,11 +116,16 @@ function Festival() {
             <Right width="35" height="35" fill="white" />
           </SlideRightBtn>
         </SliderContainer>
-        <Map
-        //   title={festivals[curIndex]["festival_title"]}
-        //   lat={festivals[curIndex]["festival_latitude"]}
-        // lon={festivals[curIndex]["festival_latlng"]}
-        />
+        {mapLoading || festivals.length == 0 ? (
+          <div>로딩중</div>
+        ) : (
+          <Map
+            title={festivals[curIndex]["festival_title"]}
+            lat={festivals[curIndex]["festival_latitude"]}
+            lon={festivals[curIndex]["festival_latlng"]}
+            url={festivals[curIndex]["festival_link"]}
+          />
+        )}
       </SliderContainer>
     </>
   );
