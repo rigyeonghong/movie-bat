@@ -144,7 +144,6 @@ def detail(movie_idx):
     else:
         review_delete = request.get_json()
 
-        print(review_delete)
         user_idx = review_delete['user_idx'] 
         movie_idx = movie_idx
 
