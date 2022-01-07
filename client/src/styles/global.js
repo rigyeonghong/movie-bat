@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     box-sizing: border-box;
     background-color: #141414;
-    color: white
+    color: white;
   }
   .tasteItem {
     height: 7vw;
@@ -32,6 +32,10 @@ const GlobalStyle = createGlobalStyle`
   .isShown {
     color: red;
   }
+    .btn-brown{
+      background-color: brown;
+      color: white;
+    }
 `;
 
 export default GlobalStyle;

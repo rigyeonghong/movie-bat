@@ -17,19 +17,19 @@ function Navigation() {
 
         <Nav style={{ textAlign: "center", alignItems: "center" }}>
           <Nav.Item className="px-4">
-            <Nav.Link className="text-white" href="/movies">
-              영화
+            <Nav.Link href="/movies" style={{ color: "white" }}>
+              영화 추천
             </Nav.Link>
           </Nav.Item>
 
           <Nav.Item className="px-4">
-            <Nav.Link className="text-white" href="/festival">
-              영화제
+            <Nav.Link style={{ color: "white" }} href="/festival">
+              영화제 소개
             </Nav.Link>
           </Nav.Item>
 
           <Nav.Item className="px-4">
-            <Nav.Link className="text-white" href="/team">
+            <Nav.Link style={{ color: "white" }} href="/team">
               팀 소개
             </Nav.Link>
           </Nav.Item>

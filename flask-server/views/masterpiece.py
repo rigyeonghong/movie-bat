@@ -10,7 +10,7 @@ def masterpiece():
     # masterpiece tb에서 모두 가져온다
     masterpiece = Masterpiece.query.filter().all()
 
-    print(masterpiece)
+    # print(masterpiece)
     
     masterpieces = []
     for m in masterpiece:
@@ -22,7 +22,7 @@ def masterpiece():
             "masterpiece_img_link" : m.masterpiece_img_link
         })
 
-    print(masterpieces)
+    # print(masterpieces)
 
     select_masterpiece = dict(list(enumerate(masterpieces, start=0)))
 

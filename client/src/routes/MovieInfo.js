@@ -60,6 +60,7 @@ function MovieDetail() {
         movie_idx: movieIndex,
         user_idx: user["userIdx"],
         review_content: reviewContent,
+        rating: 0,
       })
       .then((res) => res.data);
   };
@@ -108,8 +109,6 @@ function MovieDetail() {
       />
     );
   }
-
-  console.log(Object.keys(reviews).length);
   return (
     <>
       <Nav />

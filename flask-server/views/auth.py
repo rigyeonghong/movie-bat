@@ -52,6 +52,19 @@ def signup():
 
     # fe -> be json데이터 전달 받음.
     user = request.get_json()
+    # movie_score = Movie.query.filter().all()
+
+    # genre = '드라마'
+    # abc =[]
+    # for movies in movie_score:
+    #     if type(movies) == list:
+    #         for idx, movie in enumerate(movies):
+    #             abc.append([movie.movie_idx, movie.movie_genre])
+    #     else:
+    #         abc.pappend()
+    #         # if genre == m.movie_genre:
+    #         #     abc.append([movie.movie_idx, movie.movie_genre])
+    # print(abc)
 
     if user != None :
         user_id = user['email']
@@ -78,6 +91,10 @@ def signup():
         session['user_idx'] = user_idx
         session['nickname'] = user_nick
 
+
+        
+
+
         # genre table 데이터 추가.
         new_genre = Score(user_idx, user_genre1, user_genre2)
 
@@ -86,11 +103,7 @@ def signup():
 
         # movie_tb score 주기.
         # 영화 DB에 점수 넣기. +5 + 1
-        movie_score = Movie.query.filter().all()
-
-        for movie in movie_score:
-            print(movie['movie_genre'])
-
+    
 
         db.session.add(movie_score)
         db.session.commit()
@@ -105,8 +118,7 @@ def signup():
                         "content":"가입 성공!",
                         "user_idx": user_idx}, 200)
 
-    return 'signup page'
-
+    return abc
 
 @bp.route('/signin', methods=['GET', 'POST'])
 def login():
