@@ -5,6 +5,7 @@ import {
   SlideItemContainer,
   SlideLeftBtn,
   SlideRightBtn,
+  BoldTitle,
 } from "../../styles/theme";
 import { ReactComponent as Left } from "../../assets/left.svg";
 import { ReactComponent as Right } from "../../assets/right.svg";
@@ -42,7 +43,7 @@ function Slider({ subject }) {
   }, [currentSlide]);
   return (
     <SliderContainer>
-      {movie_list.length ? <h2>{subjectName}</h2> : <></>}
+      {movie_list.length ? <BoldTitle>{subjectName}</BoldTitle> : <></>}
       <SlideItemContainer ref={slideRef}>{movie_list}</SlideItemContainer>
       <SlideLeftBtn onClick={() => prevSlide()}>
         <Left width="35" height="35" fill="white" />

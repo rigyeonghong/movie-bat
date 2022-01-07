@@ -14,6 +14,7 @@ import GlobalStyle from "./styles/global";
 import KakaoLogin from "./routes/KakaoLogin";
 import PageNotFound from "./routes/PageNotFound";
 import MovieInfo from "./routes/MovieInfo";
+import Search from "./routes/Search";
 
 function App() {
   const isLogout = () => {
@@ -32,6 +33,7 @@ function App() {
               element={isLogout() ? <Login /> : <Movies />}
             />
             <Route path="like" element={<Like />} />
+            <Route path="search/:keyword" element={<Search />} />
             <Route path="/auth/signin" element={<Login />} />
             <Route path="/auth/signup" element={<SignUp />} />
             <Route exact path="/" element={<Home />} />

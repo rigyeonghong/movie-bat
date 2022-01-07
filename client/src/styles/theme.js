@@ -63,6 +63,7 @@ export const SliderContainer = styled.div`
   margin: 0 auto;
   position: relative;
   display: block;
+  margin-top: 1vw;
 `;
 export const SlideItemContainer = styled.div`
   width: 100%;
@@ -95,7 +96,9 @@ export const SlideMovieEmptyPic = styled.div`
     transition: all 0.3s linear;
   }
 `;
-export const SlideMovieTitle = styled.h6``;
+export const SlideMovieTitle = styled.h6`
+  font-weight: 500;
+`;
 
 export const BigSlideMovieImg = styled.img`
   width: 100vw;
@@ -208,13 +211,14 @@ export const SlideLeftBtn = styled(SlideBtn)`
   // left: 0;
   // top: 45%;
   left: 0;
-  top: 23%;
+  top: ${(props) => props.top || "23%"};
+
   width: 50px;
   height: 100px;
 `;
 export const SlideRightBtn = styled(SlideBtn)`
   right: 0;
-  top: 23%;
+  top: ${(props) => props.top || "23%"};
   width: 50px;
   height: 100px;
 `;
@@ -278,4 +282,7 @@ export const ModalContainer = styled.div`
     border-radius: 10px;
     text-align: center;
     }
+`;
+export const BoldTitle = styled.h2`
+  font-weight: 700;
 `;
