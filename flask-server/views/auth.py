@@ -133,8 +133,8 @@ def signup():
             if score == movie_score_push.movie_idx:
                 movie_score_push.movie_score += 5
 
-        db.session.add(movie_score_push)
-        db.session.commit()
+                db.session.add(movie_score_push)
+                db.session.commit()
 
         # 인기있는 상영작과 관련있는 영화 점수 ++
         choice_movies = {
@@ -179,30 +179,40 @@ def signup():
             18: ['9.1', '8.1', '6.4', '6.4', '6.1']
         }
         # 장르 1
-        popular_movie1 = Masterpiece.query.filter(Masterpiece.idx == user_genre1).first()
+        popular_movie1 = Masterpiece.query.filter(Masterpiece.masterpiece_idx == (user_genre1+1)).first()
 
     
-        # print(choice_movies[popular_movie1.masterpiece_idx]) # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
+        print(choice_movies[popular_movie1.masterpiece_idx]) # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
 
         # 해당하는 타이틀 점수 주기.
-        for idx, movie in enumerate(choice_movies[popular_movie1.masterpiece_idx]):
-            for movie_score in movie_score_push:
-                if movie == movie_score.movie_title:
+        for title_idx, movie in enumerate(choice_movies[popular_movie1.masterpiece_idx]): # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
+            for movie_score in movie_score_push: # 영화목록 가져옴.
+                if movie == movie_score.movie_title: # 영화 목록 제목과 5개의 데이터가 일치하면
                     # movie_score_push.movie_score += 5
-                    for score in choice_score[popular_movie1.masterpiece_idx]:
-                        movie_score_push.movie_score += score
+                    for score_idx, score in enumerate(choice_score[popular_movie1.masterpiece_idx]): # [7.7, 7.6, 6.8, 6.2, 5.9]
+                        if title_idx == score_idx:
+                            print(score, title_idx, score_idx) # 2
+                            movie_score.movie_score += float(score)
+
+                            db.session.add(movie_score)
+                            db.session.commit()
 
 
         # 장르 2
-        popular_movie2 = Masterpiece.query.filter(Masterpiece.idx == user_genre2).first()
+        popular_movie2 = Masterpiece.query.filter(Masterpiece.masterpiece_idx == (user_genre2+1)).first()
 
         # 해당하는 타이틀 점수 주기.
-        for idx, movie in enumerate(choice_movies[popular_movie2.masterpiece_idx]):
-            for movie_score in movie_score_push:
-                if movie == movie_score.movie_title:
+        for title_idx, movie in enumerate(choice_movies[popular_movie2.masterpiece_idx]): # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
+            for movie_score in movie_score_push: # 영화목록 가져옴.
+                if movie == movie_score.movie_title: # 영화 목록 제목과 5개의 데이터가 일치하면
                     # movie_score_push.movie_score += 5
-                    for score in choice_score[popular_movie2.masterpiece_idx]:
-                        movie_score_push.movie_score += score
+                    for score_idx, score in enumerate(choice_score[popular_movie2.masterpiece_idx]): # [7.7, 7.6, 6.8, 6.2, 5.9]
+                        if title_idx == score_idx:
+                            print(score, title_idx, score_idx) # 2
+                            movie_score.movie_score += float(score)
+
+                            db.session.add(movie_score)
+                            db.session.commit()
         
         print(" 가입이 완료되었습니다. ")
         return jsonify({"result":"success",
@@ -225,7 +235,10 @@ def login():
         
         # user가 선택한 장르 주기.
         genre = Score.query.filter(User.user_idx==Score.user_idx).all()
-        
+        for gen in genre:
+            genre1 = gen.user_score_genre1
+            genre2 = gen.user_score_genre2
+
         if not same_user:
             print('가입되어있지 않은 회원입니다.')
 
@@ -249,8 +262,8 @@ def login():
                 "result":"success",
                 "user_idx": session['user'],
                 "user_nick": session['nick'],
-                "user_genre1": genre.user_score_genre1,
-                "user_genre2": genre.user_score_genre2,
+                "user_genre1": genre1,
+                "user_genre2": genre2,
                 "user_runningtime": same_user.user_runningtime,
                 "user_region": same_user.user_region
             })

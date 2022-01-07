@@ -59,52 +59,48 @@ def callback():
         user = User.query.filter(User.user_id == email).first()
 
         # db에 존재하지 않은 user면 회원가입 진행
+        # user_id, nick, profile, pw 저장
         if not user:
             user_id = email
-            user_password = kakao_id
+            user_pw_hash = generate_password_hash(str(kakao_id))
             user_nick = nickname
             user_profile = profile_img
-        
-        
-        session['user'] = email
-        session['nick'] = nickname
-        session['profile'] = profile_img
-        session['pw'] = user_password
+            user_number = 0
+            user_runningtime = 0
+            user_region = ''
+            
+            new_user = User(user_id, user_pw_hash, user_nick, user_number, user_runningtime, user_region)
+            db.session.add(new_user)
+            db.session.commit()
 
-        # kakao로부터 받은 email, nick, profile 넘겨주고
-        return jsonify({
-            "result":"success",
-            "content":"카카오 인증 성공",
-            "user_email": session['user'],
-            "user_nick": session['nick'],
-            "user_profile": session['profile'],
-            "user_pw": session['pw']
-        })
+        # user_idx를 식별자로 보냄
+        signup_user = User.query.filter(User.user_id == email).first()
+        user_idx = signup_user.user_idx
+        redirect_uri = f"http://www.localhost:3000/kakao/loggedin/user={user_idx}"
+        return redirect(redirect_uri)
 
-# 카카오통해 받은 email, nick, profile + user 취향 받아서 db 저장
+
+# user_idx와 user 취향 받아서 해당하는 db 저장
 @bp.route('/user')
 def user():
         # fe에서 넘어온 값 확인
         fe_user = request.get_json()
         
         if fe_user != None:
-            user_nick = fe_user['nickname']
-            user_id = fe_user['email']
-            user_genre = fe_user['genre']
+            # user_genre = fe_user['genre']
+            user_idx = fe_user['user_idx']
             user_runningtime = fe_user['runningtime']
             user_region = fe_user['region']
-            user_pw = fe_user['pw']
-            user_profile = fe_user['profile']
 
-            # kakao 로는 profile사진은 아직 model에서 init되있지 않기에 안넣음
-            user_pw_hash = generate_password_hash(user_pw)
-            new_user = User(user_id,user_pw_hash,user_nick, user_genre, user_runningtime, user_region)
-            db.session.add(new_user)
+
+            # user_idx에 맞는 컬럼에 runningtime, region 넣어줌
+            update_user = User.query.filter(User.user_idx == user_idx).first()
+            
+            update_user.user_runningtime = user_runningtime
+            update_user.user_region = user_region
+            
+            db.session.add(update_user)
             db.session.commit()
-
-            # db에서 생성된 user_idx 가져오기
-            user_saved = User.query.filter(User.user_id == user_id).first()
-            user_idx = user_saved.user_idx
 
             print("회원가입이 완료되었습니다.")
             return jsonify({"result":"success",
