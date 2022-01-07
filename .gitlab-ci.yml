@@ -14,7 +14,7 @@ stages:
 Deploy:
   stage: deploy
   only:
-    - full-feature
+    - back-docker
   tags:
     - team-13-runner
   script:
