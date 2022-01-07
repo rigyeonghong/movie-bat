@@ -105,8 +105,8 @@ def signup():
         # 영화 DB에 점수 넣기. +5 + 1
     
 
-        db.session.add(movie_score)
-        db.session.commit()
+        # db.session.add(movie_score)
+        # db.session.commit()
 
         Masterpiece.query.filter(Masterpiece.idx == user_genre1).first()
 
