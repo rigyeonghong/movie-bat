@@ -4,8 +4,8 @@
 
   padding: 2rem;
   float: left;
-  margin-left: 3%;
-  /* margin-top: 5%; */
+  /* margin-left: 3%; */
+  margin-top: 3%;
   text-align: center;
   vertical-align: middle;
 }
@@ -16,6 +16,11 @@
   transition: all 0.8s ease;
 }
 
+.p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .profile:hover {
   transform: rotateY(180deg)
 }
@@ -48,10 +53,11 @@
   padding: 10px
 }
 
-/* .img {
-  border-radius: 10px;
-  border: 3px solid #5f5f79;
-} */
+.img {
+  clip-path: circle();
+  /* border-radius: 10%;
+  border: 3px solid #5f5f79; */
+}
 
 .name {
   color: black;
@@ -79,4 +85,9 @@
 .title {
   text-align: center;
   margin-top: 3%;
+}
+
+.subtitle{
+  text-align: center;
+  margin-top: 1%;
 }
