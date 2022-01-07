@@ -9,7 +9,7 @@ import json
 bp = Blueprint("search", __name__, url_prefix="/search/movies")
 
 # 영화 이름 검색
-@bp.route('/<string:search_content>', methods=['GET'])
+@bp.route('/title/<string:search_content>', methods=['GET'])
 def search_title(search_content):
 
     # 영화 이름 검색한 값에 맞는 영화 보내주기
