@@ -9,7 +9,7 @@ import json
 bp = Blueprint("search", __name__, url_prefix="/search/movies")
 
 # 영화 이름 검색
-@bp.route('/<string:search_content>', methods=['GET'])
+@bp.route('/title/<string:search_content>', methods=['GET'])
 def search_title(search_content):
 
     # 영화 이름 검색한 값에 맞는 영화 보내주기
@@ -62,47 +62,3 @@ def search_title(search_content):
     print(movie_title_searched, movie_director_searched, movie_genre_searched)
     return jsonify(movie_title_searched, movie_director_searched, movie_genre_searched)
         
-
-# 영화 감독 검색
-@bp.route('/director/<string:director>', methods=['GET'])
-def search_director(director):
-
-    # 감독 이름에 검색한 값에 맞는 영화 보내주기
-    movies = Movie.query.filter(Movie.movie_director.like(director))
-
-    search_movie = []
-    for movie in movies:
-        search_movie.append({
-            'movie_idx' : movie.movie_idx, 
-            "movie_title" : movie.movie_title, 
-            "movie_posterUrl" : movie.movie_img_link, 
-            "movie_genre" : movie.movie_genre
-        })
-
-
-    search_movies = dict(list(enumerate(search_movie, start=0)))    
-
-    print(search_movies)
-    return search_movies    
-
-
-# 영화 장르 검색
-@bp.route('/genre/<string:genre>', methods=['GET'])
-def search_genre(genre):
-        
-    # 장르에 검색한 값에 맞는 영화 보내주기
-    movies = Movie.query.filter(Movie.movie_title.like(genre))
-
-    search_movie = []
-    for movie in movies:
-        search_movie.append({
-            'movie_idx' : movie.movie_idx, 
-            "movie_title" : movie.movie_title, 
-            "movie_posterUrl" : movie.movie_img_link, 
-            "movie_genre" : movie.movie_genre
-        })
-
-    search_movies = dict(list(enumerate(search_movie, start=0)))    
-
-    print(search_movies)
-    return search_movies    
