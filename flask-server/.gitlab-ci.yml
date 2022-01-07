@@ -1,0 +1,8 @@
+buildjob:
+  stage: build
+  tags:
+   - dockerproject
+  script:
+   - docker build -t honge7694/flaskapp:latest .
+   - docker image push honge7694/flaskapp:latest
+   - aws ecs update-service --cluster flaskcluster --service flaskapp-serviece --force-new-deployment
