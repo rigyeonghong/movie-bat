@@ -7,6 +7,7 @@ import {
   SlideItemContainer,
   SlideLeftBtn,
   SlideRightBtn,
+  BoldTitle,
 } from "../styles/theme";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { ReactComponent as Left } from "../assets/left.svg";
@@ -69,7 +70,9 @@ function Festival() {
       <Nav />
       <SliderContainer>
         <div style={{ marginTop: "5vh" }}>
-          <h1 style={{ float: "left" }}>{region}에서 열리는 영화제</h1>
+          <BoldTitle style={{ float: "left" }}>
+            {region}에서 열리는 영화제
+          </BoldTitle>
           <DropdownButton
             style={{ float: "right" }}
             id="dropdownRegion"
@@ -109,10 +112,10 @@ function Festival() {
           <SlideItemContainer ref={slideRef}>
             {festivalsList}
           </SlideItemContainer>
-          <SlideLeftBtn onClick={() => prevSlide()}>
+          <SlideLeftBtn top={"-10px"} onClick={() => prevSlide()}>
             <Left width="35" height="35" fill="white" />
           </SlideLeftBtn>
-          <SlideRightBtn onClick={() => nextSlide()}>
+          <SlideRightBtn top={"-10px"} onClick={() => nextSlide()}>
             <Right width="35" height="35" fill="white" />
           </SlideRightBtn>
         </SliderContainer>

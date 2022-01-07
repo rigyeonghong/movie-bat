@@ -6,7 +6,8 @@ import {
 import { ToggleButton } from "react-bootstrap";
 import { timeList } from "../../variables";
 
-function RunningtimeQuestion({ runningtime, setRunningtime }) {
+function RunningtimeQuestion({ runningtimeChecked, setRunningtimeChecked }) {
+  console.log(runningtimeChecked);
   return (
     <>
       <CenterTitleWrapper>선호하는 러닝타임</CenterTitleWrapper>
@@ -22,8 +23,8 @@ function RunningtimeQuestion({ runningtime, setRunningtime }) {
           name="runningtime"
           value={item.value}
           className="tasteItem"
-          onChange={(e) => setRunningtime(e.currentTarget.value)}
-          checked={runningtime === item.value}
+          onChange={(e) => setRunningtimeChecked(e.currentTarget.value)}
+          checked={runningtimeChecked === item.value}
         >
           {item.name}
         </ToggleButton>

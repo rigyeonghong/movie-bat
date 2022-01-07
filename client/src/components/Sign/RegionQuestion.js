@@ -6,7 +6,7 @@ import {
 import { ToggleButton } from "react-bootstrap";
 import { regionList } from "../../variables";
 
-function RegionQuestion({ region, setRegion }) {
+function RegionQuestion({ regionChecked, setRegionChecked }) {
   const temp = [];
   for (let i = 0; i < regionList.length; i++) {
     temp.push(
@@ -17,8 +17,8 @@ function RegionQuestion({ region, setRegion }) {
         variant={"outline-secondary"}
         name="region"
         value={regionList[i].value}
-        onChange={(e) => setRegion(e.currentTarget.value)}
-        checked={region === regionList[i].value}
+        onChange={(e) => setRegionChecked(e.currentTarget.value)}
+        checked={regionChecked === regionList[i].value}
         className="tasteItem"
       >
         {regionList[i].name}
