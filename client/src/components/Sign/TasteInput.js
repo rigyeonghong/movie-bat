@@ -42,6 +42,7 @@ function TasteInput() {
   }, []);
 
   const postSignInData = async () => {
+    alert(genreChecked[0] + "   " + genreChecked[1]);
     const response = await axios
       .post("/auth/signup", {
         nickname: signinValue[0],

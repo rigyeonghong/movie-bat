@@ -6,7 +6,7 @@ import { useSetRecoilState } from "recoil";
 import { signinState } from "../../state";
 
 function SignUpInput({ setIsFirst }) {
-  const [nickname, setNickname] = useState(null);
+  const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
   const [noPhoneNum, setNoPhoneNum] = useState(null);
@@ -34,7 +34,6 @@ function SignUpInput({ setIsFirst }) {
     setSigninData([nickname, email, phoneNum, password]);
     setIsFirst(false);
   };
-  // useEffect(() => {}, [noPhoneNum]);
 
   const checkNickname = async () => {
     const response = await axios
@@ -52,9 +51,13 @@ function SignUpInput({ setIsFirst }) {
           return { ...cur, dupNickname: true };
         });
       });
-    if (duplicated["dupNickname"] == false && nickname) {
+    if (duplicated["dupNickname"] == false && nickname !== "") {
       setIsOkInput((cur) => {
         return { ...cur, okNickname: true };
+      });
+    } else {
+      setIsOkInput((cur) => {
+        return { ...cur, okNickname: false };
       });
     }
   };

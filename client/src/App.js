@@ -15,6 +15,7 @@ import KakaoLogin from "./routes/KakaoLogin";
 import PageNotFound from "./routes/PageNotFound";
 import MovieInfo from "./routes/MovieInfo";
 import Search from "./routes/Search";
+import Test from "./routes/Test";
 
 function App() {
   const isLogout = () => {
@@ -47,7 +48,7 @@ function App() {
               path="movies/detail/:idx"
               element={isLogout() ? <Login /> : <MovieInfo />}
             />
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="*" element={<Test />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
