@@ -6,7 +6,7 @@ import { useSetRecoilState } from "recoil";
 import { signinState } from "../../state";
 
 function SignUpInput({ setIsFirst }) {
-  const [nickname, setNickname] = useState(null);
+  const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
   const [noPhoneNum, setNoPhoneNum] = useState(null);
@@ -25,8 +25,7 @@ function SignUpInput({ setIsFirst }) {
     { dupNickname: false }
   );
   const setSigninData = useSetRecoilState(signinState);
-  console.log(nickname);
-  console.log(isOkInput["okNickname"]);
+
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const regPhone = /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/;
@@ -35,7 +34,6 @@ function SignUpInput({ setIsFirst }) {
     setSigninData([nickname, email, phoneNum, password]);
     setIsFirst(false);
   };
-  // useEffect(() => {}, [noPhoneNum]);
 
   const checkNickname = async () => {
     const response = await axios
@@ -53,9 +51,15 @@ function SignUpInput({ setIsFirst }) {
           return { ...cur, dupNickname: true };
         });
       });
-    if (duplicated["dupNickname"] == false && nickname) {
+    if (duplicated["dupNickname"] == false && nickname !== "") {
+      alert("냠냠");
       setIsOkInput((cur) => {
         return { ...cur, okNickname: true };
+      });
+    } else {
+      alert("?");
+      setIsOkInput((cur) => {
+        return { ...cur, okNickname: false };
       });
     }
   };

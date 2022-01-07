@@ -73,6 +73,7 @@ function MovieDetail() {
       })
       .then((res) => res.data);
   };
+
   const deleteReview = async () => {
     const response = await axios
       .delete(`/movies/detail/${movieIndex}`, {
@@ -83,6 +84,7 @@ function MovieDetail() {
       })
       .then((res) => res.data);
   };
+
   useEffect(() => {
     const call = async () => {
       const response = await axios
