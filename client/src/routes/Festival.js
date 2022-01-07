@@ -7,6 +7,7 @@ import {
   SlideItemContainer,
   SlideLeftBtn,
   SlideRightBtn,
+  BoldTitle,
 } from "../styles/theme";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { ReactComponent as Left } from "../assets/left.svg";
@@ -46,8 +47,8 @@ function Festival() {
         .get(`/festivals/${region}`)
         .then((res) => res.data)
         .then(setMapLoading(false));
-      // console.log(response);
       setFestivals(response);
+      console.log(response);
     };
     call();
   }, [region]);
@@ -69,7 +70,9 @@ function Festival() {
       <Nav />
       <SliderContainer>
         <div style={{ marginTop: "5vh" }}>
-          <h1 style={{ float: "left" }}>{region}에서 열리는 영화제</h1>
+          <BoldTitle style={{ float: "left" }}>
+            {region}에서 열리는 영화제
+          </BoldTitle>
           <DropdownButton
             style={{ float: "right" }}
             id="dropdownRegion"
@@ -109,15 +112,18 @@ function Festival() {
           <SlideItemContainer ref={slideRef}>
             {festivalsList}
           </SlideItemContainer>
-          <SlideLeftBtn onClick={() => prevSlide()}>
+          <SlideLeftBtn top={"-10px"} onClick={() => prevSlide()}>
             <Left width="35" height="35" fill="white" />
           </SlideLeftBtn>
-          <SlideRightBtn onClick={() => nextSlide()}>
+          <SlideRightBtn top={"-10px"} onClick={() => nextSlide()}>
             <Right width="35" height="35" fill="white" />
           </SlideRightBtn>
         </SliderContainer>
         {mapLoading || festivals.length == 0 ? (
-          <div>로딩중</div>
+          <div style={{ textAlign: "center" }}>
+            <iframe src="https://giphy.com/embed/Pm3tjwNGmIwQ1lqV3Q" />
+            <div>영화제 목록 업데이트 중 !</div>
+          </div>
         ) : (
           <Map
             title={festivals[curIndex]["festival_title"]}

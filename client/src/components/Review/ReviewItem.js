@@ -25,7 +25,14 @@ function ReviewItem({
           >
             수정
           </Button>
-          <Button onClick={() => deleteReview()}>삭제</Button>
+          <Button
+            onClick={() => {
+              deleteReview();
+              alert("삭제@");
+            }}
+          >
+            삭제
+          </Button>
         </>
       ) : (
         <></>

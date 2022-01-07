@@ -60,6 +60,7 @@ function MovieDetail() {
         movie_idx: movieIndex,
         user_idx: user["userIdx"],
         review_content: reviewContent,
+        rating: 0,
       })
       .then((res) => res.data);
   };
@@ -72,6 +73,7 @@ function MovieDetail() {
       })
       .then((res) => res.data);
   };
+
   const deleteReview = async () => {
     const response = await axios
       .delete(`/movies/detail/${movieIndex}`, {
@@ -82,6 +84,7 @@ function MovieDetail() {
       })
       .then((res) => res.data);
   };
+
   useEffect(() => {
     const call = async () => {
       const response = await axios
@@ -108,8 +111,6 @@ function MovieDetail() {
       />
     );
   }
-
-  console.log(Object.keys(reviews).length);
   return (
     <>
       <Nav />

@@ -1,6 +1,9 @@
 from flask import Blueprint, request, session, flash, redirect, url_for, g, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.users import *
+from models.score import *
+from models.masterpiece import *
+from models.movie import *
 
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
@@ -49,20 +52,34 @@ def signup():
 
     # fe -> be json데이터 전달 받음.
     user = request.get_json()
+    # movie_score = Movie.query.filter().all()
+
+    # genre = '드라마'
+    # abc =[]
+    # for movies in movie_score:
+    #     if type(movies) == list:
+    #         for idx, movie in enumerate(movies):
+    #             abc.append([movie.movie_idx, movie.movie_genre])
+    #     else:
+    #         abc.pappend()
+    #         # if genre == m.movie_genre:
+    #         #     abc.append([movie.movie_idx, movie.movie_genre])
+    # print(abc)
 
     if user != None :
         user_id = user['email']
         user_pw = user['password']
         user_nick = user['nickname']
         user_number = user['phoneNum']
-        user_genre = user['genre']
+        user_genre1 = user['genre1']
+        user_genre2 = user['genre2']
         user_runningtime = user['runningtime']
         user_region = user['region']
         
         
         #패스워드 암호화 해서 db에 저장
         user_pw_hash = generate_password_hash(user_pw)
-        new_user = User(user_id, user_pw_hash, user_nick, user_number, user_genre, user_runningtime, user_region)
+        new_user = User(user_id, user_pw_hash, user_nick, user_number, user_runningtime, user_region)
         db.session.add(new_user)
         db.session.commit()
 
@@ -74,14 +91,34 @@ def signup():
         session['user_idx'] = user_idx
         session['nickname'] = user_nick
 
+
+        
+
+
+        # genre table 데이터 추가.
+        new_genre = Score(user_idx, user_genre1, user_genre2)
+
+        db.session.add(new_genre)
+        db.session.commit()
+
+        # movie_tb score 주기.
+        # 영화 DB에 점수 넣기. +5 + 1
+    
+
+        # db.session.add(movie_score)
+        # db.session.commit()
+
+        Masterpiece.query.filter(Masterpiece.idx == user_genre1).first()
+
+        Masterpiece.query.filter(Masterpiece.idx == user_genre2).first()
+
+
         print(" 가입이 완료되었습니다. ")
         return jsonify({"result":"success",
                         "content":"가입 성공!",
                         "user_idx": user_idx}, 200)
-      
 
-    return 'signup page'
-
+    return abc
 
 @bp.route('/signin', methods=['GET', 'POST'])
 def login():
