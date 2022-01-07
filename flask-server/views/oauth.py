@@ -1,4 +1,6 @@
 from flask import Blueprint, request, session, flash, redirect, url_for, g, jsonify
+import sys
+sys.path.append('../')
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.users import *
 from key.kakao_client import kakao_client_id
