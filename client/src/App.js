@@ -47,7 +47,7 @@ function App() {
               path="movies/detail/:idx"
               element={isLogout() ? <Login /> : <MovieInfo />}
             />
-            <Route element={<PageNotFound />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

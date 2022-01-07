@@ -8,27 +8,26 @@ import {
 import { Button, Container, Col, Row } from "react-bootstrap";
 import search from "../../assets/search.svg";
 
-function GenreQuestion({ genre, setGenre, masterpiece }) {
-  const [isChecked, setIsChecked] = useState([-1, -1]);
+function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
   const [isFirstPage, setIsFirstPage] = useState(true);
   const [hoverIdx, setHoverIdx] = useState(0);
-  console.log(isChecked);
+  console.log(genreChecked);
   const selectMovie = (i) => {
-    let where = isChecked.indexOf(i);
-    let empty = isChecked.indexOf(-1);
-    let newIsChecked = [...isChecked];
+    let where = genreChecked.indexOf(i);
+    let empty = genreChecked.indexOf(-1);
+    let newgenreChecked = [...genreChecked];
     // -1, 새로 들어온 경우
     if (0 > where) {
       // 자리가 없을때
       if (0 > empty) console.log("자리없어욧");
       else {
         // 자리 있을때
-        newIsChecked[empty] = i;
-        setIsChecked(newIsChecked);
+        newgenreChecked[empty] = i;
+        setGenreChecked(newgenreChecked);
       }
     } else {
-      newIsChecked[where] = -1;
-      setIsChecked(newIsChecked);
+      newgenreChecked[where] = -1;
+      setGenreChecked(newgenreChecked);
     }
   };
   const temp = [];
@@ -45,7 +44,7 @@ function GenreQuestion({ genre, setGenre, masterpiece }) {
             onMouseOver={() => setHoverIdx(i)}
           />
           <img
-            className={isChecked.indexOf(i) < 0 ? "isHidden" : ""}
+            className={genreChecked.indexOf(i) < 0 ? "isHidden" : ""}
             style={{
               position: "absolute",
               zIndex: 999,

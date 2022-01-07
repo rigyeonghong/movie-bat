@@ -62,25 +62,11 @@ function Search() {
       <div>
         <BoldTitle>{searchKeyword} 검색 결과</BoldTitle>
 
-        <div>
-          <p>영화 제목</p>
-          <hr />
-          {titleResult.length ? titleResult : <p>{"검색 결과가 없습니다"}</p>}
-        </div>
-        <div>
-          <p>영화 감독</p>
-          <hr />
-          {directorResult.length ? (
-            directorResult
-          ) : (
-            <p>{"검색 결과가 없습니다"}</p>
-          )}
-        </div>
-        <div>
-          <p>장르</p>
-          <hr />
-          {genreResult.length ? genreResult : <p>{"검색 결과가 없습니다"}</p>}
-        </div>
+        {titleResult.length ? titleResult : <></>}
+
+        {directorResult.length ? directorResult : <></>}
+
+        {genreResult.length ? genreResult : <></>}
       </div>
     </>
   );
