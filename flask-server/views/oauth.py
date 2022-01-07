@@ -1,7 +1,7 @@
 from flask import Blueprint, request, session, flash, redirect, url_for, g, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.users import *
-from .key.kakao_client import kakao_client_id
+from ..key.kakao_client import kakao_client_id
 import requests
 
 bp = Blueprint("kakao", __name__, url_prefix="/oauth/kakao")
