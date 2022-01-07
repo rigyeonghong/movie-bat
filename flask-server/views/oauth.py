@@ -65,12 +65,11 @@ def callback():
             user_nick = nickname
             user_profile = profile_img
         
-        user_pw_hash = generate_password_hash(user_password)
         
         session['user'] = email
         session['nick'] = nickname
         session['profile'] = profile_img
-        session['pw'] = user_pw_hash
+        session['pw'] = user_password
 
         # kakao로부터 받은 email, nick, profile 넘겨주고
         return jsonify({
@@ -98,7 +97,8 @@ def user():
             user_profile = fe_user['profile']
 
             # kakao 로는 profile사진은 아직 model에서 init되있지 않기에 안넣음
-            new_user = User(user_id,user_pw,user_nick, user_genre, user_runningtime, user_region)
+            user_pw_hash = generate_password_hash(user_pw)
+            new_user = User(user_id,user_pw_hash,user_nick, user_genre, user_runningtime, user_region)
             db.session.add(new_user)
             db.session.commit()
 
