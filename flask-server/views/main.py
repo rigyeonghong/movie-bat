@@ -145,7 +145,12 @@ def main():
 
     movie_select_selected = dict(list(enumerate(movie_selected, start=0)))  
 
-    return jsonify(genre1, genre2, movie_runtime_selected, movie_select_selected)
+    return jsonify({
+            "genre1": genre1, 
+            "genre2": genre2,
+            "movie_runtime": movie_runtime_selected, 
+            "movie_award": movie_select_selected
+        })
 
 # 감독별 (movie_director)
 @bp.route('/director/<string:director>', methods=['GET', 'POST'])
