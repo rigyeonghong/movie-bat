@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Nav from "../components/Navigation";
 import { Button, ToggleButton, ButtonGroup } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Background,
   LikeBtnWrapper,
@@ -27,9 +27,11 @@ function MovieDetail() {
   let params = useParams();
   const movieIndex = params.idx;
   const user = useRecoilValue(userState);
+  const navigate = useNavigate();
   let date = new Date();
   const [rating, setRating] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [curReviewPage, setCurReviewPage] = useState(0);
   const [movieInfo, setMovieInfo] = useState([]);
   const [stillCuts, setStillCuts] = useState([]);
@@ -38,7 +40,7 @@ function MovieDetail() {
   const [likeMovie, setLikeMovie] = useState(null);
   const [reviewContent, setReviewContent] = useState("");
   let reviewList = [];
-
+  console.log(likeMovie);
   const postDibs = async () => {
     const response = await axios
       .post("/favorite/", {
@@ -52,7 +54,13 @@ function MovieDetail() {
           date.getMinutes() +
           " ",
       })
-      .then((res) => res.data);
+      .then((res) => res.data)
+      .then((res) =>
+        res.result == "success"
+          ? alert("내가 찜한 영화에 추가됐어요!")
+          : alert("찜 등록을 해제했어요!")
+      )
+      .catch(() => alert("잠시후에 다시 시도해주세요"));
   };
   const postReview = async () => {
     const response = await axios
@@ -62,16 +70,19 @@ function MovieDetail() {
         review_content: reviewContent,
         rating: 0,
       })
-      .then((res) => res.data);
+      .then((res) => res.data)
+      .then(() => alert("리뷰를 등록했어요!"))
+      .then(() => window.location.reload());
   };
   const editReview = async () => {
     const response = await axios
       .patch(`/movies/detail/${movieIndex}`, {
         movie_idx: movieIndex,
         user_idx: user["userIdx"],
-        review_content: "수정테스트",
+        review_content: reviewContent,
       })
-      .then((res) => res.data);
+      .then(() => alert("리뷰 수정이 완료되었습니다!"))
+      .then(() => window.location.reload());
   };
 
   const deleteReview = async () => {
@@ -82,7 +93,9 @@ function MovieDetail() {
           user_idx: user["userIdx"],
         },
       })
-      .then((res) => res.data);
+      .then((res) => res.data)
+      .then(() => alert("리뷰가 삭제되었습니다!"))
+      .then(() => window.location.reload());
   };
 
   useEffect(() => {
@@ -108,6 +121,7 @@ function MovieDetail() {
         userIdx={reviews[i].user_idx}
         editReview={editReview}
         deleteReview={deleteReview}
+        setEditOpen={setEditOpen}
       />
     );
   }
@@ -182,6 +196,27 @@ function MovieDetail() {
             <Button
               onClick={() => {
                 postReview();
+                setIsOpen(false);
+              }}
+            >
+              작성 완료
+            </Button>
+            <Button onClick={() => setIsOpen(false)}>취소</Button>
+          </ModalContainer>
+        </Background>
+      ) : (
+        <></>
+      )}
+      {editOpen ? (
+        <Background onClick={() => setEditOpen(false)}>
+          <ModalContainer onClick={(e) => e.stopPropagation()}>
+            <div>
+              <h3>리뷰 수정</h3>
+            </div>
+            <WriteReview setReviewContent={setReviewContent} />
+            <Button
+              onClick={() => {
+                editReview();
                 setIsOpen(false);
               }}
             >

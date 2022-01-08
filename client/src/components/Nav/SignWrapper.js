@@ -20,7 +20,7 @@ function SignWrapper() {
       ) : (
         <>
           <Dropdown>
-            <Dropdown.Toggle variant="success">
+            <Dropdown.Toggle variant="outline-danger">
               {user["userNickname"]}님! 안녕하세요:)
             </Dropdown.Toggle>
             <Dropdown.Menu>

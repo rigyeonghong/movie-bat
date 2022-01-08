@@ -13,9 +13,14 @@ import { DropdownButton, Dropdown } from "react-bootstrap";
 import { ReactComponent as Left } from "../assets/left.svg";
 import { ReactComponent as Right } from "../assets/right.svg";
 import Map from "../components/Map";
+import { useRecoilValue } from "recoil";
+import { userState } from "../state";
+
 function Festival() {
+  const user = useRecoilValue(userState);
+  console.log(user);
   const [festivals, setFestivals] = useState([]);
-  const [region, setRegion] = useState("서울");
+  const [region, setRegion] = useState(user["userRegion"]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [curIndex, setCurIndex] = useState(0);
   const [mapLoading, setMapLoading] = useState(false);
@@ -126,10 +131,10 @@ function Festival() {
           </div>
         ) : (
           <Map
-            title={festivals[curIndex]["festival_title"]}
-            lat={festivals[curIndex]["festival_latitude"]}
-            lon={festivals[curIndex]["festival_latlng"]}
-            url={festivals[curIndex]["festival_link"]}
+            title={festivals?.[curIndex]?.["festival_title"]}
+            lat={festivals?.[curIndex]?.["festival_latitude"]}
+            lon={festivals?.[curIndex]?.["festival_latlng"]}
+            url={festivals?.[curIndex]?.["festival_link"]}
           />
         )}
       </SliderContainer>
