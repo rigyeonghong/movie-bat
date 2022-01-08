@@ -4,7 +4,7 @@ from models.users import *
 from models.score import *
 from models.masterpiece import *
 from models.movie import *
-
+import time
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -49,35 +49,11 @@ def nick():
 #회원가입 signup
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():
+    # 코드 실행 시간
+    start = time.time()
 
     # fe -> be json데이터 전달 받음.
     user = request.get_json()
-
-    # movie_score_push = Movie.query.filter().all()
-
-    # genre1 = '가족'
-    # genre2 = 'SF'
-    # abc =[]
-    # for idx, movie in enumerate(movie_score_push):
-    #     # print(type(movies.movie_genre))
-    #     # print(idx, movie.movie_genre.replace(',', ' ').split())
-    #     # if movie.movie_genre.replace(',', ' ') == genre2:
-    #     #     print(idx, movie.movie_genre)
-    #     if len(movie.movie_genre.replace(',', ' ').split()) >= 2 :
-    #         for genre in (movie.movie_genre.replace(',', ' ').split()):
-    #             # print(genre)
-    #             if genre == genre1:
-    #                 abc.append([idx, genre, 1])
-    #             if genre == genre2:
-    #                 abc.append([idx, genre, 2])
-    #     else:
-    #         if movie.movie_genre.replace(',', ' ') == genre1:
-    #             abc.append([idx, movie.movie_genre, 3]) 
-    #         if movie.movie_genre.replace(',', ' ') == genre2:
-    #             abc.append([idx, movie.movie_genre, 4]) 
-
-    # print(abc, len(abc))
-
 
     if user != None :
         user_id = user['email']
@@ -112,6 +88,16 @@ def signup():
 
         # 선택한 장르와 같은 movie_tb 영화 score 주기.
         movie_score_push = Movie.query.filter().all()
+        
+        # 유저가 선택한 장르 가져오기.
+        user_master = Masterpiece.query.filter().all()
+        for mp_genre in user_master:
+            if mp_genre.masterpiece_idx == (user_genre1+1): # user_genre는 idx가 0부터 시작.
+                mp_genre1 = mp_genre.masterpiece_genre
+                # print(mp_genre1) 
+            if mp_genre.masterpiece_idx == (user_genre2+1):
+                mp_genre2 = mp_genre.masterpiece_genre
+                # print(mp_genre2)
 
         score_idx = []
         for idx, movie in enumerate(movie_score_push):
@@ -119,22 +105,25 @@ def signup():
             # print(idx, len(movies.movie_genre.replace(',', ' ').split()))
             if len(movie.movie_genre.replace(',', ' ').split()) > 1 :
                 for genre in (movie.movie_genre.replace(',', ' ').split()):
-                    if genre == user_genre1:
+                    if genre == mp_genre1:
                         score_idx.append(idx)
-                    if genre == user_genre2:
+                    if genre == mp_genre2:
                         score_idx.append(idx)
             else:
-                if movie.movie_genre.replace(',', ' ') == user_genre1:
+                if movie.movie_genre.replace(',', ' ') == mp_genre1:
                     score_idx.append(idx)
-                if movie.movie_genre.replace(',', ' ') == user_genre2:
+                if movie.movie_genre.replace(',', ' ') == mp_genre2:
                     score_idx.append(idx)
 
-        for score in score_idx:
-            if score == movie_score_push.movie_idx:
-                movie_score_push.movie_score += 5
+        # print(score_idx, len(score_idx))
+        for movie_genre_score in movie_score_push:
+            for score in score_idx: 
+                if (score+1) == movie_genre_score.movie_idx:
+                    movie_genre_score.movie_score += 5
+                    print(score+1)
 
-                db.session.add(movie_score_push)
-                db.session.commit()
+                    db.session.add(movie_genre_score)
+                    db.session.commit()
 
         # 인기있는 상영작과 관련있는 영화 점수 ++
         choice_movies = {
@@ -185,8 +174,8 @@ def signup():
         print(choice_movies[popular_movie1.masterpiece_idx]) # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
 
         # 해당하는 타이틀 점수 주기.
-        for title_idx, movie in enumerate(choice_movies[popular_movie1.masterpiece_idx]): # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
-            for movie_score in movie_score_push: # 영화목록 가져옴.
+        for movie_score in movie_score_push: # 영화목록 가져옴.
+            for title_idx, movie in enumerate(choice_movies[popular_movie1.masterpiece_idx]): # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
                 if movie == movie_score.movie_title: # 영화 목록 제목과 5개의 데이터가 일치하면
                     # movie_score_push.movie_score += 5
                     for score_idx, score in enumerate(choice_score[popular_movie1.masterpiece_idx]): # [7.7, 7.6, 6.8, 6.2, 5.9]
@@ -202,8 +191,8 @@ def signup():
         popular_movie2 = Masterpiece.query.filter(Masterpiece.masterpiece_idx == (user_genre2+1)).first()
 
         # 해당하는 타이틀 점수 주기.
-        for title_idx, movie in enumerate(choice_movies[popular_movie2.masterpiece_idx]): # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
-            for movie_score in movie_score_push: # 영화목록 가져옴.
+        for movie_score in movie_score_push: # 영화목록 가져옴.
+            for title_idx, movie in enumerate(choice_movies[popular_movie2.masterpiece_idx]): # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
                 if movie == movie_score.movie_title: # 영화 목록 제목과 5개의 데이터가 일치하면
                     # movie_score_push.movie_score += 5
                     for score_idx, score in enumerate(choice_score[popular_movie2.masterpiece_idx]): # [7.7, 7.6, 6.8, 6.2, 5.9]
@@ -214,7 +203,7 @@ def signup():
                             db.session.add(movie_score)
                             db.session.commit()
         
-        print(" 가입이 완료되었습니다. ")
+        print(" 가입이 완료되었습니다. ", time.time() - start)
         return jsonify({"result":"success",
                         "content":"가입 성공!",
                         "user_idx": user_idx}, 200)
