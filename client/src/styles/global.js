@@ -3,7 +3,9 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
-    padding: 0;  
+    padding: 0;
+    font-family: 'EliceDigitalBaeum_Regular';
+      
   }
   a:hover, a:visited, a:link, a:active {
     text-decoration: none;

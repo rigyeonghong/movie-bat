@@ -36,7 +36,7 @@ def main():
             # print(mp_genre2) # SF
 
     # 영화목록 가져오기
-    all_movies = Movie.query.filter().order_by(Movie.movie_score.desc()).all()
+    all_movies = Movie.query.filter().order_by(Movie.movie_img_link.desc().nullslast()).order_by(Movie.movie_score.desc()).all()
 
     movie_genre1 = []
     movie_genre2 = []
