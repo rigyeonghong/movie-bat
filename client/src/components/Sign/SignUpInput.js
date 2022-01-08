@@ -52,12 +52,10 @@ function SignUpInput({ setIsFirst }) {
         });
       });
     if (duplicated["dupNickname"] == false && nickname !== "") {
-      alert("냠냠");
       setIsOkInput((cur) => {
         return { ...cur, okNickname: true };
       });
     } else {
-      alert("?");
       setIsOkInput((cur) => {
         return { ...cur, okNickname: false };
       });

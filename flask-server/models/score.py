@@ -13,8 +13,8 @@ class Score(db.Model):
     def __init__(self, user, genre1, genre2):
         # self.movie_idx = movie
         self.user_idx = user
-        self.genre1 = genre1
-        self.genre2 = genre2
+        self.user_score_genre1 = genre1
+        self.user_score_genre2 = genre2
 
     # user_score_comedy = db.Column(db.String(50), default = 0)
     # user_score_fantasy  = db.Column(db.String(50), default = 0)

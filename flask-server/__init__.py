@@ -2,7 +2,7 @@ from flask import Flask, Blueprint
 from flask_cors import CORS
 from db_connect import db
 from flask_migrate import Migrate
-from flask_restx import Api, Resource, Namespace
+# from flask_restx import Api, Resource, Namespace
 import config
 
 from views import auth, oauth, main, favorite, detail, festivals, search, masterpiece
