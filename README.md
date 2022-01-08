@@ -1,4 +1,3 @@
-
 # **영화밭 (Movie batt)**
 
 ## “독립영화 캐가세요” *Dig it out! from the field*
@@ -124,12 +123,12 @@
 
 | 이름 | 역할 | 개발 내용  |
 | :---: | :---: | :---: |
-| 신동은 | 🔴Front-end<br />Project-assistant, PA | 서비스 디자인 구상<br />소개 페이지 개발<br />팀 소개 페이지 개발 |
-| 채지원 | 🔴Front-end<br />Project-leader, PL | 서비스 디자인 구상<br />영화 추천 페이지 개발<br />영화제 소개 페이지 개발<br />로그인 페이지 개발<br />취향 선택 포함 회원가입 페이지 개발 |
-| 홍리경 | 🔵Back-end<br />Project-assistant, PA | DB설계<br />API 설계<br />웹 서비스 배포 |
-| 홍의 | 🔵Back-end<br />Project-leader, PL | DB설계<br />서버 배포<br />페이지 기능 구현<br />유저 인터렉션에 따른 추천 알고리즘 연결 |
-| 서상훈 | 🟢Data-analysis<br />Project-leader, PL | API 호출을 통한 영화제 데이터셋 구축<br />영화제 퀄리티 기반 작품 추천 알고리즘 개발<br />웹 서비스 아이디어 도출 및 기획 |
-| 이상은 | 🟢Data-analysis, _**팀리더**_<br />Project-manager, PM | 프로젝트 문서 작성 및 자원 운용<br />영화 플롯 데이터 기반 유사도 검출 모델 개발<br /> 웹 서비스 기획 및 스토리라인 브랜딩|
+| 신동은<br />_@dongeunshin_ | 🔴Front-end<br />Project-assistant, PA | 서비스 디자인 구상<br />소개 페이지 개발<br />팀 소개 페이지 개발 |
+| 채지원<br />_@Julie_ | 🔴Front-end<br />Project-leader, PL | 서비스 디자인 구상<br />영화 추천 페이지 개발<br />영화제 소개 페이지 개발<br />로그인 페이지 개발<br />취향 선택 포함 회원가입 페이지 개발 |
+| 홍리경<br />_@rigyeonghong_ | 🔵Back-end<br />Project-assistant, PA | DB설계<br />API 설계<br />웹 서비스 배포 |
+| 홍의<br />_@hongui_ | 🔵Back-end<br />Project-leader, PL | DB설계<br />서버 배포<br />페이지 기능 구현<br />유저 인터렉션에 따른 추천 알고리즘 연결 |
+| 서상훈<br />_@codertoprogrammer_ | 🟢Data-analysis<br />Project-leader, PL | API 호출을 통한 영화제 데이터셋 구축<br />영화제 퀄리티 기반 작품 추천 알고리즘 개발<br />웹 서비스 아이디어 도출 및 기획 |
+| 이상은<br />_@runit_ | 🟢Data-analysis, _**Team Leader**_<br />Project-manager, PM | 프로젝트 문서 작성 및 자원 운용<br />영화 플롯 데이터 기반 유사도 검출 모델 개발<br /> 웹 서비스 기획 및 스토리라인, 브랜딩|
 
 ## 6. 버전 Version
 
