@@ -1,10 +1,14 @@
+import sys
+sys.path.append('./flask-server')
+
 from flask import Flask
 from flask_cors import CORS
-from db_connect import db
+#from db_connect import db
+from . import db_connect
 from flask_migrate import Migrate
 import config
 
-from views import auth, oauth, main, favorite, detail, festivals
+from views import auth, oauth, main, favorite, detail, festivals, search, masterpiece
 
 app = Flask(__name__)
 
