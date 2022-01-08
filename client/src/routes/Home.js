@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef } from "react";
 import Nav from "../components/Navigation";
 import "./HomeCSS.css";
 import Section1 from "../components/HomeSection/Section1";
@@ -6,12 +6,16 @@ import Section2 from "../components/HomeSection/Section2";
 import Section3 from "../components/HomeSection/Section3";
 import Section4 from "../components/HomeSection/Section4";
 import Section7 from "../components/HomeSection/Section7";
+import Dots from "./Dots";
+
 // var moveToTopSmooth = function () {
 //   document.getElementById("s1").scrollIntoView({ behavior: "smooth" });
 // };
 
 function Home() {
   const outerRef = useRef();
+  const [scrollIndex, setScrollIndex] = useState(1);
+
   useEffect(() => {
     const wheelHandler = (e) => {
       e.preventDefault();
@@ -25,30 +29,35 @@ function Home() {
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(2);
         } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
           outerRef.current.scrollTo({
             top: pageHeight * 2,
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(3);
         } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 3) {
           outerRef.current.scrollTo({
             top: pageHeight * 3,
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(4);
         } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 4) {
           outerRef.current.scrollTo({
             top: pageHeight * 4,
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(5);
         } else {
           outerRef.current.scrollTo({
             top: pageHeight * 4,
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(5);
         }
       } else {
         if (scrollTop > pageHeight * 3 && scrollTop < pageHeight * 5) {
@@ -57,24 +66,28 @@ function Home() {
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(4);
         } else if (scrollTop > pageHeight * 2 && scrollTop < pageHeight * 4) {
           outerRef.current.scrollTo({
             top: pageHeight * 2,
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(3);
         } else if (scrollTop > pageHeight && scrollTop < pageHeight * 3) {
           outerRef.current.scrollTo({
             top: pageHeight,
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(2);
         } else {
           outerRef.current.scrollTo({
             top: 0,
             left: 0,
             behavior: "smooth",
           });
+          setScrollIndex(1);
         }
       }
     };
@@ -87,6 +100,7 @@ function Home() {
   return (
     <div ref={outerRef} className="outer">
       <Nav />
+      <Dots scrollIndex={scrollIndex} />
       <Section1 />
       <Section2 />
       <Section3 />
