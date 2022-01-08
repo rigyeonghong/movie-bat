@@ -2,44 +2,40 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
-import { BoldTitle } from "../styles/theme";
+import { BoldTitle, SearchMoviePoster } from "../styles/theme";
+import Nav from "../components/Navigation";
 function Search() {
   let params = useParams();
   const searchKeyword = params.keyword;
-  const [titleResult, setTitleResult] = useState([]);
-  const [directorResult, setDirectorResult] = useState([]);
-  const [genreResult, setGenreResult] = useState([]);
+  const [result, setResult] = useState([]);
 
   useEffect(() => {
     const getSearch = async () => {
       const response = await axios
-        .get(`/search/movies/${searchKeyword}`)
+        .get(`/search/movies/title/${searchKeyword}`)
         .then((res) => res.data);
       console.log(response);
-      for (let i = 0; i < Object.keys(response[0]).length; i++) {
-        let newTitleResult = [...titleResult];
-        newTitleResult.push(
-          <div>
-            <Link to={`/movies/detail/${response[0][i]["movie_idx"]}`}>
-              <img src={response[0][i]["movie_posterUrl"]} />
-              <p>{response[0][i]["movie_title"]}</p>
-            </Link>
-          </div>
-        );
-        setTitleResult(newTitleResult);
-      }
+      setResult(response);
     };
     getSearch();
   }, []);
 
   return (
     <>
-      <Navigation />
-      <div>
-        <BoldTitle>{searchKeyword} 검색 결과</BoldTitle>
-
-        {titleResult.length ? titleResult : <></>}
-      </div>
+      <Nav />
+      <BoldTitle>{searchKeyword} 검색 결과</BoldTitle>
+      {Object.values(result).map((item) => (
+        <>
+          {
+            <div style={{ display: "inline-block" }}>
+              <Link to={`/movies/detail/${item["movie_idx"]}`}>
+                <SearchMoviePoster src={item["movie_posterUrl"]} />
+                <p>{item["movie_title"]}</p>
+              </Link>
+            </div>
+          }
+        </>
+      ))}
     </>
   );
 }

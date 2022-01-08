@@ -1,9 +1,11 @@
 import React from "react";
 import { Section } from "../../styles/theme";
-import { LineGraph1 } from "../Graphs";
+import { BarGraph1, BarGraph2, BarGraph3 } from "../Graphs";
 function Section2() {
   return (
-    <Section style={{ flexDirection: "column", justifyContent: "center" }}>
+    <Section
+      style={{ flexDirection: "column", justifyContent: "center", zIndex: "3" }}
+    >
       <div
         style={{
           display: "flex",
@@ -12,8 +14,8 @@ function Section2() {
           marginBottom: "15vh",
         }}
       >
-        <LineGraph1 />
-        <LineGraph1 />
+        <BarGraph1 />
+        <BarGraph2 />
       </div>
       <h2 style={{ fontWeight: "800" }}>What are good movies?</h2>
       <h2 style={{ textAlign: "center", fontWeight: "700" }}>

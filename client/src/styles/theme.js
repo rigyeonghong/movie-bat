@@ -73,11 +73,13 @@ export const SlideItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const SlideMoviePoster = styled.img`
+export const SearchMoviePoster = styled.img`
   width: 13vw;
   height: 8vw;
   margin-right: 1vw;
   overflow: hidden;
+`;
+export const SlideMoviePoster = styled(SearchMoviePoster)`
   &:hover {
     width: 15.6vw;
     height: 9.6vw;

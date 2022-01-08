@@ -37,7 +37,8 @@ function LoginInput() {
       setUser({
         userIdx: response["user_idx"],
         userNickname: response["user_nick"],
-        userGenre: response["user_genre"],
+        userGenre1: response["user_genre1"],
+        userGenre2: response["user_genre2"],
         userRunningtime: response["user_runningtime"],
         userRegion: response["user_region"],
       });
