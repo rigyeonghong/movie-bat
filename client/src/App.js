@@ -21,7 +21,7 @@ function App() {
   const isLogout = () => {
     const user = JSON.parse(localStorage.getItem("recoil-persist"));
     console.log(user);
-    if (!!user || user["userState"]["userIdx"] == null) return true;
+    if (!!user || user?.["userState"]?.["userIdx"] == null) return true;
     else return false;
   };
   return (
