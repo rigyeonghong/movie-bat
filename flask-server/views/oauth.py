@@ -76,7 +76,7 @@ def callback():
         # user_idx를 식별자로 보냄
         signup_user = User.query.filter(User.user_id == email).first()
         user_idx = signup_user.user_idx
-        redirect_uri = f"http://www.localhost:3000/kakao/loggedin/user={user_idx}"
+        redirect_uri = f"http://127.0.0.1:3000/kakao/loggedin/user={user_idx}"
         return redirect(redirect_uri)
 
 
