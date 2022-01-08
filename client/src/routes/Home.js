@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Nav from "../components/Navigation";
 import "./HomeCSS.css";
 import Section1 from "../components/HomeSection/Section1";
@@ -7,10 +7,6 @@ import Section3 from "../components/HomeSection/Section3";
 import Section4 from "../components/HomeSection/Section4";
 import Section7 from "../components/HomeSection/Section7";
 import Dots from "./Dots";
-
-// var moveToTopSmooth = function () {
-//   document.getElementById("s1").scrollIntoView({ behavior: "smooth" });
-// };
 
 function Home() {
   const outerRef = useRef();
