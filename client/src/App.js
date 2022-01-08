@@ -20,7 +20,8 @@ import Test from "./routes/Test";
 function App() {
   const isLogout = () => {
     const user = JSON.parse(localStorage.getItem("recoil-persist"));
-    if (user === null || user["userState"]["userIdx"] == null) return true;
+    console.log(user);
+    if (!!user || user["userState"]["userIdx"] == null) return true;
     else return false;
   };
   return (
