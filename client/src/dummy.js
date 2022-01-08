@@ -47,3 +47,14 @@ export const graphData1 = {
     },
   ],
 };
+export const graphData2 = {
+  labels: [2019, 2020, 2021],
+  datasets: [
+    {
+      label: "Dataset 1",
+      data: [100, 150, 200],
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+  ],
+};

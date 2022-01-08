@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { CenterWrapper } from "../../styles/theme";
 import { Button, Form } from "react-bootstrap";
@@ -13,17 +13,17 @@ function SignUpInput({ setIsFirst }) {
   const [password, setPassword] = useState(null);
   const [password2, setPassword2] = useState(null);
 
-  const [isOkInput, setIsOkInput] = useState(
-    { okNickname: false },
-    { okEmail: false },
-    { okPhoneNum: false },
-    { okPassword: false }
-  );
+  const [isOkInput, setIsOkInput] = [
+    { okNickname: null },
+    { okEmail: null },
+    { okPhoneNum: null },
+    { okPassword: null },
+  ];
   const [isClicked, setIsClicked] = useState(false);
-  const [duplicated, setDuplicated] = useState(
-    { dupEmail: false },
-    { dupNickname: false }
-  );
+  // const [duplicated, setDuplicated] = useState(
+  //   { dupEmail: null },
+  //   { dupNickname: null }
+  // );
   const setSigninData = useSetRecoilState(signinState);
 
   const regEmail =
@@ -31,35 +31,46 @@ function SignUpInput({ setIsFirst }) {
   const regPhone = /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/;
 
   const submitSigninData = () => {
-    setSigninData([nickname, email, phoneNum, password]);
-    setIsFirst(false);
+    if (
+      isOkInput["okNickname"] &&
+      isOkInput["okEmail"] &&
+      isOkInput["okPhoneNum"] &&
+      isOkInput["okPassword"]
+    ) {
+      setSigninData([nickname, email, phoneNum, password]);
+      setIsFirst(false);
+    } else return;
   };
 
   const checkNickname = async () => {
+    if (nickname == "") return;
     const response = await axios
       .post(`/auth/signup/nick`, {
         nickname: nickname,
       })
       .then((res) => res.data)
       .then(() => {
-        setDuplicated((cur) => {
-          return { ...cur, dupNickname: false };
+        setIsOkInput((cur) => {
+          return { ...cur, okNickname: true };
         });
       })
       .catch(() => {
-        setDuplicated((cur) => {
-          return { ...cur, dupNickname: true };
+        setIsOkInput((cur) => {
+          return { ...cur, okNickname: false };
         });
       });
-    if (duplicated["dupNickname"] == false && nickname !== "") {
-      setIsOkInput((cur) => {
-        return { ...cur, okNickname: true };
-      });
-    } else {
-      setIsOkInput((cur) => {
-        return { ...cur, okNickname: false };
-      });
-    }
+    // if (duplicated["dupNickname"] == false) {
+    //   setIsOkInput((cur) => {
+    //     console.log(cur);
+    //     return { ...cur, okNickname: true };
+    //   });
+    // } else {
+    //   setIsOkInput((cur) => {
+    //     console.log(cur);
+    //     console.log(nickname);
+    //     return { ...cur, okNickname: false };
+    //   });
+    // }
   };
 
   const checkPhoneNum = () => {
@@ -93,39 +104,36 @@ function SignUpInput({ setIsFirst }) {
       })
       .then((res) => res.data)
       .then(() => {
-        setDuplicated((cur) => {
-          return { ...cur, dupEmail: false };
+        setIsOkInput((cur) => {
+          return { ...cur, okEmail: true };
         });
       })
       .catch(() => {
-        setDuplicated((cur) => {
-          return { ...cur, dupEmail: true };
+        setIsOkInput((cur) => {
+          return { ...cur, okEmail: false };
         });
       });
-    if (duplicated["dupEmail"] == true || regEmail.test(email) == false) {
-      setIsOkInput((cur) => {
-        return { ...cur, okEmail: false };
-      });
-    } else {
-      setIsOkInput((cur) => {
-        return { ...cur, okEmail: true };
-      });
-    }
+    // if (duplicated["dupEmail"] == true || regEmail.test(email) == false) {
+    //   setIsOkInput((cur) => {
+    //     return { ...cur, okEmail: false };
+    //   });
+    // } else {
+    //   setIsOkInput((cur) => {
+    //     return { ...cur, okEmail: true };
+    //   });
+    // }
   };
 
-  const checkInputValue = () => {
-    checkNickname();
-    checkEmail();
-    checkPhoneNum();
-    checkPassword();
-    if (
-      isOkInput["okNickname"] &&
-      isOkInput["okEmail"] &&
-      isOkInput["okPhoneNum"] &&
-      isOkInput["okPassword"]
-    ) {
-      submitSigninData();
-    }
+  const checkInputValue = async () => {
+    console.log("clicked");
+    await checkNickname()
+      .then(() => checkEmail())
+      .then(() => checkPhoneNum())
+      .then(() => checkPassword());
+    console.log("도올,,,굴러가유");
+    submitSigninData();
+    setIsClicked(true);
+    console.log("도올,,,굴러가22");
   };
   return (
     <>
@@ -147,9 +155,7 @@ function SignUpInput({ setIsFirst }) {
                 : "isHidden"
             }
           >
-            {duplicated["dupEmail"]
-              ? "중복된 이메일입니다"
-              : "이메일 형식을 확인해주세요"}
+            {"사용할 수 없는 이메일입니다"}
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="nicknameInput">
@@ -165,9 +171,7 @@ function SignUpInput({ setIsFirst }) {
               isClicked && !isOkInput["okNickname"] ? "isShown" : "isHidden"
             }
           >
-            {duplicated["dupNickname"]
-              ? "중복된 닉네임입니다"
-              : "사용할 수 없는 닉네임입니다"}
+            {"사용할 수 없는 닉네임입니다"}
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="phoneNumInput">
@@ -219,13 +223,7 @@ function SignUpInput({ setIsFirst }) {
         </Form.Group>
       </Form>
       <CenterWrapper>
-        <Button
-          className="nextBtn"
-          onClick={() => {
-            setIsClicked(true);
-            checkInputValue();
-          }}
-        >
+        <Button className="nextBtn" onClick={() => checkInputValue()}>
           다음
         </Button>
       </CenterWrapper>

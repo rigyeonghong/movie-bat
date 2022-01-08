@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Nav from "../components/Navigation";
-import { useRecoilValue } from "recoil";
-import { userState } from "../state";
-import { useEffect, useRef } from "react";
 import "./HomeCSS.css";
-
-var moveToTopSmooth = function() {document.getElementById("s1").scrollIntoView({ behavior: 'smooth' });};
+import Section1 from "../components/HomeSection/Section1";
+import Section2 from "../components/HomeSection/Section2";
+import Section3 from "../components/HomeSection/Section3";
+import Section4 from "../components/HomeSection/Section4";
+import Section7 from "../components/HomeSection/Section7";
+// var moveToTopSmooth = function () {
+//   document.getElementById("s1").scrollIntoView({ behavior: "smooth" });
+// };
 
 function Home() {
   const outerRef = useRef();
@@ -28,29 +31,47 @@ function Home() {
             left: 0,
             behavior: "smooth",
           });
+        } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 3) {
+          outerRef.current.scrollTo({
+            top: pageHeight * 3,
+            left: 0,
+            behavior: "smooth",
+          });
+        } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 4) {
+          outerRef.current.scrollTo({
+            top: pageHeight * 4,
+            left: 0,
+            behavior: "smooth",
+          });
         } else {
           outerRef.current.scrollTo({
-            top: pageHeight * 2,
+            top: pageHeight * 4,
             left: 0,
             behavior: "smooth",
           });
         }
       } else {
-        if (scrollTop >= 0 && scrollTop < pageHeight) {
+        if (scrollTop > pageHeight * 3 && scrollTop < pageHeight * 5) {
           outerRef.current.scrollTo({
-            top: 0,
+            top: pageHeight * 3,
             left: 0,
             behavior: "smooth",
           });
-        } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
+        } else if (scrollTop > pageHeight * 2 && scrollTop < pageHeight * 4) {
           outerRef.current.scrollTo({
-            top: 0,
+            top: pageHeight * 2,
+            left: 0,
+            behavior: "smooth",
+          });
+        } else if (scrollTop > pageHeight && scrollTop < pageHeight * 3) {
+          outerRef.current.scrollTo({
+            top: pageHeight,
             left: 0,
             behavior: "smooth",
           });
         } else {
           outerRef.current.scrollTo({
-            top: pageHeight,
+            top: 0,
             left: 0,
             behavior: "smooth",
           });
@@ -66,9 +87,11 @@ function Home() {
   return (
     <div ref={outerRef} className="outer">
       <Nav />
-      <div className="sections s1" id="s1">1</div>
-      <div className="sections s2">2</div>
-      <div className="sections s3">3<button onClick={moveToTopSmooth}>moveToTopBtn</button></div>
+      <Section1 />
+      <Section2 />
+      <Section3 />
+      <Section4 />
+      <Section7 />
     </div>
   );
 }

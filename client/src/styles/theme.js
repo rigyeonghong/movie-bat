@@ -286,3 +286,9 @@ export const ModalContainer = styled.div`
 export const BoldTitle = styled.h2`
   font-weight: 700;
 `;
+export const Section = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  font-size: 50px;
+`;

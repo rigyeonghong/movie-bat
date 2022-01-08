@@ -9,7 +9,10 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { NavLogo } from "../styles/theme";
 function Navigation() {
   return (
-    <Navbar bg="dark" sticky="top" style={{ justifyContent: "space-around" }}>
+    <Navbar
+      sticky="top"
+      style={{ justifyContent: "space-around", backgroundColor: "F141414" }}
+    >
       <div style={{ display: "flex" }}>
         <Navbar.Brand href="/">
           <NavLogo src={Logo} />

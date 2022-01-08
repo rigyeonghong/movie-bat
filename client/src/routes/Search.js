@@ -28,30 +28,6 @@ function Search() {
         );
         setTitleResult(newTitleResult);
       }
-      for (let i = 0; i < Object.keys(response[1]).length; i++) {
-        let newDirectorResult = [...directorResult];
-        newDirectorResult.push(
-          <div>
-            <Link to={`/movies/detail/${response[1][i]["movie_idx"]}`}>
-              <img src={response[1][i]["movie_posterUrl"]} />
-              <p>{response[1][i]["movie_title"]}</p>
-            </Link>
-          </div>
-        );
-        setDirectorResult(newDirectorResult);
-      }
-      for (let i = 0; i < Object.keys(response[2]).length; i++) {
-        let newGenreResult = [...genreResult];
-        newGenreResult.push(
-          <div>
-            <Link to={`/movies/detail/${response[2][i]["movie_idx"]}`}>
-              <img src={response[2][i]["movie_posterUrl"]} />
-              <p>{response[2][i]["movie_title"]}</p>
-            </Link>
-          </div>
-        );
-        setGenreResult(newGenreResult);
-      }
     };
     getSearch();
   }, []);
@@ -63,10 +39,6 @@ function Search() {
         <BoldTitle>{searchKeyword} 검색 결과</BoldTitle>
 
         {titleResult.length ? titleResult : <></>}
-
-        {directorResult.length ? directorResult : <></>}
-
-        {genreResult.length ? genreResult : <></>}
       </div>
     </>
   );

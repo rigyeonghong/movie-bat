@@ -81,9 +81,7 @@ function LoginInput() {
             Sign in
           </LoginBtn>
           <KakaoBtn>
-            <a href="http://127.0.0.1:5000/oauth/kakao">
-              카카오톡으로 시작하기
-            </a>
+            <a>카카오톡으로 시작하기</a>
           </KakaoBtn>
         </LoginBtnWrapper>
       </SignupWrapper>
