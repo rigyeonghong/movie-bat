@@ -4,7 +4,7 @@ import json
 
 bp = Blueprint("masterpiece", __name__, url_prefix="/masterpiece")
 
-@bp.route('/', methods=['GET'])
+@bp.route('/', methods=['GET', 'POST'])
 def masterpiece():
     
     # masterpiece tb에서 모두 가져온다
