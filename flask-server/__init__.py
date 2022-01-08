@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 # from flask_restx import Api, Resource, Namespace
 import config
 
-from views import auth, oauth, main, favorite, detail, festivals, search, masterpiece
+from views import auth, oauth, main, favorite, detail, festivals, search, masterpiece, all_movie
 
 app = Flask(__name__)
 
@@ -35,6 +35,7 @@ app.register_blueprint(detail.bp)
 app.register_blueprint(festivals.bp)
 app.register_blueprint(search.bp)
 app.register_blueprint(masterpiece.bp)
+app.register_blueprint(all_movie.bp)
 
 
 
