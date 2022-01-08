@@ -18,9 +18,10 @@ import { userState } from "../state";
 
 function Festival() {
   const user = useRecoilValue(userState);
-  console.log(user);
   const [festivals, setFestivals] = useState([]);
-  const [region, setRegion] = useState(user["userRegion"]);
+  const [region, setRegion] = useState(
+    user["userRegion"] ? user["userRegion"] : "서울"
+  );
   const [currentSlide, setCurrentSlide] = useState(0);
   const [curIndex, setCurIndex] = useState(0);
   const [mapLoading, setMapLoading] = useState(false);
@@ -79,7 +80,8 @@ function Festival() {
             {region}에서 열리는 영화제
           </BoldTitle>
           <DropdownButton
-            style={{ float: "right" }}
+            variant="warning"
+            style={{ float: "right", color: "white" }}
             id="dropdownRegion"
             title="지역 선택"
           >
@@ -97,9 +99,6 @@ function Festival() {
             </Dropdown.Item>
             <Dropdown.Item onClick={() => setRegion("전라")}>
               전라
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => setRegion("충청")}>
-              충청
             </Dropdown.Item>
             <Dropdown.Item onClick={() => setRegion("대전")}>
               대전

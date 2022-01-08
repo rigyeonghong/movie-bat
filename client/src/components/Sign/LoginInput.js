@@ -81,9 +81,9 @@ function LoginInput() {
           <LoginBtn type="submit" onClick={(e) => postLoginData(e)}>
             Sign in
           </LoginBtn>
-          <KakaoBtn>
-            <a>카카오톡으로 시작하기</a>
-          </KakaoBtn>
+          {/* <KakaoBtn>
+            <a href="">카카오톡으로 시작하기</a>
+          </KakaoBtn> */}
         </LoginBtnWrapper>
       </SignupWrapper>
     </LoginInputWrapper>

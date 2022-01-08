@@ -24,7 +24,7 @@ function RegionQuestion({ regionChecked, setRegionChecked }) {
         {regionList[i].name}
       </ToggleButton>
     );
-    if (i % 4 == 3) {
+    if (i % 3 == 2) {
       temp.push(<br />);
     }
   }
@@ -34,8 +34,7 @@ function RegionQuestion({ regionChecked, setRegionChecked }) {
       <CenterDescriptionWrapper>
         지역에 개최하는 영화제를 소개해드려요!
       </CenterDescriptionWrapper>
-
-      {temp}
+      <div style={{ textAlign: "center" }}> {temp}</div>
     </>
   );
 }
