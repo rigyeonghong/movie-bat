@@ -32,10 +32,10 @@ const GlobalStyle = createGlobalStyle`
   .isShown {
     color: red;
   }
-    .btn-brown{
-      background-color: brown;
+  .btn-brown {
+      background-color: yellow;
       color: white;
-    }
+  }
 `;
 
 export default GlobalStyle;

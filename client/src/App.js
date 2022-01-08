@@ -15,12 +15,13 @@ import KakaoLogin from "./routes/KakaoLogin";
 import PageNotFound from "./routes/PageNotFound";
 import MovieInfo from "./routes/MovieInfo";
 import Search from "./routes/Search";
-import Test from "./routes/Test";
+import AllMovie from "./routes/AllMovie";
 
 function App() {
   const isLogout = () => {
     const user = JSON.parse(localStorage.getItem("recoil-persist"));
-    if (user === null || user["userState"]["userIdx"] == null) return true;
+    console.log(user);
+    if (user?.["userState"]?.["userIdx"] == null) return true;
     else return false;
   };
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="like" element={<Like />} />
             <Route path="search/:keyword" element={<Search />} />
             <Route path="/auth/signin" element={<Login />} />
+            <Route path="/all" element={<AllMovie />} />
             <Route path="/auth/signup" element={<SignUp />} />
             <Route exact path="/" element={<Home />} />
             <Route path="/team" element={<Team />} />
@@ -48,7 +50,7 @@ function App() {
               path="movies/detail/:idx"
               element={isLogout() ? <Login /> : <MovieInfo />}
             />
-            <Route path="*" element={<Test />} />
+            {/* <Route path="*" element={<Test />} /> */}
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

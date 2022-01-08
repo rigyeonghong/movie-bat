@@ -44,7 +44,7 @@ def callback():
     nickname = profile["nickname"]
     email = kakao_account["email"]
     kakao_id = data["id"]
-    profile_img = profile['profile_image_url']
+    # profile_img = profile['profile_image_url']
 
 
     # nickname이 db에 있는지 확인
@@ -64,7 +64,7 @@ def callback():
             user_id = email
             user_pw_hash = generate_password_hash(str(kakao_id))
             user_nick = nickname
-            user_profile = profile_img
+            # user_profile = profile_img
             user_number = 0
             user_runningtime = 0
             user_region = ''

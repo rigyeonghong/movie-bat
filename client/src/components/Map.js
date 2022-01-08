@@ -1,8 +1,8 @@
 /*global kakao */
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 function Map({ title, lat, lon, url }) {
-  let latitude = parseFloat(lat);
-  let longitude = parseFloat(lon);
+  let latitude = !!lat ? parseFloat(lat) : 37.56717962150435;
+  let longitude = !!lon ? parseFloat(lon) : 126.97828846164572;
   console.log(title, latitude, longitude, url);
   const container = useRef(null); //지도를 담을 영역의 DOM 레퍼런스
 

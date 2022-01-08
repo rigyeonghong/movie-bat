@@ -65,7 +65,8 @@ def signup():
         user_runningtime = user['runningtime']
         user_region = user['region']
         
-        print(user_genre1, user_genre2)
+        print(user_genre1, user_genre2) # 1, 2 (fe = 0, 1)
+
         #패스워드 암호화 해서 db에 저장
         user_pw_hash = generate_password_hash(user_pw)
         new_user = User(user_id, user_pw_hash, user_nick, user_number, user_runningtime, user_region)
@@ -91,36 +92,35 @@ def signup():
         
         # 유저가 선택한 장르 가져오기.
         user_master = Masterpiece.query.filter().all()
+
         for mp_genre in user_master:
-            if mp_genre.masterpiece_idx == (user_genre1): # user_genre는 idx가 0부터 시작.
+            if mp_genre.masterpiece_idx == user_genre1: 
                 mp_genre1 = mp_genre.masterpiece_genre
-                # print(mp_genre1) 
-            if mp_genre.masterpiece_idx == (user_genre2):
+                
+            if mp_genre.masterpiece_idx == user_genre2:
                 mp_genre2 = mp_genre.masterpiece_genre
-                # print(mp_genre2)
+        
+        print('장르 : ', mp_genre1, mp_genre2)
 
         score_idx = []
         for idx, movie in enumerate(movie_score_push):
-            # print(type(movies.movie_genre))
-            # print(idx, len(movies.movie_genre.replace(',', ' ').split()))
             if len(movie.movie_genre.replace(',', ' ').split()) > 1 :
                 for genre in (movie.movie_genre.replace(',', ' ').split()):
                     if genre == mp_genre1:
-                        score_idx.append(idx)
+                        score_idx.append(idx+1)
                     if genre == mp_genre2:
-                        score_idx.append(idx)
+                        score_idx.append(idx+1)
             else:
                 if movie.movie_genre.replace(',', ' ') == mp_genre1:
-                    score_idx.append(idx)
+                    score_idx.append(idx+1)
                 if movie.movie_genre.replace(',', ' ') == mp_genre2:
-                    score_idx.append(idx)
+                    score_idx.append(idx+1)
 
         print(score_idx, len(score_idx))
         for movie_genre_score in movie_score_push:
             for score in score_idx: 
-                if (score+1) == movie_genre_score.movie_idx: # score idx = 0, movie_genre idx = 1
+                if score == movie_genre_score.movie_idx: 
                     movie_genre_score.movie_score += 5
-                    print(score+1)
                     
                     db.session.add(movie_genre_score)
                     db.session.commit()
@@ -170,7 +170,6 @@ def signup():
         # 장르 1
         popular_movie1 = Masterpiece.query.filter(Masterpiece.masterpiece_idx == (user_genre1)).first()
 
-    
         print(choice_movies[popular_movie1.masterpiece_idx]) # ['그리고 싶은 것', '첩첩산중', '파킹찬스', '오징어', '치석']
 
         # 해당하는 타이틀 점수 주기.
@@ -189,6 +188,8 @@ def signup():
 
         # 장르 2
         popular_movie2 = Masterpiece.query.filter(Masterpiece.masterpiece_idx == (user_genre2)).first()
+
+        print(choice_movies[popular_movie2.masterpiece_idx])
 
         # 해당하는 타이틀 점수 주기.
         for movie_score in movie_score_push: # 영화목록 가져옴.

@@ -14,8 +14,8 @@ function SignWrapper() {
   return (
     <>
       {user["userIdx"] == null ? (
-        <Button className="btn-brown" href="/auth/signin">
-          로그인 해!
+        <Button variant="" href="/auth/signin">
+          로그인
         </Button>
       ) : (
         <>
