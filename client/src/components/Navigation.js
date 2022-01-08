@@ -30,7 +30,11 @@ function Navigation() {
               영화제 소개
             </Nav.Link>
           </Nav.Item>
-
+          <Nav.Item className="px-4">
+            <Nav.Link style={{ color: "white" }} href="/all">
+              전체 영화
+            </Nav.Link>
+          </Nav.Item>
           <Nav.Item className="px-4">
             <Nav.Link style={{ color: "white" }} href="/team">
               팀 소개

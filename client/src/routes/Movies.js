@@ -28,7 +28,6 @@ function Movies() {
       const response5 = await axios
         .get(`main/entry/서울독립영화제`)
         .then((res) => res.data);
-      console.log(response5);
       setMovieInfo(response);
       setKooMovie(response2);
       setLastYearMovie(response3);

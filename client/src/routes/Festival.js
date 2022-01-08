@@ -13,9 +13,15 @@ import { DropdownButton, Dropdown } from "react-bootstrap";
 import { ReactComponent as Left } from "../assets/left.svg";
 import { ReactComponent as Right } from "../assets/right.svg";
 import Map from "../components/Map";
+import { useRecoilValue } from "recoil";
+import { userState } from "../state";
+
 function Festival() {
+  const user = useRecoilValue(userState);
   const [festivals, setFestivals] = useState([]);
-  const [region, setRegion] = useState("서울");
+  const [region, setRegion] = useState(
+    user["userRegion"] ? user["userRegion"] : "서울"
+  );
   const [currentSlide, setCurrentSlide] = useState(0);
   const [curIndex, setCurIndex] = useState(0);
   const [mapLoading, setMapLoading] = useState(false);
@@ -74,7 +80,8 @@ function Festival() {
             {region}에서 열리는 영화제
           </BoldTitle>
           <DropdownButton
-            style={{ float: "right" }}
+            variant="warning"
+            style={{ float: "right", color: "white" }}
             id="dropdownRegion"
             title="지역 선택"
           >
@@ -92,9 +99,6 @@ function Festival() {
             </Dropdown.Item>
             <Dropdown.Item onClick={() => setRegion("전라")}>
               전라
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => setRegion("충청")}>
-              충청
             </Dropdown.Item>
             <Dropdown.Item onClick={() => setRegion("대전")}>
               대전
@@ -126,10 +130,10 @@ function Festival() {
           </div>
         ) : (
           <Map
-            title={festivals[curIndex]["festival_title"]}
-            lat={festivals[curIndex]["festival_latitude"]}
-            lon={festivals[curIndex]["festival_latlng"]}
-            url={festivals[curIndex]["festival_link"]}
+            title={festivals?.[curIndex]?.["festival_title"]}
+            lat={festivals?.[curIndex]?.["festival_latitude"]}
+            lon={festivals?.[curIndex]?.["festival_latlng"]}
+            url={festivals?.[curIndex]?.["festival_link"]}
           />
         )}
       </SliderContainer>

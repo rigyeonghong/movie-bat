@@ -1,8 +1,16 @@
 import React from "react";
 import { Section } from "../../styles/theme";
+import serviceBg from "../../assets/serviceBg.JPEG";
 function Section3() {
   return (
-    <Section style={{ justifyContent: "center" }}>
+    <Section
+      style={{
+        justifyContent: "center",
+        backgroundImage: `url(${serviceBg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100%",
+      }}
+    >
       <div>
         <h2 style={{ fontWeight: "800", fontSize: "60px" }}>
           다양성이 존재하는 영화밭,

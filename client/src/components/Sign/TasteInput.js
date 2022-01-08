@@ -16,7 +16,7 @@ function TasteInput() {
   const [genreChecked, setGenreChecked] = useState([-1, -1]);
   const [runningtimeChecked, setRunningtimeChecked] = useState(-1);
   const [regionChecked, setRegionChecked] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const tasteList = [
     <GenreQuestion
       masterpiece={masterpiece}
@@ -42,7 +42,7 @@ function TasteInput() {
   }, []);
 
   const postSignInData = async () => {
-    alert(genreChecked[0] + "   " + genreChecked[1]);
+    setIsLoading(true);
     const response = await axios
       .post("/auth/signup", {
         nickname: signinValue[0],
@@ -54,7 +54,8 @@ function TasteInput() {
         runningtime: runningtimeChecked,
         region: regionChecked,
       })
-      .then((res) => res.data);
+      .then((res) => res.data)
+      .then(() => setIsLoading(false));
 
     if (response.result == "fail") {
       alert("회원가입 실패");
@@ -83,7 +84,11 @@ function TasteInput() {
     <InputItemWrapper style={{ width: "70vw" }}>
       {Object.keys(masterpiece).length ? tasteList[pageNum] : ""}
       <CenterWrapper>
-        <Button className="nextBtn" onClick={() => handleNextBtn()}>
+        <Button
+          variant="danger"
+          className="nextBtn"
+          onClick={() => handleNextBtn()}
+        >
           {pageNum == pageNum.length - 1 ? "제출" : "다음"}
         </Button>
       </CenterWrapper>

@@ -14,7 +14,7 @@ function Search() {
       const response = await axios
         .get(`/search/movies/title/${searchKeyword}`)
         .then((res) => res.data);
-      console.log(response);
+
       setResult(response);
     };
     getSearch();
