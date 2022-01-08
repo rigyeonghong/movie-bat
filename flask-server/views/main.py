@@ -80,6 +80,70 @@ def main():
     
     return jsonify(genre1, genre2)
 
+# 러닝타임별 (movie_runtime 컬럼에 해당)
+@bp.route('/runtime/<int:runtime>', methods=['GET', 'POST'])
+def runtime(runtime):
+
+    # 런타임에 해당하는 영상 점수순으로 위에서부터 20개 보내드림
+    limit_num = 20
+
+    # runtime 30분 이하
+    if runtime <= 30:
+        movie_select = Movie.query.filter(Movie.movie_runtime <= 30).order_by(Movie.movie_score.desc()).limit(limit_num)
+        movie_selected = []
+        for movie in movie_select:
+            movie_selected.append({
+                'movie_idx' : movie.movie_idx, 
+                "movie_title" : movie.movie_title, 
+                "movie_posterUrl" : movie.movie_img_link
+            })
+
+        movie_runtime_selected = dict(list(enumerate(movie_selected, start=0)))  
+        return jsonify(movie_runtime_selected)
+
+    # 30분 초과 60분 이하
+    elif 30 < runtime <= 60:
+        movie_select = Movie.query.filter((Movie.movie_runtime > 30) & (Movie.movie_runtime <= 60)).order_by(Movie.movie_score.desc()).limit(limit_num)
+        movie_selected = []
+        for movie in movie_select:
+            movie_selected.append({
+                'movie_idx' : movie.movie_idx, 
+                "movie_title" : movie.movie_title, 
+                "movie_posterUrl" : movie.movie_img_link
+            })
+
+        movie_runtime_selected = dict(list(enumerate(movie_selected, start=0)))  
+        return jsonify(movie_runtime_selected)
+
+    # 60분 초과 90분 이하
+    elif 60 < runtime <= 90:
+        movie_select = Movie.query.filter((Movie.movie_runtime > 60) & (Movie.movie_runtime <= 90)).order_by(Movie.movie_score.desc()).limit(limit_num)
+        movie_selected = []
+        for movie in movie_select:
+            movie_selected.append({
+                'movie_idx' : movie.movie_idx, 
+                "movie_title" : movie.movie_title, 
+                "movie_posterUrl" : movie.movie_img_link
+            })
+
+        movie_runtime_selected = dict(list(enumerate(movie_selected, start=0)))  
+        return jsonify(movie_runtime_selected)
+    
+    # 90분 초과
+    else:
+        movie_select = Movie.query.filter(Movie.movie_runtime > 90).order_by(Movie.movie_score.desc()).limit(limit_num)
+        movie_selected = []
+        for movie in movie_select:
+            movie_selected.append({
+                'movie_idx' : movie.movie_idx, 
+                "movie_title" : movie.movie_title, 
+                "movie_posterUrl" : movie.movie_img_link
+            })
+
+        movie_runtime_selected = dict(list(enumerate(movie_selected, start=0)))  
+        return jsonify(movie_runtime_selected)
+
+
 # 수상작 (movie_award 컬럼)
 @bp.route('/award', methods=['GET', 'POST'])
 def award():
