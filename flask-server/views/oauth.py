@@ -1,0 +1,112 @@
+from flask import Blueprint, request, session, flash, redirect, url_for, g, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
+from models.users import *
+from key.kakao_client import kakao_client_id
+import requests
+
+bp = Blueprint("kakao", __name__, url_prefix="/oauth/kakao")
+
+@bp.route('/')
+def kakao_sign_in():
+    client_id = kakao_client_id
+    redirect_uri = "http://www.localhost:5000/oauth/kakao/callback"
+    kakao_oauthurl =  f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
+    # 카카오 로그인 할거면 이리로 가라
+    return redirect(kakao_oauthurl)
+
+@bp.route('/callback')
+def callback():
+    code = request.args["code"]
+    client_id = kakao_client_id
+    redirect_uri = "http://www.localhost:5000/oauth/kakao/callback"
+    kakao_oauthurl =  f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
+
+    # 토큰서버로 데이터 "전송" -> python 내에서 rest api를 요청해야함
+    token_request = requests.get(kakao_oauthurl)
+    # 요청에 대해 받을 때의 형식
+    token_json = token_request.json()
+
+    # error 발생 시 로그인 페이지로 redirect 
+    if "error" in token_json:
+        print("에러가 발생했습니다.")
+        return {'message':'인증 실패'},404
+
+    # 아닐 시 
+    access_token = token_json["access_token"]
+    profile_request = requests.get(
+        "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
+    )
+    data = profile_request.json()
+
+    print(data)
+    kakao_account = data["kakao_account"]
+    profile = kakao_account["profile"]
+    nickname = profile["nickname"]
+    email = kakao_account["email"]
+    kakao_id = data["id"]
+    profile_img = profile['profile_image_url']
+
+
+    # nickname이 db에 있는지 확인
+    same_nick = User.query.filter(User.user_nick == nickname).first()
+
+    if same_nick:
+        return {"result":"failed",
+                "content":"이미 존재하는 닉네임입니다."},401
+
+    else:
+        # user 정보가 DB에 이미 있는지 확인
+        user = User.query.filter(User.user_id == email).first()
+
+        # db에 존재하지 않은 user면 회원가입 진행
+        # user_id, nick, profile, pw 저장
+        if not user:
+            user_id = email
+            user_pw_hash = generate_password_hash(str(kakao_id))
+            user_nick = nickname
+            user_profile = profile_img
+            user_number = 0
+            user_runningtime = 0
+            user_region = ''
+            
+            new_user = User(user_id, user_pw_hash, user_nick, user_number, user_runningtime, user_region)
+            db.session.add(new_user)
+            db.session.commit()
+
+        # user_idx를 식별자로 보냄
+        signup_user = User.query.filter(User.user_id == email).first()
+        user_idx = signup_user.user_idx
+        redirect_uri = f"http://127.0.0.1:3000/kakao/loggedin/user={user_idx}"
+        return redirect(redirect_uri)
+
+
+# user_idx와 user 취향 받아서 해당하는 db 저장
+@bp.route('/user')
+def user():
+        # fe에서 넘어온 값 확인
+        fe_user = request.get_json()
+        
+        if fe_user != None:
+            # user_genre = fe_user['genre']
+            user_idx = fe_user['user_idx']
+            user_runningtime = fe_user['runningtime']
+            user_region = fe_user['region']
+
+
+            # user_idx에 맞는 컬럼에 runningtime, region 넣어줌
+            update_user = User.query.filter(User.user_idx == user_idx).first()
+            
+            update_user.user_runningtime = user_runningtime
+            update_user.user_region = user_region
+            
+            db.session.add(update_user)
+            db.session.commit()
+
+            print("회원가입이 완료되었습니다.")
+            return jsonify({"result":"success",
+                            "content":"가입 성공!",
+                            "user_idx": user_idx}, 200)
+    
+        else:
+            return {"result":"failed",
+                    "content":"잘못된 요청"}, 401
