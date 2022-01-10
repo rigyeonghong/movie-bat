@@ -37,7 +37,8 @@ function LoginInput() {
       setUser({
         userIdx: response["user_idx"],
         userNickname: response["user_nick"],
-        userGenre: response["user_genre"],
+        userGenre1: response["user_genre1"],
+        userGenre2: response["user_genre2"],
         userRunningtime: response["user_runningtime"],
         userRegion: response["user_region"],
       });
@@ -80,11 +81,9 @@ function LoginInput() {
           <LoginBtn type="submit" onClick={(e) => postLoginData(e)}>
             Sign in
           </LoginBtn>
-          <KakaoBtn>
-            <a href="http://127.0.0.1:5000/oauth/kakao">
-              카카오톡으로 시작하기
-            </a>
-          </KakaoBtn>
+          {/* <KakaoBtn>
+            <a href="">카카오톡으로 시작하기</a>
+          </KakaoBtn> */}
         </LoginBtnWrapper>
       </SignupWrapper>
     </LoginInputWrapper>

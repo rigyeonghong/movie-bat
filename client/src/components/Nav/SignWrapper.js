@@ -14,13 +14,13 @@ function SignWrapper() {
   return (
     <>
       {user["userIdx"] == null ? (
-        <Button className="btn-brown" href="/auth/signin">
-          로그인 해!
+        <Button variant="" href="/auth/signin">
+          로그인
         </Button>
       ) : (
         <>
           <Dropdown>
-            <Dropdown.Toggle variant="success">
+            <Dropdown.Toggle variant="outline-danger">
               {user["userNickname"]}님! 안녕하세요:)
             </Dropdown.Toggle>
             <Dropdown.Menu>

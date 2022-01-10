@@ -1,0 +1,8 @@
+.outer {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.outer::-webkit-scrollbar {
+  display: none;
+}

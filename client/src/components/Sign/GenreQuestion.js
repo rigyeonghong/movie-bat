@@ -6,12 +6,11 @@ import {
   MovieDetailTitle,
 } from "../../styles/theme";
 import { Button, Container, Col, Row } from "react-bootstrap";
-import search from "../../assets/search.svg";
+import checkIcon from "../../assets/check2.svg";
 
 function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
   const [isFirstPage, setIsFirstPage] = useState(true);
   const [hoverIdx, setHoverIdx] = useState(0);
-  console.log(genreChecked);
   const selectMovie = (i) => {
     let where = genreChecked.indexOf(i);
     let empty = genreChecked.indexOf(-1);
@@ -19,7 +18,7 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
     // -1, 새로 들어온 경우
     if (0 > where) {
       // 자리가 없을때
-      if (0 > empty) console.log("자리없어욧");
+      if (0 > empty) console.log("");
       else {
         // 자리 있을때
         newgenreChecked[empty] = i;
@@ -35,11 +34,11 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
     temp.push(
       <Col sm={2}>
         <button
-          style={{ position: "relative" }}
+          style={{ border: "none", position: "relative" }}
           onClick={() => selectMovie(hoverIdx)}
         >
           <img
-            style={{ width: "150px" }}
+            style={{ width: "150px", height: "200px" }}
             src={masterpiece[i]["masterpiece_img_link"]}
             onMouseOver={() => setHoverIdx(i)}
           />
@@ -49,9 +48,9 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
               position: "absolute",
               zIndex: 999,
               top: 0,
-              right: 0,
+              left: 0,
             }}
-            src={search}
+            src={checkIcon}
           />
         </button>
       </Col>
@@ -72,7 +71,8 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
           </Row>
 
           <Button
-            style={{ width: "150px", float: "right" }}
+            variant="outline-dark"
+            style={{ width: "150px", float: "right", color: "white" }}
             onClick={() => setIsFirstPage(!isFirstPage)}
           >
             다른 장르 선택
@@ -123,9 +123,12 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
           style={{ width: "40vw", display: "flex", flexDirection: "column" }}
         >
           <div style={{ display: "flex", height: "400px" }}>
-            <img src={masterpiece[hoverIdx]["masterpiece_img_link"]} />
+            <img
+              style={{ width: "280px", height: "400px", paddingRight: "20px" }}
+              src={masterpiece[hoverIdx]["masterpiece_img_link"]}
+            />
             <div>
-              <MovieDetailTitle>
+              <MovieDetailTitle style={{ paddingRight: 0 }}>
                 {masterpiece[hoverIdx]["masterpiece_title"]}
               </MovieDetailTitle>
               <MovieDetailMainInfo>

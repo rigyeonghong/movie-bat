@@ -9,7 +9,10 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { NavLogo } from "../styles/theme";
 function Navigation() {
   return (
-    <Navbar bg="dark" sticky="top" style={{ justifyContent: "space-around" }}>
+    <Navbar
+      sticky="top"
+      style={{ justifyContent: "space-around", backgroundColor: "F141414" }}
+    >
       <div style={{ display: "flex" }}>
         <Navbar.Brand href="/">
           <NavLogo src={Logo} />
@@ -27,7 +30,11 @@ function Navigation() {
               영화제 소개
             </Nav.Link>
           </Nav.Item>
-
+          <Nav.Item className="px-4">
+            <Nav.Link style={{ color: "white" }} href="/all">
+              전체 영화
+            </Nav.Link>
+          </Nav.Item>
           <Nav.Item className="px-4">
             <Nav.Link style={{ color: "white" }} href="/team">
               팀 소개

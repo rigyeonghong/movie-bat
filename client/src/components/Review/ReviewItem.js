@@ -9,26 +9,26 @@ function ReviewItem({
   date,
   editReview,
   deleteReview,
+  setEditOpen,
 }) {
   const user = useRecoilValue(userState);
   return (
     <>
       <div>{content}</div>
-      <div>{date}</div>
+      <div>{date.slice(0, 10)}</div>
       {user["userIdx"] == userIdx ? (
         <>
           <Button
-            onClick={() => {
-              editReview();
-              alert("수정@");
-            }}
+            // onClick={() => {
+            //   editReview();
+            // }}
+            onClick={() => setEditOpen(true)}
           >
             수정
           </Button>
           <Button
             onClick={() => {
               deleteReview();
-              alert("삭제@");
             }}
           >
             삭제

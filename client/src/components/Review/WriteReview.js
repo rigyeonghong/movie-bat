@@ -8,7 +8,7 @@ function WriteReview({ setReviewContent }) {
         <Form.Group className="mb-3" controlId="writeContent">
           <Form.Control
             as="textarea"
-            rows={3}
+            rows={5}
             onChange={(e) => setReviewContent(e.target.value)}
           />
         </Form.Group>

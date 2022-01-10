@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { CenterWrapper } from "../../styles/theme";
 import { Button, Form } from "react-bootstrap";
@@ -9,123 +9,98 @@ function SignUpInput({ setIsFirst }) {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
-  const [noPhoneNum, setNoPhoneNum] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [password2, setPassword2] = useState(null);
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const [isOkInput, setIsOkInput] = useState(
-    { okNickname: false },
-    { okEmail: false },
-    { okPhoneNum: false },
-    { okPassword: false }
+    { okNickname: null },
+    { okEmail: null },
+    { okPhoneNum: null },
+    { okPassword: null }
   );
-  const [isClicked, setIsClicked] = useState(false);
-  const [duplicated, setDuplicated] = useState(
-    { dupEmail: false },
-    { dupNickname: false }
-  );
-  const setSigninData = useSetRecoilState(signinState);
 
+  const setSigninData = useSetRecoilState(signinState);
+  console.log(signinState);
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const regPhone = /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/;
 
-  const submitSigninData = () => {
-    setSigninData([nickname, email, phoneNum, password]);
-    setIsFirst(false);
-  };
-
-  const checkNickname = async () => {
-    const response = await axios
-      .post(`/auth/signup/nick`, {
-        nickname: nickname,
-      })
-      .then((res) => res.data)
-      .then(() => {
-        setDuplicated((cur) => {
-          return { ...cur, dupNickname: false };
-        });
-      })
-      .catch(() => {
-        setDuplicated((cur) => {
-          return { ...cur, dupNickname: true };
-        });
-      });
-    if (duplicated["dupNickname"] == false && nickname !== "") {
-      setIsOkInput((cur) => {
-        return { ...cur, okNickname: true };
-      });
-    } else {
+  const checkNickname = async (nick) => {
+    if (nick == "") {
       setIsOkInput((cur) => {
         return { ...cur, okNickname: false };
       });
+      return;
     }
+    const response = await axios
+      .post(`/auth/signup/nick`, {
+        nickname: nick,
+      })
+      .then((res) => res.data)
+      .then(() => {
+        setIsOkInput((cur) => {
+          return { ...cur, okNickname: true };
+        });
+      })
+      .catch(() => {
+        setIsOkInput((cur) => {
+          return { ...cur, okNickname: false };
+        });
+      });
   };
 
-  const checkPhoneNum = () => {
-    if (noPhoneNum === false && regPhone.test(phoneNum) === true) {
-      setIsOkInput((cur) => {
-        return { ...cur, okPhoneNum: true };
-      });
-    } else if (noPhoneNum == true) {
-      setIsOkInput((cur) => {
-        return { ...cur, okPhoneNum: true };
-      });
-    } else {
+  const checkPhoneNum = (pn) => {
+    if (!regPhone.test(pn)) {
       setIsOkInput((cur) => {
         return { ...cur, okPhoneNum: false };
       });
+    } else {
+      setIsOkInput((cur) => {
+        return { ...cur, okPhoneNum: true };
+      });
     }
   };
 
-  const checkPassword = () => {
-    if (password && password === password2) {
+  const checkPassword = (pw, pw2) => {
+    if ((pw == "" && pw2 == "") || pw != pw2) {
+      setIsOkInput((cur) => {
+        return { ...cur, okPassword: false };
+      });
+      return;
+    } else {
       setIsOkInput((cur) => {
         return { ...cur, okPassword: true };
       });
     }
   };
 
-  const checkEmail = async () => {
-    const response = await axios
-      .post(`/auth/signup/id`, {
-        email: email,
-      })
-      .then((res) => res.data)
-      .then(() => {
-        setDuplicated((cur) => {
-          return { ...cur, dupEmail: false };
-        });
-      })
-      .catch(() => {
-        setDuplicated((cur) => {
-          return { ...cur, dupEmail: true };
-        });
-      });
-    if (duplicated["dupEmail"] == true || regEmail.test(email) == false) {
+  const checkEmail = async (em) => {
+    if (!regEmail.test(em)) {
       setIsOkInput((cur) => {
         return { ...cur, okEmail: false };
       });
-    } else {
-      setIsOkInput((cur) => {
-        return { ...cur, okEmail: true };
-      });
+      return;
     }
+    const response = await axios
+      .post(`/auth/signup/id`, {
+        email: em,
+      })
+      .then((res) => res.data)
+      .then(() => {
+        setIsOkInput((cur) => {
+          return { ...cur, okEmail: true };
+        });
+      })
+      .catch(() => {
+        setIsOkInput((cur) => {
+          return { ...cur, okEmail: false };
+        });
+      });
   };
 
-  const checkInputValue = () => {
-    checkNickname();
-    checkEmail();
-    checkPhoneNum();
-    checkPassword();
-    if (
-      isOkInput["okNickname"] &&
-      isOkInput["okEmail"] &&
-      isOkInput["okPhoneNum"] &&
-      isOkInput["okPassword"]
-    ) {
-      submitSigninData();
-    }
+  const submitSigninData = () => {
+    setSigninData([nickname, email, phoneNum, password]);
+    setIsFirst(false);
   };
   return (
     <>
@@ -136,20 +111,19 @@ function SignUpInput({ setIsFirst }) {
           <Form.Control
             type="email"
             onChange={(e) => {
-              setEmail(e.target.value);
+              checkEmail(e.target.value);
             }}
+            onBlur={(e) => setEmail(e.target.value)}
           />
 
           <Form.Text
             className={
-              isClicked && !!isOkInput["okEmail"] == false
+              email != "" && !!isOkInput["okEmail"] == false
                 ? "isShown"
                 : "isHidden"
             }
           >
-            {duplicated["dupEmail"]
-              ? "중복된 이메일입니다"
-              : "이메일 형식을 확인해주세요"}
+            {"사용할 수 없는 이메일입니다"}
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="nicknameInput">
@@ -157,38 +131,32 @@ function SignUpInput({ setIsFirst }) {
 
           <Form.Control
             type="text"
-            onChange={(e) => setNickname(e.target.value)}
+            onChange={(e) => checkNickname(e.target.value)}
+            onBlur={(e) => setNickname(e.target.value)}
           />
 
           <Form.Text
             className={
-              isClicked && !isOkInput["okNickname"] ? "isShown" : "isHidden"
+              nickname != "" && !isOkInput["okNickname"]
+                ? "isShown"
+                : "isHidden"
             }
           >
-            {duplicated["dupNickname"]
-              ? "중복된 닉네임입니다"
-              : "사용할 수 없는 닉네임입니다"}
+            {"사용할 수 없는 닉네임입니다"}
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="phoneNumInput">
           <Form.Label>전화번호</Form.Label>
           <Form.Control
             type="tel"
-            disabled={noPhoneNum}
-            onChange={(e) => {
-              setPhoneNum(e.target.value);
-            }}
-          />
-          <Form.Check
-            type="checkbox"
-            label="없음"
-            onChange={(e) => {
-              setNoPhoneNum(e.target.checked);
-            }}
+            onChange={(e) => checkPhoneNum(e.target.value)}
+            onBlur={(e) => setPhoneNum(e.target.value)}
           />
           <Form.Text
             className={
-              isClicked && !isOkInput["okPhoneNum"] ? "isShown" : "isHidden"
+              phoneNum != "" && !isOkInput["okPhoneNum"]
+                ? "isShown"
+                : "isHidden"
             }
           >
             전화번호 형식을 확인해주세요
@@ -198,33 +166,40 @@ function SignUpInput({ setIsFirst }) {
           <Form.Label>비밀번호</Form.Label>
           <Form.Control
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => checkPassword(e.target.value, password2)}
+            onBlur={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="passwordCheckInput">
           <Form.Label>비밀번호 확인</Form.Label>
           <Form.Control
             type="password"
-            onChange={(e) => setPassword2(e.target.value)}
+            onChange={(e) => checkPassword(password, e.target.value)}
+            onBlur={(e) => setPassword2(e.target.value)}
           />
           <Form.Text
             className={
-              isClicked && !isOkInput["okPassword"] ? "isShown" : "isHidden"
+              password != "" && password2 != "" && !isOkInput["okPassword"]
+                ? "isShown"
+                : "isHidden"
             }
           >
-            {password == null
-              ? "비밀번호를 입력해주세요"
-              : "비밀번호가 일치하지 않습니다"}
+            {"비밀번호가 일치하지 않습니다"}
           </Form.Text>
         </Form.Group>
       </Form>
       <CenterWrapper>
         <Button
           className="nextBtn"
-          onClick={() => {
-            setIsClicked(true);
-            checkInputValue();
-          }}
+          disabled={
+            !(
+              isOkInput["okNickname"] == true &&
+              isOkInput["okEmail"] == true &&
+              isOkInput["okPassword"] == true &&
+              isOkInput["okPhoneNum"] == true
+            )
+          }
+          onClick={() => submitSigninData()}
         >
           다음
         </Button>
