@@ -16,9 +16,9 @@
 
 ### 데이터셋 _DATA set_
 
-1. Independant Movies
-    - KMDb api
-    - NAVER api
+1. Independent Movies `독립 영화`
+    - [KMDb](https://www.kmdb.or.kr/main) API (All columns, except image)
+    - [NAVER API](https://developers.naver.com/docs/search/movie/) (image: poster & still cut)
 2. COVID-19 X OTT
     - COVID19BOARD : [http://www.covid19board.kr/culture](http://www.covid19board.kr/culture)
     - 미디어통계포털 : [https://stat.kisdi.re.kr/kor/search/SearchList.html](https://stat.kisdi.re.kr/kor/search/SearchList.html)
@@ -32,6 +32,9 @@
         → 코로나 시대 인사이트 도출
         - 장르 파이 차트 → 다양한 장르 제시
         - 워드클라우드 → 줄거리 키워드 흥미 유도
+            <details><summary>Figure</summary>
+                <img src="https://kdt-gitlab.elice.io/003-part3-ottservice/team13/project-template/-/raw/master/movies_plot_wordcloud.png" alt="project-dancingMachine_plot_wordcloud" width="500px">
+            </details>
 
 ### 기술 스택 _Technology stack_
 
@@ -40,7 +43,7 @@
 
 | 🔴Front-end | 🔵Back-end | 🟢Data-analysis |
 | :---: | :---: | :---: |
-|React<br />React-bootstrap<br />Recoil<br />Styled-components<br />Axios<br />|Python<br />Flask<br />SQLite<br />SQLAlchemy<br />MySQL<br />Docker<br />gitlab-runner<br />|Jupyter<br />Python<br />JSON<br />|
+|React<br />React-bootstrap<br />Recoil<br />Styled-components<br />Axios<br />|Python<br />Flask<br />SQLite<br />SQLAlchemy<br />MySQL<br />~~Docker~~<br />~~gitlab-runner~~<br />|Jupyter<br />Python<br />JSON<br />|
 
 ### 라이브러리 _Library_
 
