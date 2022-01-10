@@ -7,7 +7,6 @@ import { ToggleButton } from "react-bootstrap";
 import { timeList } from "../../variables";
 
 function RunningtimeQuestion({ runningtimeChecked, setRunningtimeChecked }) {
-  console.log(runningtimeChecked);
   return (
     <>
       <CenterTitleWrapper>선호하는 러닝타임</CenterTitleWrapper>

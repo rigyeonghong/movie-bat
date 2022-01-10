@@ -12,7 +12,12 @@ function Search() {
   useEffect(() => {
     const getSearch = async () => {
       const response = await axios
-        .get(`/search/movies/title/${searchKeyword}`)
+        .get(
+          process.env.REACT_APP_DB_HOST +
+            `/search/movies/title/${searchKeyword}`,
+          {},
+          { "Access-Control-Allow-Origin": "*", withCredentials: false }
+        )
         .then((res) => res.data);
 
       setResult(response);

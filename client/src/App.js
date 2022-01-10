@@ -20,7 +20,6 @@ import AllMovie from "./routes/AllMovie";
 function App() {
   const isLogout = () => {
     const user = JSON.parse(localStorage.getItem("recoil-persist"));
-    console.log(user);
     if (user?.["userState"]?.["userIdx"] == null) return true;
     else return false;
   };

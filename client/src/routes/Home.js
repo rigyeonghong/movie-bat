@@ -11,7 +11,9 @@ import Dots from "./Dots";
 function Home() {
   const outerRef = useRef();
   const [scrollIndex, setScrollIndex] = useState(1);
-
+  let toTop = function () {
+    document.getElementById("sec1").scrollIntoView({ behavior: "smooth" });
+  };
   useEffect(() => {
     const wheelHandler = (e) => {
       e.preventDefault();
@@ -97,7 +99,13 @@ function Home() {
     <div ref={outerRef} className="outer">
       <Nav />
       <Dots scrollIndex={scrollIndex} />
-      <Section1 />
+      {/* <button
+        style={{ position: "absolute", zIndex: 209, bottom: 50, right: 20 }}
+        onClick={() => toTop()}
+      >
+        Top
+      </button> */}
+      <Section1 id="sec1" />
       <Section2 />
       <Section3 />
       <Section4 />

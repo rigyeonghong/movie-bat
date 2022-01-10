@@ -11,7 +11,7 @@ function Like() {
   useEffect(() => {
     const call = async () => {
       const response = await axios
-        .get(`/favorite/${user["userIdx"]}`)
+        .get(process.env.REACT_APP_DB_HOST + `/favorite/${user["userIdx"]}`)
         .then((res) => res.data);
       setFavoriteMovie(response);
     };

@@ -3,7 +3,6 @@ import React, { useRef, useEffect } from "react";
 function Map({ title, lat, lon, url }) {
   let latitude = !!lat ? parseFloat(lat) : 37.56717962150435;
   let longitude = !!lon ? parseFloat(lon) : 126.97828846164572;
-  console.log(title, latitude, longitude, url);
   const container = useRef(null); //지도를 담을 영역의 DOM 레퍼런스
 
   var imageSrc =
@@ -37,7 +36,6 @@ function Map({ title, lat, lon, url }) {
     infowindow.open(map, marker);
 
     marker.setMap(map);
-    console.log(lat);
 
     return () => {};
   }, [title]);

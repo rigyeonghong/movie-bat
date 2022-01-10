@@ -40,7 +40,6 @@ function MovieDetail() {
   const [likeMovie, setLikeMovie] = useState(null);
   const [reviewContent, setReviewContent] = useState("");
   let reviewList = [];
-  console.log(likeMovie);
   const postDibs = async () => {
     const response = await axios
       .post("/favorite/", {
@@ -64,7 +63,7 @@ function MovieDetail() {
   };
   const postReview = async () => {
     const response = await axios
-      .post(`/movies/detail/${movieIndex}`, {
+      .post(process.env.REACT_APP_DB_HOST + `/movies/detail/${movieIndex}`, {
         movie_idx: movieIndex,
         user_idx: user["userIdx"],
         review_content: reviewContent,
@@ -76,7 +75,7 @@ function MovieDetail() {
   };
   const editReview = async () => {
     const response = await axios
-      .patch(`/movies/detail/${movieIndex}`, {
+      .patch(process.env.REACT_APP_DB_HOST + `/movies/detail/${movieIndex}`, {
         movie_idx: movieIndex,
         user_idx: user["userIdx"],
         review_content: reviewContent,
@@ -87,7 +86,7 @@ function MovieDetail() {
 
   const deleteReview = async () => {
     const response = await axios
-      .delete(`/movies/detail/${movieIndex}`, {
+      .delete(process.env.REACT_APP_DB_HOST + `/movies/detail/${movieIndex}`, {
         data: {
           movie_idx: movieIndex,
           user_idx: user["userIdx"],
@@ -101,7 +100,7 @@ function MovieDetail() {
   useEffect(() => {
     const call = async () => {
       const response = await axios
-        .get(`/movies/detail/${movieIndex}`)
+        .get(process.env.REACT_APP_DB_HOST + `/movies/detail/${movieIndex}`)
         .then((res) => res.data);
       setMovieInfo(response[0]);
       setReviews(response[1]);

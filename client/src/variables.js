@@ -1,14 +1,3 @@
-export const genreList = [
-  { name: "장르1", value: "1" },
-  { name: "장르2", value: "2" },
-  { name: "장르3", value: "3" },
-  { name: "장르4", value: "4" },
-  { name: "장르5", value: "5" },
-  { name: "장르6", value: "6" },
-  { name: "장르7", value: "7" },
-  { name: "장르8", value: "8" },
-  { name: "장르9", value: "9" },
-];
 export const timeList = [
   { name: "30분 이하", value: "0" },
   { name: "60분 이하", value: "60" },

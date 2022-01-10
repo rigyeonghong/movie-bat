@@ -6,7 +6,7 @@ import {
 import { ToggleButton } from "react-bootstrap";
 import { regionList } from "../../variables";
 
-function RegionQuestion({ regionChecked, setRegionChecked }) {
+function RegionQuestion({ regionChecked, setRegionChecked, signupLoading }) {
   const temp = [];
   for (let i = 0; i < regionList.length; i++) {
     temp.push(
@@ -31,6 +31,17 @@ function RegionQuestion({ regionChecked, setRegionChecked }) {
   return (
     <>
       <CenterTitleWrapper>거주 지역</CenterTitleWrapper>
+      {
+        <div
+          style={{
+            textAlign: "center",
+            display: signupLoading ? "absolute" : "none",
+          }}
+        >
+          <iframe src="https://giphy.com/embed/Pm3tjwNGmIwQ1lqV3Q" />
+          <div>잠시만 기다려 주세요...</div>
+        </div>
+      }
       <CenterDescriptionWrapper>
         지역에 개최하는 영화제를 소개해드려요!
       </CenterDescriptionWrapper>

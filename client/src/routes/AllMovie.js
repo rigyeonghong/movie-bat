@@ -11,10 +11,11 @@ function AllMovies() {
     setIsLoading(true);
     const call = async () => {
       setIsLoading(true);
-      const response = await axios.get(`/movies/all`).then((res) => res.data);
+      const response = await axios
+        .get(process.env.REACT_APP_DB_HOST + `/movies/all`)
+        .then((res) => res.data);
       setAllMovieInfo(response);
       setIsLoading(false);
-      console.log(response);
     };
     call();
   }, []);

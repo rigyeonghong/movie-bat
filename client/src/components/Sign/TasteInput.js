@@ -16,7 +16,7 @@ function TasteInput() {
   const [genreChecked, setGenreChecked] = useState([-1, -1]);
   const [runningtimeChecked, setRunningtimeChecked] = useState(-1);
   const [regionChecked, setRegionChecked] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [signupLoading, setSignupLoading] = useState(false);
   const tasteList = [
     <GenreQuestion
       masterpiece={masterpiece}
@@ -30,19 +30,22 @@ function TasteInput() {
     <RegionQuestion
       regionChecked={regionChecked}
       setRegionChecked={setRegionChecked}
+      signupLoading={signupLoading}
     />,
   ];
 
   useEffect(() => {
     const getMasterpiece = async () => {
-      const response = await axios.get("/masterpiece").then((res) => res.data);
+      const response = await axios
+        .get(process.env.REACT_APP_DB_HOST + "/masterpiece")
+        .then((res) => res.data);
       setMasterpiece(response);
     };
     getMasterpiece();
   }, []);
 
   const postSignInData = async () => {
-    setIsLoading(true);
+    setSignupLoading(true);
     const response = await axios
       .post("/auth/signup", {
         nickname: signinValue[0],
@@ -54,9 +57,8 @@ function TasteInput() {
         runningtime: runningtimeChecked,
         region: regionChecked,
       })
-      .then((res) => res.data)
-      .then(() => setIsLoading(false));
-
+      .then((res) => res.data);
+    setSignupLoading(false);
     if (response.result == "fail") {
       alert("회원가입 실패");
     } else {

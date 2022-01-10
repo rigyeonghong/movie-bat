@@ -11,7 +11,6 @@ import checkIcon from "../../assets/check2.svg";
 function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
   const [isFirstPage, setIsFirstPage] = useState(true);
   const [hoverIdx, setHoverIdx] = useState(0);
-  console.log(genreChecked);
   const selectMovie = (i) => {
     let where = genreChecked.indexOf(i);
     let empty = genreChecked.indexOf(-1);
@@ -19,7 +18,7 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
     // -1, 새로 들어온 경우
     if (0 > where) {
       // 자리가 없을때
-      if (0 > empty) console.log("자리없어욧");
+      if (0 > empty) console.log("");
       else {
         // 자리 있을때
         newgenreChecked[empty] = i;

@@ -25,7 +25,7 @@ function LoginInput() {
 
   const postLoginData = async () => {
     const response = await axios
-      .post("/auth/signin", {
+      .post(process.env.REACT_APP_DB_HOST + "/auth/signin", {
         email,
         password,
       })

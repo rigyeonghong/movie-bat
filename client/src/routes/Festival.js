@@ -50,11 +50,10 @@ function Festival() {
     setMapLoading(true);
     const call = async () => {
       const response = await axios
-        .get(`/festivals/${region}`)
+        .get(process.env.REACT_APP_DB_HOST + `/festivals/${region}`)
         .then((res) => res.data)
         .then(setMapLoading(false));
       setFestivals(response);
-      console.log(response);
     };
     call();
   }, [region]);

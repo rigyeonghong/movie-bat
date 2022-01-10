@@ -15,18 +15,20 @@ function Movies() {
     setIsLoading(true);
     const call = async () => {
       setIsLoading(true);
-      const response = await axios.get(`/main/`).then((res) => res.data);
+      const response = await axios
+        .get(process.env.REACT_APP_DB_HOST + `/main/`)
+        .then((res) => res.data);
       const response2 = await axios
-        .get(`main/actor/구교환`)
+        .get(process.env.REACT_APP_DB_HOST + `/main/actor/구교환`)
         .then((res) => res.data);
       const response3 = await axios
-        .get(`main/prodyear/2021`)
+        .get(process.env.REACT_APP_DB_HOST + `/main/prodyear/2021`)
         .then((res) => res.data);
       const response4 = await axios
-        .get(`main/director/이옥섭`)
+        .get(process.env.REACT_APP_DB_HOST + `/main/director/이옥섭`)
         .then((res) => res.data);
       const response5 = await axios
-        .get(`main/entry/서울독립영화제`)
+        .get(process.env.REACT_APP_DB_HOST + `/main/entry/서울독립영화제`)
         .then((res) => res.data);
       setMovieInfo(response);
       setKooMovie(response2);

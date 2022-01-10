@@ -20,7 +20,6 @@ function SignUpInput({ setIsFirst }) {
   );
 
   const setSigninData = useSetRecoilState(signinState);
-
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const regPhone = /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/;
@@ -33,7 +32,7 @@ function SignUpInput({ setIsFirst }) {
       return;
     }
     const response = await axios
-      .post(`/auth/signup/nick`, {
+      .post(process.env.REACT_APP_DB_HOST + `/auth/signup/nick`, {
         nickname: nick,
       })
       .then((res) => res.data)
@@ -82,9 +81,14 @@ function SignUpInput({ setIsFirst }) {
       return;
     }
     const response = await axios
-      .post(`/auth/signup/id`, {
-        email: em,
-      })
+      .post(
+        process.env.REACT_APP_DB_HOST + `/auth/signup/id`,
+        {
+          email: em,
+        },
+        {},
+        { "Access-Control-Allow-Origin": "*", withCredentials: false }
+      )
       .then((res) => res.data)
       .then(() => {
         setIsOkInput((cur) => {
