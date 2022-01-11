@@ -4,6 +4,7 @@ import serviceBg from "../../assets/serviceBg.JPEG";
 function Section3() {
   return (
     <Section
+      id="sec3"
       style={{
         justifyContent: "center",
         backgroundImage: `url(${serviceBg})`,

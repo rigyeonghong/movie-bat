@@ -2,10 +2,11 @@ import React from "react";
 import { Section } from "../../styles/theme";
 import { Button } from "react-bootstrap";
 import section1Bg from "../../assets/section1Bg.png";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 function Section1() {
   return (
     <Section
+      id="sec1"
       style={{
         justifyContent: "center",
         backgroundImage: `url(${section1Bg})`,
@@ -30,7 +31,7 @@ function Section1() {
             marginTop: "7vh",
           }}
         >
-          <Link to="/movies">
+          <a href="/movies">
             <Button
               style={{
                 border: "none",
@@ -43,7 +44,7 @@ function Section1() {
             >
               시작하기
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </Section>

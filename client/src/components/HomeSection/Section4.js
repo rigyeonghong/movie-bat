@@ -4,6 +4,7 @@ import posterBg from "../../assets/posterBg.JPEG";
 function Section4() {
   return (
     <Section
+      id="sec4"
       style={{
         flexDirection: "column",
         justifyContent: "center",

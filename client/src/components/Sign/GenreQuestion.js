@@ -17,10 +17,8 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
     let newgenreChecked = [...genreChecked];
     // -1, 새로 들어온 경우
     if (0 > where) {
-      // 자리가 없을때
-      if (0 > empty) console.log("");
-      else {
-        // 자리 있을때
+      // 자리 있을때
+      if (empty >= 0) {
         newgenreChecked[empty] = i;
         setGenreChecked(newgenreChecked);
       }
@@ -71,7 +69,7 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
           </Row>
 
           <Button
-            variant="outline-dark"
+            variant="dark"
             style={{ width: "150px", float: "right", color: "white" }}
             onClick={() => setIsFirstPage(!isFirstPage)}
           >
@@ -96,6 +94,7 @@ function GenreQuestion({ masterpiece, genreChecked, setGenreChecked }) {
           </Row>
 
           <Button
+            variant="dark"
             style={{ width: "150px", float: "right" }}
             onClick={() => setIsFirstPage(!isFirstPage)}
           >

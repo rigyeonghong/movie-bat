@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
-import { BoldTitle, SearchMoviePoster } from "../styles/theme";
+import {
+  BoldTitle,
+  SearchMoviePoster,
+  SearchMovieEmptyPic,
+} from "../styles/theme";
 import Nav from "../components/Navigation";
 function Search() {
   let params = useParams();
@@ -13,7 +17,7 @@ function Search() {
     const getSearch = async () => {
       const response = await axios
         .get(
-            `http://ec2-3-36-74-205.ap-northeast-2.compute.amazonaws.com:5000/search/movies/title/${searchKeyword}`,
+          `http://ec2-3-36-74-205.ap-northeast-2.compute.amazonaws.com:5000/search/movies/title/${searchKeyword}`,
           {},
           { "Access-Control-Allow-Origin": "*", withCredentials: false }
         )
@@ -33,7 +37,17 @@ function Search() {
           {
             <div style={{ display: "inline-block" }}>
               <Link to={`/movies/detail/${item["movie_idx"]}`}>
-                <SearchMoviePoster src={item["movie_posterUrl"]} />
+                {item["movie_posterUrl"] ? (
+                  <SearchMoviePoster src={item["movie_posterUrl"]} />
+                ) : (
+                  <SearchMovieEmptyPic>
+                    <p
+                      style={{ position: "absolute", top: "5px", left: "5px" }}
+                    >
+                      No Picture !
+                    </p>
+                  </SearchMovieEmptyPic>
+                )}
                 <p>{item["movie_title"]}</p>
               </Link>
             </div>

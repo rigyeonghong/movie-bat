@@ -4,6 +4,7 @@ import { BarGraph1, BarGraph2, BarGraph3 } from "../Graphs";
 function Section2() {
   return (
     <Section
+      id="sec2"
       style={{ flexDirection: "column", justifyContent: "center", zIndex: "3" }}
     >
       <div

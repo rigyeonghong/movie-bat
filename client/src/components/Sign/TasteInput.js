@@ -16,7 +16,7 @@ function TasteInput() {
   const [genreChecked, setGenreChecked] = useState([-1, -1]);
   const [runningtimeChecked, setRunningtimeChecked] = useState(-1);
   const [regionChecked, setRegionChecked] = useState("");
-  const [signupLoading, setSignupLoading] = useState(false);
+  const [isSignupLoading, setIsSignupLoading] = useState(false);
   const tasteList = [
     <GenreQuestion
       masterpiece={masterpiece}
@@ -30,7 +30,6 @@ function TasteInput() {
     <RegionQuestion
       regionChecked={regionChecked}
       setRegionChecked={setRegionChecked}
-      signupLoading={signupLoading}
     />,
   ];
 
@@ -45,9 +44,9 @@ function TasteInput() {
   }, []);
 
   const postSignInData = async () => {
-    setSignupLoading(true);
+    setIsSignupLoading(true);
     const response = await axios
-      .post("/auth/signup", {
+      .post(process.env.REACT_APP_DB_HOST + "/auth/signup", {
         nickname: signinValue[0],
         email: signinValue[1],
         phoneNum: signinValue[2],
@@ -58,7 +57,7 @@ function TasteInput() {
         region: regionChecked,
       })
       .then((res) => res.data);
-    setSignupLoading(false);
+    setIsSignupLoading(false);
     if (response.result == "fail") {
       alert("회원가입 실패");
     } else {
@@ -78,21 +77,29 @@ function TasteInput() {
       runningtimeChecked < 0
         ? alert("선호하는 러닝타임을 선택해주세요!")
         : setPageNum((cur) => cur + 1);
-    } else {
-      postSignInData();
     }
   };
   return (
     <InputItemWrapper style={{ width: "70vw" }}>
       {Object.keys(masterpiece).length ? tasteList[pageNum] : ""}
       <CenterWrapper>
-        <Button
-          variant="danger"
-          className="nextBtn"
-          onClick={() => handleNextBtn()}
-        >
-          {pageNum == pageNum.length - 1 ? "제출" : "다음"}
-        </Button>
+        {pageNum > 1 ? (
+          <Button
+            variant="danger"
+            className="nextBtn"
+            onClick={() => postSignInData()}
+          >
+            {isSignupLoading ? "회원가입 진행중..." : "제출"}
+          </Button>
+        ) : (
+          <Button
+            variant="danger"
+            className="nextBtn"
+            onClick={() => handleNextBtn()}
+          >
+            다음
+          </Button>
+        )}
       </CenterWrapper>
     </InputItemWrapper>
   );

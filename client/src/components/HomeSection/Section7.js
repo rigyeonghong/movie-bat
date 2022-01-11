@@ -4,6 +4,7 @@ import bongBg from "../../assets/bong.JPEG";
 function Section7() {
   return (
     <Section
+      id="sec5"
       style={{
         backgroundImage: `url(${bongBg})`,
         flexDirection: "column",

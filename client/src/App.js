@@ -36,7 +36,7 @@ function App() {
             <Route path="like" element={<Like />} />
             <Route path="search/:keyword" element={<Search />} />
             <Route path="/auth/signin" element={<Login />} />
-            <Route path="/all" element={<AllMovie />} />
+            <Route path="/movies/all" element={<AllMovie />} />
             <Route path="/auth/signup" element={<SignUp />} />
             <Route exact path="/" element={<Home />} />
             <Route path="/team" element={<Team />} />

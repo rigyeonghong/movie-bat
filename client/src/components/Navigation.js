@@ -4,14 +4,14 @@ import MenuWrapper from "./Nav/MenuWrapper";
 import SearchWrapper from "./Nav/SearchWrapper";
 import SignWrapper from "./Nav/SignWrapper";
 
-import Logo from "../assets/logo_test.png";
+import Logo from "../assets/logo.png";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { NavLogo } from "../styles/theme";
 function Navigation() {
   return (
     <Navbar
       sticky="top"
-      style={{ justifyContent: "space-around", backgroundColor: "F141414" }}
+      style={{ justifyContent: "space-around", backgroundColor: "#141414" }}
     >
       <div style={{ display: "flex" }}>
         <Navbar.Brand href="/">
@@ -30,8 +30,9 @@ function Navigation() {
               영화제 소개
             </Nav.Link>
           </Nav.Item>
+
           <Nav.Item className="px-4">
-            <Nav.Link style={{ color: "white" }} href="/all">
+            <Nav.Link style={{ color: "white" }} href="/movies/all">
               전체 영화
             </Nav.Link>
           </Nav.Item>

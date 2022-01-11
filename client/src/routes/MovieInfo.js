@@ -42,7 +42,7 @@ function MovieDetail() {
   let reviewList = [];
   const postDibs = async () => {
     const response = await axios
-      .post("/favorite/", {
+      .post(process.env.REACT_APP_DB_HOST + `/favorite/`, {
         movie_idx: movieIndex,
         user_idx: user["userIdx"],
         date:
@@ -63,35 +63,47 @@ function MovieDetail() {
   };
   const postReview = async () => {
     const response = await axios
-      .post(process.env.REACT_APP_DB_HOST + `/movies/detail/${movieIndex}`, {
-        movie_idx: movieIndex,
-        user_idx: user["userIdx"],
-        review_content: reviewContent,
-        rating: 0,
-      })
+      .post(
+        process.env.REACT_APP_DB_HOST +
+          `/movies/detail/${movieIndex}/${user["userIdx"]}`,
+        {
+          movie_idx: movieIndex,
+          user_idx: user["userIdx"],
+          review_content: reviewContent,
+          rating: 0,
+        }
+      )
       .then((res) => res.data)
       .then(() => alert("리뷰를 등록했어요!"))
       .then(() => window.location.reload());
   };
   const editReview = async () => {
     const response = await axios
-      .patch(process.env.REACT_APP_DB_HOST + `/movies/detail/${movieIndex}`, {
-        movie_idx: movieIndex,
-        user_idx: user["userIdx"],
-        review_content: reviewContent,
-      })
+      .patch(
+        process.env.REACT_APP_DB_HOST +
+          `/movies/detail/${movieIndex}/${user["userIdx"]}`,
+        {
+          movie_idx: movieIndex,
+          user_idx: user["userIdx"],
+          review_content: reviewContent,
+        }
+      )
       .then(() => alert("리뷰 수정이 완료되었습니다!"))
       .then(() => window.location.reload());
   };
 
   const deleteReview = async () => {
     const response = await axios
-      .delete(process.env.REACT_APP_DB_HOST + `/movies/detail/${movieIndex}`, {
-        data: {
-          movie_idx: movieIndex,
-          user_idx: user["userIdx"],
-        },
-      })
+      .delete(
+        process.env.REACT_APP_DB_HOST +
+          `/movies/detail/${movieIndex}/${user["userIdx"]}`,
+        {
+          data: {
+            movie_idx: movieIndex,
+            user_idx: user["userIdx"],
+          },
+        }
+      )
       .then((res) => res.data)
       .then(() => alert("리뷰가 삭제되었습니다!"))
       .then(() => window.location.reload());
@@ -100,7 +112,13 @@ function MovieDetail() {
   useEffect(() => {
     const call = async () => {
       const response = await axios
-        .get(process.env.REACT_APP_DB_HOST + `/movies/detail/${movieIndex}`)
+        .get(
+          process.env.REACT_APP_DB_HOST +
+            `/movies/detail/${movieIndex}/${user["userIdx"]}`,
+          {
+            userIdx: user["userIdx"],
+          }
+        )
         .then((res) => res.data);
       setMovieInfo(response[0]);
       setReviews(response[1]);
@@ -189,7 +207,9 @@ function MovieDetail() {
         <Background onClick={() => setIsOpen(false)}>
           <ModalContainer onClick={(e) => e.stopPropagation()}>
             <div>
-              <h3>리뷰 작성</h3>
+              <h3 style={{ marginTop: "20px", marginBottom: "20px" }}>
+                리뷰 작성
+              </h3>
             </div>
             <WriteReview setReviewContent={setReviewContent} />
             <Button

@@ -4,6 +4,8 @@ import Slider from "../components/Carousel/Slider";
 import { bigMovieInfo } from "../dummy";
 import Nav from "../components/Navigation";
 import BigCarousel from "../components/Carousel/BigCarousel";
+import { useRecoilValue } from "recoil";
+import { userState } from "../state";
 
 function Movies() {
   const [movieInfo, setMovieInfo] = useState([]);
@@ -11,12 +13,16 @@ function Movies() {
   const [lastYearMovie, setLastYearMovie] = useState([]);
   const [seoulMovie, setSeoulMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const user = useRecoilValue(userState);
+
   useEffect(() => {
     setIsLoading(true);
     const call = async () => {
       setIsLoading(true);
       const response = await axios
-        .get(process.env.REACT_APP_DB_HOST + `/main/`)
+        .get(process.env.REACT_APP_DB_HOST + `/main/${user["userIdx"]}`, {
+          userIdx: user["userIdx"],
+        })
         .then((res) => res.data);
       const response2 = await axios
         .get(process.env.REACT_APP_DB_HOST + `/main/actor/구교환`)

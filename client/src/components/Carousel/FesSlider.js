@@ -4,16 +4,24 @@ import {
   SlideItemContainer,
   SlideLeftBtn,
   SlideRightBtn,
-} from "../../styles/theme";
-import {
+  SlideMovieEmptyPic,
   SlideItemWrapper,
   SlideMoviePoster,
   SlideMovieTitle,
 } from "../../styles/theme";
+
 function FesSlide({ title, index, setCurIndex, src }) {
   return (
     <SlideItemWrapper onClick={() => setCurIndex(index)}>
-      <SlideMoviePoster src={src} />
+      {src ? (
+        <SlideMoviePoster src={src} />
+      ) : (
+        <SlideMovieEmptyPic>
+          <p style={{ position: "absolute", top: "5px", left: "5px" }}>
+            No Picture !
+          </p>
+        </SlideMovieEmptyPic>
+      )}
       <SlideMovieTitle>{title}</SlideMovieTitle>
     </SlideItemWrapper>
   );

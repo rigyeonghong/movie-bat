@@ -30,9 +30,8 @@ function LoginInput() {
         password,
       })
       .then((res) => res.data);
-
     if (response.result == "fail") {
-      alert("로그인 실패");
+      alert("아이디 또는 비밀번호를 확인해주세요");
     } else {
       setUser({
         userIdx: response["user_idx"],

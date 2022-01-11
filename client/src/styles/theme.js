@@ -86,12 +86,14 @@ export const SlideMoviePoster = styled(SearchMoviePoster)`
     transition: all 0.2s linear;
   }
 `;
-export const SlideMovieEmptyPic = styled.div`
+export const SearchMovieEmptyPic = styled.div`
   width: 13vw;
   height: 8vw;
   margin-right: 1vw;
   background-color: gray;
   position: relative;
+`;
+export const SlideMovieEmptyPic = styled(SearchMovieEmptyPic)`
   &:hover {
     width: 15.6vw;
     height: 9.6vw;

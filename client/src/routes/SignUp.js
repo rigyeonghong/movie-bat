@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FlexWrapper, SignLogo } from "../styles/theme";
 import SignUpInput from "../components/Sign/SignUpInput";
 import TasteInput from "../components/Sign/TasteInput";
-import Logo from "../assets/logo_test.png";
+import Logo from "../assets/logo.png";
 import { LoginInputWrapper, SignTitle, SignupWrapper } from "../styles/theme";
 function SignUp() {
   const [isFirst, setIsFirst] = useState(true);
