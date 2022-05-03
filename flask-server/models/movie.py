@@ -19,4 +19,8 @@ class Movie(db.Model):
     movie_actors = db.Column(db.String(50))
     movie_plot = db.Column(db.String(1000))
     movie_stills = db.Column(db.String(1000))
+<<<<<<< HEAD
+=======
+    movie_score = db.Column(db.String(30))
+>>>>>>> master
 

@@ -7,14 +7,30 @@ import {
   SlideItemContainer,
   SlideLeftBtn,
   SlideRightBtn,
+<<<<<<< HEAD
+=======
+  BoldTitle,
+>>>>>>> master
 } from "../styles/theme";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { ReactComponent as Left } from "../assets/left.svg";
 import { ReactComponent as Right } from "../assets/right.svg";
 import Map from "../components/Map";
+<<<<<<< HEAD
 function Festival() {
   const [festivals, setFestivals] = useState([]);
   const [region, setRegion] = useState("서울");
+=======
+import { useRecoilValue } from "recoil";
+import { userState } from "../state";
+
+function Festival() {
+  const user = useRecoilValue(userState);
+  const [festivals, setFestivals] = useState([]);
+  const [region, setRegion] = useState(
+    user["userRegion"] ? user["userRegion"] : "서울"
+  );
+>>>>>>> master
   const [currentSlide, setCurrentSlide] = useState(0);
   const [curIndex, setCurIndex] = useState(0);
   const [mapLoading, setMapLoading] = useState(false);
@@ -46,7 +62,10 @@ function Festival() {
         .get(`/festivals/${region}`)
         .then((res) => res.data)
         .then(setMapLoading(false));
+<<<<<<< HEAD
       // console.log(response);
+=======
+>>>>>>> master
       setFestivals(response);
     };
     call();
@@ -69,9 +88,18 @@ function Festival() {
       <Nav />
       <SliderContainer>
         <div style={{ marginTop: "5vh" }}>
+<<<<<<< HEAD
           <h1 style={{ float: "left" }}>{region}에서 열리는 영화제</h1>
           <DropdownButton
             style={{ float: "right" }}
+=======
+          <BoldTitle style={{ float: "left" }}>
+            {region}에서 열리는 영화제
+          </BoldTitle>
+          <DropdownButton
+            variant="warning"
+            style={{ float: "right", color: "white" }}
+>>>>>>> master
             id="dropdownRegion"
             title="지역 선택"
           >
@@ -90,9 +118,12 @@ function Festival() {
             <Dropdown.Item onClick={() => setRegion("전라")}>
               전라
             </Dropdown.Item>
+<<<<<<< HEAD
             <Dropdown.Item onClick={() => setRegion("충청")}>
               충청
             </Dropdown.Item>
+=======
+>>>>>>> master
             <Dropdown.Item onClick={() => setRegion("대전")}>
               대전
             </Dropdown.Item>
@@ -109,14 +140,22 @@ function Festival() {
           <SlideItemContainer ref={slideRef}>
             {festivalsList}
           </SlideItemContainer>
+<<<<<<< HEAD
           <SlideLeftBtn onClick={() => prevSlide()}>
             <Left width="35" height="35" fill="white" />
           </SlideLeftBtn>
           <SlideRightBtn onClick={() => nextSlide()}>
+=======
+          <SlideLeftBtn top={"-10px"} onClick={() => prevSlide()}>
+            <Left width="35" height="35" fill="white" />
+          </SlideLeftBtn>
+          <SlideRightBtn top={"-10px"} onClick={() => nextSlide()}>
+>>>>>>> master
             <Right width="35" height="35" fill="white" />
           </SlideRightBtn>
         </SliderContainer>
         {mapLoading || festivals.length == 0 ? (
+<<<<<<< HEAD
           <div>로딩중</div>
         ) : (
           <Map
@@ -124,6 +163,18 @@ function Festival() {
             lat={festivals[curIndex]["festival_latitude"]}
             lon={festivals[curIndex]["festival_latlng"]}
             url={festivals[curIndex]["festival_link"]}
+=======
+          <div style={{ textAlign: "center" }}>
+            <iframe src="https://giphy.com/embed/Pm3tjwNGmIwQ1lqV3Q" />
+            <div>영화제 목록 업데이트 중 !</div>
+          </div>
+        ) : (
+          <Map
+            title={festivals?.[curIndex]?.["festival_title"]}
+            lat={festivals?.[curIndex]?.["festival_latitude"]}
+            lon={festivals?.[curIndex]?.["festival_latlng"]}
+            url={festivals?.[curIndex]?.["festival_link"]}
+>>>>>>> master
           />
         )}
       </SliderContainer>

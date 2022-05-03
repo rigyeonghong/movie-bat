@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import sys
 sys.path.append('./flask-server')
 
@@ -12,6 +13,20 @@ from views import auth, oauth, main, favorite, detail, festivals, search, master
 
 app = Flask(__name__)
 
+=======
+from flask import Flask, Blueprint
+from flask_cors import CORS
+from db_connect import db
+from flask_migrate import Migrate
+# from flask_restx import Api, Resource, Namespace
+import config
+
+from views import auth, oauth, main, favorite, detail, festivals, search, masterpiece, all_movie
+
+app = Flask(__name__)
+
+
+>>>>>>> master
 # React와 교차 출처 에러
 CORS(app)
 
@@ -28,13 +43,24 @@ app.secret_key = config.SECRET_KEY
 db.init_app(app)
 Migrate().init_app(app, db)
 
+<<<<<<< HEAD
 # view Blueprint 등록
+=======
+
+>>>>>>> master
 app.register_blueprint(auth.bp)
 app.register_blueprint(oauth.bp)
 app.register_blueprint(main.bp)
 app.register_blueprint(favorite.bp)
 app.register_blueprint(detail.bp)
 app.register_blueprint(festivals.bp)
+<<<<<<< HEAD
+=======
+app.register_blueprint(search.bp)
+app.register_blueprint(masterpiece.bp)
+app.register_blueprint(all_movie.bp)
+
+>>>>>>> master
 
 
 # 없애기 or 변경..?

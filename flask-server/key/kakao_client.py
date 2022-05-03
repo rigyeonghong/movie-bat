@@ -1,0 +1,1 @@
+kakao_client_id = "a3225befe78013872f644d1d137babc7"

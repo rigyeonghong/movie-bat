@@ -15,10 +15,17 @@ class Review(db.Model):
     is_deleted = db.Column(db.Integer, default = 0)
 
 
+<<<<<<< HEAD
     def __init__(self, movie_idx, user_idx, content, rating, date):
         self.movie_idx = movie_idx
         self.user_idx = user_idx
         self.review_content = content
         self.review_rating = rating
+=======
+    def __init__(self, movie_idx, user_idx, content, date):
+        self.movie_idx = movie_idx
+        self.user_idx = user_idx
+        self.review_content = content
+>>>>>>> master
         self.review_date = date
 

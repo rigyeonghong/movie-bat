@@ -5,6 +5,7 @@ import {
   SlideItemContainer,
   SlideLeftBtn,
   SlideRightBtn,
+<<<<<<< HEAD
 } from "../../styles/theme";
 import { ReactComponent as Left } from "../../assets/left.svg";
 import { ReactComponent as Right } from "../../assets/right.svg";
@@ -16,6 +17,32 @@ function Slider({ subject }) {
       title={item.title}
       url={item.posterUrl}
       movieIdx={item.idx}
+=======
+  BoldTitle,
+} from "../../styles/theme";
+import { ReactComponent as Left } from "../../assets/left.svg";
+import { ReactComponent as Right } from "../../assets/right.svg";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../state";
+function Slider({ subject, subjectNum }) {
+  const user = useRecoilValue(userState);
+  const subjectNameList = [
+    `${user["userNickname"]}님을 위한 추천`,
+    `밭고리즘`,
+    `#적당한_러닝타임`,
+    "어워드 수상 영화",
+    `화제의 배우, 구교환`,
+    `2021년 제작 영화`,
+    `서울독립영화제 추천작`,
+  ];
+  let subjectName = subjectNameList[subjectNum];
+  let movie_list = Object.values(subject).map((item, index) => (
+    <Slide
+      key={index}
+      title={item["movie_title"]}
+      url={item["movie_posterUrl"]}
+      movieIdx={item["movie_idx"]}
+>>>>>>> master
     />
   ));
   const TOTAL_SLIDES = parseInt(movie_list.length / 6);
@@ -42,7 +69,11 @@ function Slider({ subject }) {
   }, [currentSlide]);
   return (
     <SliderContainer>
+<<<<<<< HEAD
       {movie_list.length ? <h2>{subjectName}</h2> : <></>}
+=======
+      {movie_list.length ? <BoldTitle>{subjectName}</BoldTitle> : <></>}
+>>>>>>> master
       <SlideItemContainer ref={slideRef}>{movie_list}</SlideItemContainer>
       <SlideLeftBtn onClick={() => prevSlide()}>
         <Left width="35" height="35" fill="white" />

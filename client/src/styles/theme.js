@@ -63,6 +63,10 @@ export const SliderContainer = styled.div`
   margin: 0 auto;
   position: relative;
   display: block;
+<<<<<<< HEAD
+=======
+  margin-top: 1vw;
+>>>>>>> master
 `;
 export const SlideItemContainer = styled.div`
   width: 100%;
@@ -72,11 +76,20 @@ export const SlideItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+<<<<<<< HEAD
 export const SlideMoviePoster = styled.img`
+=======
+export const SearchMoviePoster = styled.img`
+>>>>>>> master
   width: 13vw;
   height: 8vw;
   margin-right: 1vw;
   overflow: hidden;
+<<<<<<< HEAD
+=======
+`;
+export const SlideMoviePoster = styled(SearchMoviePoster)`
+>>>>>>> master
   &:hover {
     width: 15.6vw;
     height: 9.6vw;
@@ -95,7 +108,13 @@ export const SlideMovieEmptyPic = styled.div`
     transition: all 0.3s linear;
   }
 `;
+<<<<<<< HEAD
 export const SlideMovieTitle = styled.h6``;
+=======
+export const SlideMovieTitle = styled.h6`
+  font-weight: 500;
+`;
+>>>>>>> master
 
 export const BigSlideMovieImg = styled.img`
   width: 100vw;
@@ -162,7 +181,11 @@ export const SignLogo = styled.img`
   padding: 3vw;
 `;
 export const SignupWrapper = styled.div`
+<<<<<<< HEAD
   width: 50vw;
+=======
+  width: 80vw;
+>>>>>>> master
   // border: solid 1px white;
   display: flex;
   flex-direction: column;
@@ -208,13 +231,22 @@ export const SlideLeftBtn = styled(SlideBtn)`
   // left: 0;
   // top: 45%;
   left: 0;
+<<<<<<< HEAD
   top: 23%;
+=======
+  top: ${(props) => props.top || "23%"};
+
+>>>>>>> master
   width: 50px;
   height: 100px;
 `;
 export const SlideRightBtn = styled(SlideBtn)`
   right: 0;
+<<<<<<< HEAD
   top: 23%;
+=======
+  top: ${(props) => props.top || "23%"};
+>>>>>>> master
   width: 50px;
   height: 100px;
 `;
@@ -279,3 +311,15 @@ export const ModalContainer = styled.div`
     text-align: center;
     }
 `;
+<<<<<<< HEAD
+=======
+export const BoldTitle = styled.h2`
+  font-weight: 700;
+`;
+export const Section = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  font-size: 50px;
+`;
+>>>>>>> master

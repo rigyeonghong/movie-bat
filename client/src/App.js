@@ -14,11 +14,20 @@ import GlobalStyle from "./styles/global";
 import KakaoLogin from "./routes/KakaoLogin";
 import PageNotFound from "./routes/PageNotFound";
 import MovieInfo from "./routes/MovieInfo";
+<<<<<<< HEAD
+=======
+import Search from "./routes/Search";
+import AllMovie from "./routes/AllMovie";
+>>>>>>> master
 
 function App() {
   const isLogout = () => {
     const user = JSON.parse(localStorage.getItem("recoil-persist"));
+<<<<<<< HEAD
     if (user === null || user["userState"]["userIdx"] == null) return true;
+=======
+    if (user?.["userState"]?.["userIdx"] == null) return true;
+>>>>>>> master
     else return false;
   };
   return (
@@ -32,7 +41,13 @@ function App() {
               element={isLogout() ? <Login /> : <Movies />}
             />
             <Route path="like" element={<Like />} />
+<<<<<<< HEAD
             <Route path="/auth/signin" element={<Login />} />
+=======
+            <Route path="search/:keyword" element={<Search />} />
+            <Route path="/auth/signin" element={<Login />} />
+            <Route path="/all" element={<AllMovie />} />
+>>>>>>> master
             <Route path="/auth/signup" element={<SignUp />} />
             <Route exact path="/" element={<Home />} />
             <Route path="/team" element={<Team />} />
@@ -45,7 +60,11 @@ function App() {
               path="movies/detail/:idx"
               element={isLogout() ? <Login /> : <MovieInfo />}
             />
+<<<<<<< HEAD
             <Route element={<PageNotFound />} />
+=======
+            <Route path="*" element={<PageNotFound />} />
+>>>>>>> master
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

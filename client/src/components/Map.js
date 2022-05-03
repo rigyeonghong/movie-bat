@@ -1,9 +1,16 @@
 /*global kakao */
+<<<<<<< HEAD
 import React, { useRef, useEffect, useState } from "react";
 function Map({ title, lat, lon, url }) {
   let latitude = parseFloat(lat);
   let longitude = parseFloat(lon);
   console.log(title, latitude, longitude, url);
+=======
+import React, { useRef, useEffect } from "react";
+function Map({ title, lat, lon, url }) {
+  let latitude = !!lat ? parseFloat(lat) : 37.56717962150435;
+  let longitude = !!lon ? parseFloat(lon) : 126.97828846164572;
+>>>>>>> master
   const container = useRef(null); //지도를 담을 영역의 DOM 레퍼런스
 
   var imageSrc =
@@ -32,12 +39,19 @@ function Map({ title, lat, lon, url }) {
       image: markerImage, // 마커 이미지
     });
     var infowindow = new kakao.maps.InfoWindow({
+<<<<<<< HEAD
       content: `<div style="width:200px;border-style:none;text-align:center;padding:10px 0;"><a href='https://naver.com' style=color:black>${title}</a></div>`,
+=======
+      content: `<div style="width:200px;border-style:none;text-align:center;padding:10px 0;"><a style=color:black href=${url} >${title}</a></div>`,
+>>>>>>> master
     });
     infowindow.open(map, marker);
 
     marker.setMap(map);
+<<<<<<< HEAD
     console.log(lat);
+=======
+>>>>>>> master
 
     return () => {};
   }, [title]);

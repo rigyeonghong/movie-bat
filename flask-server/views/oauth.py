@@ -1,7 +1,11 @@
 from flask import Blueprint, request, session, flash, redirect, url_for, g, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.users import *
+<<<<<<< HEAD
 from ..key.kakao_client import kakao_client_id
+=======
+from key.kakao_client import kakao_client_id
+>>>>>>> master
 import requests
 
 bp = Blueprint("kakao", __name__, url_prefix="/oauth/kakao")
@@ -59,6 +63,7 @@ def callback():
         user = User.query.filter(User.user_id == email).first()
 
         # db에 존재하지 않은 user면 회원가입 진행
+<<<<<<< HEAD
         if not user:
             user_id = email
             user_password = kakao_id
@@ -83,12 +88,37 @@ def callback():
         })
 
 # 카카오통해 받은 email, nick, profile + user 취향 받아서 db 저장
+=======
+        # user_id, nick, profile, pw 저장
+        if not user:
+            user_id = email
+            user_pw_hash = generate_password_hash(str(kakao_id))
+            user_nick = nickname
+            user_profile = profile_img
+            user_number = 0
+            user_runningtime = 0
+            user_region = ''
+            
+            new_user = User(user_id, user_pw_hash, user_nick, user_number, user_runningtime, user_region)
+            db.session.add(new_user)
+            db.session.commit()
+
+        # user_idx를 식별자로 보냄
+        signup_user = User.query.filter(User.user_id == email).first()
+        user_idx = signup_user.user_idx
+        redirect_uri = f"http://127.0.0.1:3000/kakao/loggedin/user={user_idx}"
+        return redirect(redirect_uri)
+
+
+# user_idx와 user 취향 받아서 해당하는 db 저장
+>>>>>>> master
 @bp.route('/user')
 def user():
         # fe에서 넘어온 값 확인
         fe_user = request.get_json()
         
         if fe_user != None:
+<<<<<<< HEAD
             user_nick = fe_user['nickname']
             user_id = fe_user['email']
             user_genre = fe_user['genre']
@@ -105,6 +135,22 @@ def user():
             # db에서 생성된 user_idx 가져오기
             user_saved = User.query.filter(User.user_id == user_id).first()
             user_idx = user_saved.user_idx
+=======
+            # user_genre = fe_user['genre']
+            user_idx = fe_user['user_idx']
+            user_runningtime = fe_user['runningtime']
+            user_region = fe_user['region']
+
+
+            # user_idx에 맞는 컬럼에 runningtime, region 넣어줌
+            update_user = User.query.filter(User.user_idx == user_idx).first()
+            
+            update_user.user_runningtime = user_runningtime
+            update_user.user_region = user_region
+            
+            db.session.add(update_user)
+            db.session.commit()
+>>>>>>> master
 
             print("회원가입이 완료되었습니다.")
             return jsonify({"result":"success",

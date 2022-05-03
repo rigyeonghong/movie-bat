@@ -1,75 +1,142 @@
-# (서비스 명)
-- 최종 서비스 명을 위 괄호 부분에 작성하세요.
-- 최종 서비스의 한 줄 소개를 작성하세요.
+# **영화밭 (Movie batt)**
+
+## “독립영화 캐가세요” *Dig it out! from the field*
 
 
-## 프로젝트 구성 안내
+**⚡ OTT 바깥의 세상, 독립영화 추천 서비스**
 
-* `bullet point 에 적힌 내용을 수정해 주시면 됩니다.`
+- 유저가 상업영화를 선택하면 그와 유사하며 작품성 있는 독립영화를 추천합니다.<br />
+- 이를 기반으로 독립영화 큐레이션 및 상세 페이지와 영화제 정보를 제공합니다.
 
-* `초기 기획은 언제든 수정될 수 있으니 웹서비스 결과를 내는데 초점을 두시기 바랍니다.`
+<img src="https://kdt-gitlab.elice.io/003-part3-ottservice/team13/project-template/-/raw/47fb769d71ea4f8e21647a66650a81f72027e679/project-dancingMachine-logo.png" alt="project-dancingMachine-logo" width="500px">
 
-## 1. 프로젝트 소개
+> (영화 #f15a24, 밭 #fcee21, dot #000000)
 
-**어떠한 인공지능 모델과 알고리즘을 사용했는지에 대한 설명과 엔드유저에게 보이는 웹서비스에 대한 소개**
+## 1. 소개 Introduce
 
-  - 사용하려는 인공지능 모델과 알고리즘을 명시
-  - 인공지능에 사용하려는 데이터를 명시, 이에 대한 설명
-  - 기술 스택 (python, d3, pandas, jupyter, javascript, MySQL 등)
-  - 사용된 라이브러리 (numpy, matplotlib, wordcloud 등)
-  - 웹서비스에 대한 자세한 개요
+### 데이터셋 _DATA set_
 
-## 2. 프로젝트 목표
+1. Independent Movies `독립 영화`
+    - [KMDb](https://www.kmdb.or.kr/main) API (All columns, except image)
+    - [NAVER API](https://developers.naver.com/docs/search/movie/) (image: poster & still cut)
+2. COVID-19 X OTT
+    - COVID19BOARD : [http://www.covid19board.kr/culture](http://www.covid19board.kr/culture)
+    - 미디어통계포털 : [https://stat.kisdi.re.kr/kor/search/SearchList.html](https://stat.kisdi.re.kr/kor/search/SearchList.html)
+    - 영화진흥위원회 : [https://www.kobis.or.kr/kobis/business/stat/them/findYearlyTotalList.do](https://www.kobis.or.kr/kobis/business/stat/them/findYearlyTotalList.do)
+    
+- 인사이트
+    - 독립영화 데이터셋 구축
+        - 추천 알고리즘 구성
+    - 소개 페이지
+        - COVID-19에 따른 신흥(OTT) 및 전통(영화관) 미디어 시장 비교 
+        → 코로나 시대 인사이트 도출
+        - 장르 파이 차트 → 다양한 장르 제시
+        - 워드클라우드 → 줄거리 키워드 흥미 유도
+            <details><summary>Figure</summary>
+                <img src="https://kdt-gitlab.elice.io/003-part3-ottservice/team13/project-template/-/raw/master/movies_plot_wordcloud.png" alt="project-dancingMachine_plot_wordcloud" width="500px">
+            </details>
 
-**웹서비스의 해결 과제와 인공지능으로 해결하기 위한 방안 논의 (50자 이상)**
-  - 프로젝트 아이디어 동기
-  - 문제를 해결하기 위한 특정 질문 명시
-  - 인공지능을 통해 해결하려는 문제를 구체적으로 작성
+### 기술 스택 _Technology stack_
 
-## 3. 프로젝트 기능 설명
+- 버전 관리
+    - Git → GitLab
 
-**웹서비스의 유용성, 편의성 및 시각화의 실용성에 대한 설명**
-  - 주요 기능 (주된 활용성) 및 서브 기능
-  - 프로젝트만의 차별점, 기대 효과
+| 🔴Front-end | 🔵Back-end | 🟢Data-analysis |
+| :---: | :---: | :---: |
+|React<br />React-bootstrap<br />Recoil<br />Styled-components<br />Axios<br />|Python<br />Flask<br />SQLite<br />SQLAlchemy<br />MySQL<br />~~Docker~~<br />~~gitlab-runner~~<br />|Jupyter<br />Python<br />JSON<br />|
 
-## 4. 프로젝트 구성도
-  - 와이어프레임/스토리보드 추가
+### 라이브러리 _Library_
 
-## 5. 프로젝트 팀원 역할 분담
-| 이름 | 담당 업무 |
-| ------ | ------ |
-| 멤버1 | 팀장/프론트엔드 개발 |
-| 멤버2 | 백엔드 개발/인공지능 |
+| 🔴Front-end | 🔵Back-end | 🟢Data-analysis |
+| :---: | :---: | :---: |
+| axios<br />bootstrap<br />react<br />react-bootstrap<br />react-dom<br />react-router-dom<br />react-scripts<br />recoil<br />recoil-persist<br />styled-components<br />Chart.js| flask<br />Flask-Migrate<br />Flask-SQLAlchemy<br />SQLAlchemy<br />Werkzeug<br />PyMySQL<br />pytz<br />requests|Numpy<br />Pandas<br />Matplotlib<br />Seaborn<br />Wordcloud<br />`Python`<br />- urllib<br />- time<br />-    difflib<br />-    re<br />`KoNLPY`<br />-    hannanum<br />`sklearn`<br />-    [TfidfVectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)<br />-    cosine_similarity|
 
-**멤버별 responsibility**
+### 웹서비스 개요 _Information Architecture, IA_
 
-1. 팀장
+<img src="https://kdt-gitlab.elice.io/003-part3-ottservice/team13/project-template/-/raw/master/project-dancingMachine_IA.png" alt="project-dancingMachine_IA">
 
-- 기획 단계: 구체적인 설계와 지표에 따른 프로젝트 제안서 작성
-- 개발 단계: 팀원간의 일정 등 조율 + 프론트 or 백엔드 or 인공지능 개발
-- 수정 단계: 기획, 스크럼 진행, 코치님 피드백 반영해서 수정, 발표 준비
+## 2. 목표 Target
 
-2. 프론트엔드
+### [문제 정의] 아이디어 동기
 
-- 기획 단계: 큰 주제에서 문제 해결 아이디어 도출, 와이어프레임 작성
-- 개발 단계: 와이어프레임을 기반으로 구현, 인공지능 학습 결과 시각화 담당, UI 디자인 완성
-- 수정 단계: 코치님 피드백 반영해서 프론트 디자인 수정
+- COVID-19 바이러스 확산으로 컨텐츠 소비 행태가 달라졌다.
+- 영화관에 가지 않고 OTT 서비스를 이용하여 미디어를 소비한다.
+- 그런데 구독(혹은 사용)하고 있는 OTT 서비스 안에서만 컨텐츠를 대체로 소비한다. _(타겟 유저)_
+- **그러면 OTT 서비스에 선택받지 못한 컨텐츠들은 어디로 갔는가?**
+- 특히, 상업영화가 아닌 독립영화는 시장에서 어떠한가?
 
-3. 백엔드
+### [가설 설정] 문제를 해결하기 위한 특정 질문
 
-- 기획 단계: 데이터셋을 확보하기 위한 데이터베이스 구축, 데이터셋 수집
-- 개발 단계: 데이터 베이스 구축 및 API 활용, 웹서비스 사용자의 정보 수집 기능 구현, 인공지능 학습 결과를 활용한 기능 구현
-- 수정 단계: 코치님 피드백 반영해서 백엔드 설계/기능 수정
+- **독립영화가 모여있는 사이트를 통해 유저에게 취향에 맞는 독립영화를 추천한다면?**
+- 유저는 취향과 유사하고 작품성이 높은 추천 독립영화를 소비한 후에 만족도가 높을 것이고, 이후 그 외의 독립영화에 관심이 생길 것이다.
 
-4. 인공지능
+### [기대 효과] 해결하려는 문제
 
-- 기획 단계: 웹 서비스 프로젝트 주제에 맞는 모델 및 알고리즘 설정, 모델과 알고리즘에 적합한 데이터셋 수집
-- 개발 단계: 데이터 전처리, 학습 모델 구현, 학습 데이터 가공 및 모델 정밀도 향상
-- 수정 단계: 코치님 피드백 반영해서 인공지능 학습 방식 수정
+- 독립영화에 대한 관심
+- 컨텐츠 소비 다양성
+- 독립영화 취향 수집 및 기록
+- (추가) 상영관 및 관람 가능한 링크 연결
 
+## 3. 기능 Function
 
-## 6. 버전
-  - 프로젝트의 버전 기입
+### 주요 기능 _Main function_
+
+- **취향 기반 독립영화 추천 서비스**
+    - 유저가 회원가입을 할 때 상업영화를 고르면, 그와 유사하며 작품성 있는 독립영화를 추천한다.
+    - 그 외의 작품들도 확인할 수 있다.
+- **독립영화제 소개**
+    - 유저가 회원가입을 할 때 거주지를 선택하면, 해당 지역에서 개최되는 영화제를 지도 위에 나타내어 소개한다.
+    - 그 외의 지역도 확인할 수 있다.
+
+### 서브 기능 _Sub function_
+
+- 회원 기능
+    - 회원가입, 로그인/로그아웃
+    - 카카오 소셜 로그인
+    - 댓글 (작성, 수정, 삭제)
+    - 찜 (북마크)
+- 페이지
+    - 검색 (영화 제목, 감독, 장르)
+    - 사이트 소개 페이지
+    - 회원 취향에 따른 영화 추천 페이지
+    - 회원 거주지에 따른 영화제 소개 페이지
+    - 팀 소개 페이지
+
+### 차별점 _Discrimination_
+
+- **독립영화 전용 사이트**: 커뮤니티
+    - 댓글 소통 및 영화 찜하기로 관심도를 파악할 수 있다.
+- **추천 알고리즘 로직 적용**: 취향 큐레이션
+    - 작품성과 취향 유사도를 통해 만족도 높은 컨텐츠를 추천받을 수 있다.
+
+### 기대효과 _Expectation effectiveness_
+
+- 상업영화 이외의 독립영화 관심 증가할 수 있다. _**#작품성**_
+- 컨텐츠 소비의 다양성 확대를 기대할 수 있다. _**#다양성**_
+
+## 4. 구성도 Diagram
+
+### 와이어프레임 _Wire frame_
+
+[(Click) _project-dancingMachine_ Whimsical](https://whimsical.com/project-dancingmachine-BifkUYgejVPHK8P7mMBgAJ)
+
+> 🍑 P/W → peach
+
+## 5. 팀원 Team member
+
+| 이름 | 역할 | 개발 내용  |
+| :---: | :---: | :---: |
+| 신동은<br />_@dongeunshin_ | 🔴Front-end<br />Project-assistant, PA | 서비스 디자인 구상<br />소개 페이지 개발<br />팀 소개 페이지 개발 |
+| 채지원<br />_@Julie_ | 🔴Front-end<br />Project-leader, PL | 서비스 디자인 구상<br />영화 추천 페이지 개발<br />영화제 소개 페이지 개발<br />로그인 페이지 개발<br />취향 선택 포함 회원가입 페이지 개발 |
+| 홍리경<br />_@rigyeonghong_ | 🔵Back-end<br />Project-assistant, PA | DB설계<br />API 설계<br />웹 서비스 배포 |
+| 홍의<br />_@hongui_ | 🔵Back-end<br />Project-leader, PL | DB설계<br />서버 배포<br />페이지 기능 구현<br />유저 인터렉션에 따른 추천 알고리즘 연결 |
+| 서상훈<br />_@codertoprogrammer_ | 🟢Data-analysis<br />Project-leader, PL | API 호출을 통한 영화제 데이터셋 구축<br />영화제 퀄리티 기반 작품 추천 알고리즘 개발<br />웹 서비스 아이디어 도출 및 기획 |
+| 이상은<br />_@runit_ | 🟢Data-analysis, _**Team Leader**_<br />Project-manager, PM | 프로젝트 문서 작성 및 자원 운용<br />영화 플롯 데이터 기반 유사도 검출 모델 개발<br /> 웹 서비스 기획 및 스토리라인, 브랜딩|
+
+## 6. 버전 Version
+
+- [x] ver1.0 (2022-01-08)
 
 ## 7. FAQ
-  - 자주 받는 질문 정리
+
+- [x] Flask-Migrate
