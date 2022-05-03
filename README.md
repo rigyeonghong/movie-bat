@@ -8,7 +8,7 @@
 - 유저가 상업영화를 선택하면 그와 유사하며 작품성 있는 독립영화를 추천합니다.<br />
 - 이를 기반으로 독립영화 큐레이션 및 상세 페이지와 영화제 정보를 제공합니다.
 
-<img src="https://kdt-gitlab.elice.io/003-part3-ottservice/team13/project-template/-/raw/47fb769d71ea4f8e21647a66650a81f72027e679/project-dancingMachine-logo.png" alt="project-dancingMachine-logo" width="500px">
+<img width="536" alt="스크린샷 2022-05-03 오후 2 38 28" src="https://user-images.githubusercontent.com/77164776/166425863-1d12e8f2-d026-4078-97f3-34714914f128.png">
 
 > (영화 #f15a24, 밭 #fcee21, dot #000000)
 
@@ -53,7 +53,8 @@
 
 ### 웹서비스 개요 _Information Architecture, IA_
 
-<img src="https://kdt-gitlab.elice.io/003-part3-ottservice/team13/project-template/-/raw/master/project-dancingMachine_IA.png" alt="project-dancingMachine_IA">
+<img width="855" alt="스크린샷 2022-05-03 오후 2 39 13" src="https://user-images.githubusercontent.com/77164776/166425901-37c82597-163d-4a1e-a3f6-968299ec9544.png">
+
 
 ## 2. 목표 Target
 
