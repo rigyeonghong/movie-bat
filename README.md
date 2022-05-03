@@ -43,7 +43,7 @@
 
 | 🔴Front-end | 🔵Back-end | 🟢Data-analysis |
 | :---: | :---: | :---: |
-|React<br />React-bootstrap<br />Recoil<br />Styled-components<br />Axios<br />|Python<br />Flask<br />SQLite<br />SQLAlchemy<br />MySQL<br />~~Docker~~<br />~~gitlab-runner~~<br />|Jupyter<br />Python<br />JSON<br />|
+|React<br />React-bootstrap<br />Recoil<br />Styled-components<br />Axios<br />|Python<br />Flask<br />SQLite<br />SQLAlchemy<br />MySQL<br />|Jupyter<br />Python<br />JSON<br />|
 
 ### 라이브러리 _Library_
 
